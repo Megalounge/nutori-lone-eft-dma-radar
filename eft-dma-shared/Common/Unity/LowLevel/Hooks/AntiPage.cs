@@ -193,7 +193,7 @@ namespace eft_dma_shared.Common.Unity.LowLevel.Hooks
         {
             if (Initialized)
                 return true; // Already init
-            if (!SharedProgram.Config.MemWritesEnabled || !SharedProgram.Config.AdvancedMemWrites || !NativeHook.Initialized)
+            if (!SharedProgram.Config.MemWritesEnabled || !SharedProgram.Config.AdvancedPatches || !NativeHook.Initialized)
                 return false;
             if (_initRateLimitSw.IsRunning && _initRateLimitSw.Elapsed < TimeSpan.FromSeconds(10))
                 return false;

@@ -24,9 +24,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
         {
             get
             {
-                if (!Memory.Ready || !DelayElapsed)
-                    return false;
-                return Memory.Game is LocalGameWorld game && game.InRaid && game.RaidHasStarted;
+                return Memory.Ready && DelayElapsed && Memory.Game is LocalGameWorld game && game.InRaid && game.RaidHasStarted;
             }
         }
 
@@ -64,7 +62,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
                 {
                     if (Enabled)
                     {
-                        if (!IsApplied)
+                        if (Program.Config.Patches && !IsApplied)
                         {
                             if (!base.TryApply())
                                 return false;
@@ -101,7 +99,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
 
         private static ulong Lookup_getLoadUnloadModifier()
         {
-            if (MemWrites.Config.AdvancedMemWrites)
+            if (MemWrites.Config.AdvancedPatches)
             {
                 if (!NativeHook.Initialized)
                     throw new Exception("NativeHook not initialized.");

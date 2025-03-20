@@ -55,7 +55,8 @@
             checkBox_EnableMemWrite = new CheckBox();
             flowLayoutPanel_MemWrites = new FlowLayoutPanel();
             label3 = new Label();
-            checkBox_AdvancedMemWrites = new CheckBox();
+            checkBox_Patches = new CheckBox();
+            checkBox_AdvancedPatches = new CheckBox();
             checkBox_AimBotEnabled = new CheckBox();
             checkBox_NoRecoilSway = new CheckBox();
             checkBox_Chams = new CheckBox();
@@ -438,7 +439,7 @@
             flowLayoutPanel_MemWrites.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel_MemWrites.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_MemWrites.Controls.Add(label3);
-            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedMemWrites);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedPatches);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AimBotEnabled);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoRecoilSway);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_Chams);
@@ -465,17 +466,17 @@
             label3.TabIndex = 60;
             label3.Text = "Memory Write Features";
             // 
-            // checkBox_AdvancedMemWrites
+            // checkBox_AdvancedPatches
             // 
-            checkBox_AdvancedMemWrites.AutoSize = true;
-            flowLayoutPanel_MemWrites.SetFlowBreak(checkBox_AdvancedMemWrites, true);
-            checkBox_AdvancedMemWrites.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox_AdvancedMemWrites.Location = new Point(3, 28);
-            checkBox_AdvancedMemWrites.Name = "checkBox_AdvancedMemWrites";
-            checkBox_AdvancedMemWrites.Size = new Size(246, 19);
-            checkBox_AdvancedMemWrites.TabIndex = 62;
-            checkBox_AdvancedMemWrites.Text = "Enable Advanced MemWrites (Very Risky)";
-            checkBox_AdvancedMemWrites.UseVisualStyleBackColor = true;
+            checkBox_AdvancedPatches.AutoSize = true;
+            flowLayoutPanel_MemWrites.SetFlowBreak(checkBox_AdvancedPatches, true);
+            checkBox_AdvancedPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_AdvancedPatches.Location = new Point(3, 28);
+            checkBox_AdvancedPatches.Name = "checkBox_AdvancedPatches";
+            checkBox_AdvancedPatches.Size = new Size(246, 19);
+            checkBox_AdvancedPatches.TabIndex = 62;
+            checkBox_AdvancedPatches.Text = "Enable Advanced MemWrites (Very Risky)";
+            checkBox_AdvancedPatches.UseVisualStyleBackColor = true;
             // 
             // checkBox_AimBotEnabled
             // 
@@ -1632,7 +1633,8 @@
         private TrackBar trackBar_EspLineScale;
         private CheckBox checkBox_ESP_StatusText;
         private CheckBox checkBox_NoWepMalf;
-        private CheckBox checkBox_AdvancedMemWrites;
+        private CheckBox checkBox_Patches;
+        private CheckBox checkBox_AdvancedPatches;
         private FlowLayoutPanel flowLayoutPanel_Vischeck;
         private Label label14;
         private Label label15;

@@ -473,7 +473,10 @@ namespace arena_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_RandomBoneCfg, "Set random bone percentages (must add up to 100%).");
             toolTip1.SetToolTip(checkBox_ESP_FireportAim, "Shows the base fireport trajectory on screen so you can see where bullets will go. Disappears when ADS.");
             toolTip1.SetToolTip(checkBox_ESP_StatusText, "Displays status text in the top center of the screen (Aimbot Status, Wide Lean, etc.)");
-            toolTip1.SetToolTip(checkBox_AdvancedMemWrites, "Enables Advanced Memory Writing Features. These features use a riskier injection technique. Use at your own risk. Includes (but not limited to):\n" +
+            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Patches. These features use a riskier injection technique. Use at your own risk. Includes (but not limited to):\n" +
+                "- No Weapon Malfunction.\n" +
+                "- Enhanced reliability of some features (Passive).");
+            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Advanced Patches. These features use a riskier injection technique. Use at your own risk. Includes (but not limited to):\n" +
                 "- Advanced Chams Options.\n" +
                 "- Enhanced reliability of some features (Passive).");
         }
@@ -590,10 +593,10 @@ namespace arena_dma_radar.UI.Radar
             /// Setup Memwrites
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;
             flowLayoutPanel_MemWrites.Enabled = MemWrites.Enabled;
-            checkBox_AdvancedMemWrites.Checked = MemWrites.Config.AdvancedMemWrites;
-            ToggleAdvMemwriteFeatures(MemWrites.Config.AdvancedMemWrites);
+            checkBox_AdvancedPatches.Checked = MemWrites.Config.AdvancedPatches;
+            ToggleAdvMemwriteFeatures(MemWrites.Config.AdvancedPatches);
             checkBox_EnableMemWrite.CheckedChanged += checkBox_EnableMemWrite_CheckedChanged;
-            checkBox_AdvancedMemWrites.CheckedChanged += checkBox_AdvancedMemWrites_CheckedChanged;
+            checkBox_AdvancedPatches.CheckedChanged += checkBox_AdvancedPatches_CheckedChanged;
             /// Set Features
             checkBox_NoRecoilSway.Checked = MemWriteFeature<NoRecoil>.Instance.Enabled;
             checkBox_Chams.Checked = MemWriteFeature<Chams>.Instance.Enabled;
@@ -731,26 +734,26 @@ namespace arena_dma_radar.UI.Radar
                 textBox_VischeckInvisColor.Text = colorDialog1.Color.ToSKColor().ToString();
             }
         }
-        private void checkBox_AdvancedMemWrites_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_AdvancedPatches_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = checkBox_AdvancedMemWrites.Checked;
+            bool enabled = checkBox_AdvancedPatches.Checked;
             ToggleAdvMemwriteFeatures(enabled);
             if (enabled) // Enable Memory Writing
             {
                 var dlg = MessageBox.Show(
-                    "Are you sure you want to enable Advanced Memory Writing? This uses a riskier injection technique than regular Mem Write Features.",
-                    "Enable Advanced Mem Writes?",
+                    "Are you sure you want to enable Advanced Patches? This uses a riskier injection technique than regular Mem Write Features.",
+                    "Enable Advanced Patches?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg is DialogResult.Yes)
                 {
-                    MemWrites.Config.AdvancedMemWrites = enabled;
+                    MemWrites.Config.AdvancedPatches = enabled;
                 }
                 else
-                    checkBox_AdvancedMemWrites.Checked = false;
+                    checkBox_AdvancedPatches.Checked = false;
             }
             else // Disable Memory Writing
             {
-                MemWrites.Config.AdvancedMemWrites = false;
+                MemWrites.Config.AdvancedPatches = false;
             }
         }
 
@@ -834,6 +837,8 @@ namespace arena_dma_radar.UI.Radar
                 }
                 else
                     checkBox_EnableMemWrite.Checked = false;
+                MemWrites.Enabled = enabled;
+                flowLayoutPanel_MemWrites.Enabled = enabled;
             }
             else // Disable Memory Writing
             {

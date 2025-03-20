@@ -42,7 +42,7 @@ namespace arena_dma_radar.Arena.Features
                     {
                         while (MemWrites.Enabled && Memory.Ready)
                         {
-                            if (MemWrites.Config.AdvancedMemWrites && !NativeHook.Initialized)
+                            if (MemWrites.Config.AdvancedPatches && !NativeHook.Initialized)
                             {
                                 NativeHook.Initialize();
                             }

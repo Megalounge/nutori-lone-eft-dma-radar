@@ -7,7 +7,8 @@ namespace eft_dma_shared.Common.Misc.Config
         LowLevelCache LowLevelCache { get; }
         ChamsConfig ChamsConfig { get; }
         bool MemWritesEnabled { get; }
-        bool AdvancedMemWrites { get; }
+        bool Patches { get; }
+        bool AdvancedPatches { get; }
         int MonitorWidth { get; }
         int MonitorHeight { get; }
 

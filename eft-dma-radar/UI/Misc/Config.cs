@@ -28,7 +28,9 @@ namespace eft_dma_radar.UI.Misc
         [JsonIgnore]
         public ChamsConfig ChamsConfig => this.MemWrites.Chams;
         [JsonIgnore]
-        public bool AdvancedMemWrites => this.MemWrites.AdvancedMemWrites;
+        public bool Patches => this.MemWrites.Patches;
+        [JsonIgnore]
+        public bool AdvancedPatches => this.MemWrites.AdvancedPatches;
 
         #endregion
 
@@ -665,10 +667,16 @@ namespace eft_dma_radar.UI.Misc
         public bool MemWritesEnabled { get; set; } = false;
 
         /// <summary>
-        /// Enables Advanced Mem Writes Features (NativeHook).
+        /// Enables Patches.
         /// </summary>
-        [JsonPropertyName("advancedMemWritesRisky")]
-        public bool AdvancedMemWrites { get; set; } = false;
+        [JsonPropertyName("patches")]
+        public bool Patches { get; set; } = false;
+
+        /// <summary>
+        /// Enables Advanced Patches (NativeHook).
+        /// </summary>
+        [JsonPropertyName("advancedPatches")]
+        public bool AdvancedPatches { get; set; } = false;
 
         /// <summary>
         /// Enables the AntiPage Feature.

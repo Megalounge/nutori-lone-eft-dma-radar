@@ -556,30 +556,58 @@ namespace eft_dma_radar.UI.Radar
             MemWriteFeature<FastWeaponOps>.Instance.Enabled = checkBox_FastWeaponOps.Checked;
         }
 
-        private void checkBox_AdvancedMemWrites_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_Patches_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = checkBox_AdvancedMemWrites.Checked;
-            ToggleAdvMemwriteFeatures(enabled);
-            if (enabled) // Enable Memory Writing
+            bool enabled = checkBox_Patches.Checked;
+            if (enabled)
             {
                 var dlg = MessageBox.Show(
-                    "Are you sure you want to enable Advanced Memory Writing? This uses a riskier injection technique than regular Mem Write Features.",
-                    "Enable Advanced Mem Writes?",
+                    "Are you sure you want to enable Patches? This uses a riskier injection technique than regular Mem Write Features.",
+                    "Enable Patches?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg is DialogResult.Yes)
                 {
-                    MemWrites.Config.AdvancedMemWrites = enabled;
+                    MemWrites.Config.Patches = enabled;
+                    TogglePatchingFeatures(enabled);
                 }
                 else
-                    checkBox_AdvancedMemWrites.Checked = false;
+                    checkBox_Patches.Checked = false;
             }
-            else // Disable Memory Writing
+            else
             {
-                MemWrites.Config.AdvancedMemWrites = false;
+                MemWrites.Config.Patches = false;
+            }
+        }
+        
+        private void checkBox_AdvancedPatches_CheckedChanged(object sender, EventArgs e)
+        {
+            bool enabled = checkBox_AdvancedPatches.Checked;
+            if (enabled)
+            {
+                var dlg = MessageBox.Show(
+                    "Are you sure you want to enable Advanced Patches? This uses a riskier injection technique than regular Mem Write Features.",
+                    "Enable Advanced Patches?",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dlg is DialogResult.Yes)
+                {
+                    MemWrites.Config.AdvancedPatches = enabled;
+                    ToggleAdvPatchingFeatures(enabled);
+                }
+                else
+                    checkBox_AdvancedPatches.Checked = false;
+            }
+            else
+            {
+                MemWrites.Config.AdvancedPatches = false;
             }
         }
 
-        private void ToggleAdvMemwriteFeatures(bool enabled)
+        private void TogglePatchingFeatures(bool enabled)
+        {
+            button_GymHack.Enabled = enabled;
+            checkBox_NoWepMalf.Enabled = enabled;
+        }
+        private void ToggleAdvPatchingFeatures(bool enabled)
         {
             radioButton_Chams_Vischeck.Enabled = enabled;
             radioButton_Chams_Visible.Enabled = enabled;
@@ -1378,6 +1406,8 @@ namespace eft_dma_radar.UI.Radar
                 }
                 else
                     checkBox_EnableMemWrite.Checked = false;
+                MemWrites.Enabled = enabled;
+                flowLayoutPanel_MemWrites.Enabled = enabled;
             }
             else // Disable Memory Writing
             {
@@ -1751,7 +1781,12 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_GymHack, "Enables the Gym Hack Feature which causes your workouts always to succeed.\n" +
                 "NOTE: After enabling this feature you must start a workout within 15 seconds for the hack to be applied. Complete your first rep normally, and then it should activate for following reps.\n" +
                 "NOTE: You must still 'left click' on each repetition.");
-            toolTip1.SetToolTip(checkBox_AdvancedMemWrites, "Enables Advanced Memory Writing Features. Includes (but not limited to):\n" +
+            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Patches. Includes (but not limited to):\n" +
+                "- Gym Hack.\n" +
+                "- No Weapon Malfunction.\n" +
+                "- Enhanced reliability of some features (Passive)." +
+                "\n\nWARNING: These features use a riskier injection technique. Use at your own risk.");
+            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Advanced Patches. Includes (but not limited to):\n" +
                 "- AntiPage Feature.\n" +
                 "- Advanced Chams Options.\n" +
                 "- Show proper AI Enemy Types (Passive).\n" +
@@ -1794,10 +1829,13 @@ namespace eft_dma_radar.UI.Radar
             /// Setup Memwrites
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;
             flowLayoutPanel_MemWrites.Enabled = MemWrites.Enabled;
-            checkBox_AdvancedMemWrites.Checked = MemWrites.Config.AdvancedMemWrites;
-            ToggleAdvMemwriteFeatures(MemWrites.Config.AdvancedMemWrites);
+            checkBox_Patches.Checked = MemWrites.Config.Patches;
+            TogglePatchingFeatures(MemWrites.Config.Patches);
+            checkBox_AdvancedPatches.Checked = MemWrites.Config.AdvancedPatches;
+            ToggleAdvPatchingFeatures(MemWrites.Config.AdvancedPatches);
             checkBox_EnableMemWrite.CheckedChanged += checkBox_EnableMemWrite_CheckedChanged;
-            checkBox_AdvancedMemWrites.CheckedChanged += checkBox_AdvancedMemWrites_CheckedChanged;
+            checkBox_Patches.CheckedChanged += checkBox_Patches_CheckedChanged;
+            checkBox_AdvancedPatches.CheckedChanged += checkBox_AdvancedPatches_CheckedChanged;
             /// Set Features
             checkBox_AntiPage.Checked = Config.MemWrites.AntiPage;
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;

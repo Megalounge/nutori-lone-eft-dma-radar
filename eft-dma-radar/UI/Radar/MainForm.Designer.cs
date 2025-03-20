@@ -95,18 +95,18 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Loot_Containers = new FlowLayoutPanel();
             label30 = new Label();
             checkBox_Containers_SelectAll = new CheckBox();
-            label31 = new Label();
             checkBox_Containers_HideSearched = new CheckBox();
             checkedListBox_Containers = new CheckedListBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            label34 = new Label();
+            label_QuestHelper = new Label();
             checkBox_QuestHelper_Enabled = new CheckBox();
             checkedListBox_QuestHelper = new CheckedListBox();
             flowLayoutPanel_MemWriteCheckbox = new FlowLayoutPanel();
             checkBox_EnableMemWrite = new CheckBox();
             flowLayoutPanel_MemWrites = new FlowLayoutPanel();
-            label3 = new Label();
-            checkBox_AdvancedMemWrites = new CheckBox();
+            label_MemoryWriteFeatures = new Label();
+            checkBox_Patches = new CheckBox();
+            checkBox_AdvancedPatches = new CheckBox();
             checkBox_AntiPage = new CheckBox();
             checkBox_AimBotEnabled = new CheckBox();
             checkBox_NoRecoilSway = new CheckBox();
@@ -124,7 +124,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_RageMode = new CheckBox();
             button_AntiAfk = new Button();
             button_GymHack = new Button();
-            label22 = new Label();
             flowLayoutPanel_Aimbot = new FlowLayoutPanel();
             label13 = new Label();
             label23 = new Label();
@@ -1061,7 +1060,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Loot_Containers.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_Loot_Containers.Controls.Add(label30);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkBox_Containers_SelectAll);
-            flowLayoutPanel_Loot_Containers.Controls.Add(label31);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkBox_Containers_HideSearched);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkedListBox_Containers);
             flowLayoutPanel_Loot_Containers.Enabled = false;
@@ -1093,14 +1091,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_Containers_SelectAll.Text = "Select All";
             checkBox_Containers_SelectAll.UseVisualStyleBackColor = true;
             // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Location = new Point(83, 25);
-            label31.Name = "label31";
-            label31.Size = new Size(0, 15);
-            label31.TabIndex = 62;
-            // 
             // checkBox_Containers_HideSearched
             // 
             checkBox_Containers_HideSearched.AutoSize = true;
@@ -1126,7 +1116,7 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel1.AutoSize = true;
             flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel1.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel1.Controls.Add(label34);
+            flowLayoutPanel1.Controls.Add(label_QuestHelper);
             flowLayoutPanel1.Controls.Add(checkBox_QuestHelper_Enabled);
             flowLayoutPanel1.Controls.Add(checkedListBox_QuestHelper);
             flowLayoutPanel1.Dock = DockStyle.Top;
@@ -1136,16 +1126,16 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel1.Size = new Size(1230, 181);
             flowLayoutPanel1.TabIndex = 62;
             // 
-            // label34
+            // label_QuestHelper
             // 
-            label34.AutoSize = true;
-            flowLayoutPanel1.SetFlowBreak(label34, true);
-            label34.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label34.Location = new Point(3, 0);
-            label34.Name = "label34";
-            label34.Size = new Size(107, 21);
-            label34.TabIndex = 46;
-            label34.Text = "Quest Helper";
+            label_QuestHelper.AutoSize = true;
+            flowLayoutPanel1.SetFlowBreak(label_QuestHelper, true);
+            label_QuestHelper.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_QuestHelper.Location = new Point(3, 0);
+            label_QuestHelper.Name = "label_QuestHelper";
+            label_QuestHelper.Size = new Size(107, 21);
+            label_QuestHelper.TabIndex = 46;
+            label_QuestHelper.Text = "Quest Helper";
             // 
             // checkBox_QuestHelper_Enabled
             // 
@@ -1197,8 +1187,9 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.AutoSize = true;
             flowLayoutPanel_MemWrites.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel_MemWrites.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel_MemWrites.Controls.Add(label3);
-            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedMemWrites);
+            flowLayoutPanel_MemWrites.Controls.Add(label_MemoryWriteFeatures);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_Patches);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedPatches);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AntiPage);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AimBotEnabled);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoRecoilSway);
@@ -1216,7 +1207,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_RageMode);
             flowLayoutPanel_MemWrites.Controls.Add(button_AntiAfk);
             flowLayoutPanel_MemWrites.Controls.Add(button_GymHack);
-            flowLayoutPanel_MemWrites.Controls.Add(label22);
             flowLayoutPanel_MemWrites.Controls.Add(flowLayoutPanel_Aimbot);
             flowLayoutPanel_MemWrites.Controls.Add(flowLayoutPanel_NoRecoil);
             flowLayoutPanel_MemWrites.Controls.Add(flowLayoutPanel_Chams);
@@ -1229,37 +1219,36 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Size = new Size(1230, 328);
             flowLayoutPanel_MemWrites.TabIndex = 1;
             // 
-            // label3
+            // label_MemoryWriteFeatures
             // 
-            label3.AutoSize = true;
-            flowLayoutPanel_MemWrites.SetFlowBreak(label3, true);
-            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(3, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(183, 21);
-            label3.TabIndex = 60;
-            label3.Text = "Memory Write Features";
+            label_MemoryWriteFeatures.AutoSize = true;
+            flowLayoutPanel_MemWrites.SetFlowBreak(label_MemoryWriteFeatures, true);
+            label_MemoryWriteFeatures.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_MemoryWriteFeatures.Name = "label_MemoryWriteFeatures";
+            label_MemoryWriteFeatures.Text = "Memory Write Features";
             // 
-            // checkBox_AdvancedMemWrites
+            // checkBox_Patches
             // 
-            checkBox_AdvancedMemWrites.AutoSize = true;
-            checkBox_AdvancedMemWrites.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox_AdvancedMemWrites.Location = new Point(3, 28);
-            checkBox_AdvancedMemWrites.Name = "checkBox_AdvancedMemWrites";
-            checkBox_AdvancedMemWrites.Size = new Size(246, 19);
-            checkBox_AdvancedMemWrites.TabIndex = 74;
-            checkBox_AdvancedMemWrites.Text = "Enable Advanced MemWrites (Very Risky)";
-            checkBox_AdvancedMemWrites.UseVisualStyleBackColor = true;
+            checkBox_Patches.AutoSize = true;
+            checkBox_Patches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_Patches.Name = "checkBox_Patches";
+            checkBox_Patches.Text = "Enable Patches (Risky)";
+            checkBox_Patches.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_AdvancedPatches
+            // 
+            checkBox_AdvancedPatches.AutoSize = true;
+            checkBox_AdvancedPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_AdvancedPatches.Name = "checkBox_AdvancedPatches";
+            checkBox_AdvancedPatches.Text = "Enable Advanced Patches (Very Risky)";
+            checkBox_AdvancedPatches.UseVisualStyleBackColor = true;
             // 
             // checkBox_AntiPage
             // 
             checkBox_AntiPage.AutoSize = true;
             checkBox_AntiPage.Enabled = false;
             flowLayoutPanel_MemWrites.SetFlowBreak(checkBox_AntiPage, true);
-            checkBox_AntiPage.Location = new Point(255, 28);
             checkBox_AntiPage.Name = "checkBox_AntiPage";
-            checkBox_AntiPage.Size = new Size(79, 19);
-            checkBox_AntiPage.TabIndex = 77;
             checkBox_AntiPage.Text = "Anti-Page";
             checkBox_AntiPage.UseVisualStyleBackColor = true;
             checkBox_AntiPage.CheckedChanged += checkBox_AntiPage_CheckedChanged;
@@ -1268,10 +1257,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_AimBotEnabled.Anchor = AnchorStyles.Right;
             checkBox_AimBotEnabled.AutoSize = true;
-            checkBox_AimBotEnabled.Location = new Point(3, 53);
             checkBox_AimBotEnabled.Name = "checkBox_AimBotEnabled";
-            checkBox_AimBotEnabled.Size = new Size(104, 19);
-            checkBox_AimBotEnabled.TabIndex = 41;
             checkBox_AimBotEnabled.Text = "Aimbot (Risky)";
             checkBox_AimBotEnabled.UseVisualStyleBackColor = true;
             checkBox_AimBotEnabled.CheckedChanged += checkBox_AimBot_CheckedChanged;
@@ -1280,10 +1266,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_NoRecoilSway.Anchor = AnchorStyles.Right;
             checkBox_NoRecoilSway.AutoSize = true;
-            checkBox_NoRecoilSway.Location = new Point(113, 53);
             checkBox_NoRecoilSway.Name = "checkBox_NoRecoilSway";
-            checkBox_NoRecoilSway.Size = new Size(147, 19);
-            checkBox_NoRecoilSway.TabIndex = 34;
             checkBox_NoRecoilSway.Text = "No Recoil/Sway (Risky)";
             checkBox_NoRecoilSway.UseVisualStyleBackColor = true;
             checkBox_NoRecoilSway.CheckedChanged += checkBox_NoRecoil_CheckedChanged;
@@ -1292,10 +1275,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_Chams.Anchor = AnchorStyles.Right;
             checkBox_Chams.AutoSize = true;
-            checkBox_Chams.Location = new Point(266, 53);
             checkBox_Chams.Name = "checkBox_Chams";
-            checkBox_Chams.Size = new Size(63, 19);
-            checkBox_Chams.TabIndex = 42;
             checkBox_Chams.Text = "Chams";
             checkBox_Chams.UseVisualStyleBackColor = true;
             checkBox_Chams.CheckedChanged += checkBox_Chams_CheckedChanged;
@@ -1304,10 +1284,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_InfStamina.Anchor = AnchorStyles.Right;
             checkBox_InfStamina.AutoSize = true;
-            checkBox_InfStamina.Location = new Point(335, 53);
             checkBox_InfStamina.Name = "checkBox_InfStamina";
-            checkBox_InfStamina.Size = new Size(147, 19);
-            checkBox_InfStamina.TabIndex = 35;
             checkBox_InfStamina.Text = "Infinite Stamina (Risky)";
             checkBox_InfStamina.UseVisualStyleBackColor = true;
             checkBox_InfStamina.CheckedChanged += checkBox_InfStamina_CheckedChanged;
@@ -1316,10 +1293,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_MoveSpeed.Anchor = AnchorStyles.Right;
             checkBox_MoveSpeed.AutoSize = true;
-            checkBox_MoveSpeed.Location = new Point(488, 53);
             checkBox_MoveSpeed.Name = "checkBox_MoveSpeed";
-            checkBox_MoveSpeed.Size = new Size(152, 19);
-            checkBox_MoveSpeed.TabIndex = 68;
             checkBox_MoveSpeed.Text = "1.2x Move Speed (Risky)";
             checkBox_MoveSpeed.UseVisualStyleBackColor = true;
             checkBox_MoveSpeed.CheckedChanged += checkBox_MoveSpeed_CheckedChanged;
@@ -1328,10 +1302,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_FastWeaponOps.Anchor = AnchorStyles.Right;
             checkBox_FastWeaponOps.AutoSize = true;
-            checkBox_FastWeaponOps.Location = new Point(646, 53);
             checkBox_FastWeaponOps.Name = "checkBox_FastWeaponOps";
-            checkBox_FastWeaponOps.Size = new Size(118, 19);
-            checkBox_FastWeaponOps.TabIndex = 75;
             checkBox_FastWeaponOps.Text = "Fast Weapon Ops";
             checkBox_FastWeaponOps.UseVisualStyleBackColor = true;
             checkBox_FastWeaponOps.CheckedChanged += checkBox_FastWeaponOps_CheckedChanged;
@@ -1340,10 +1311,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_FastLoadUnload.Anchor = AnchorStyles.Right;
             checkBox_FastLoadUnload.AutoSize = true;
-            checkBox_FastLoadUnload.Location = new Point(770, 53);
             checkBox_FastLoadUnload.Name = "checkBox_FastLoadUnload";
-            checkBox_FastLoadUnload.Size = new Size(119, 19);
-            checkBox_FastLoadUnload.TabIndex = 76;
             checkBox_FastLoadUnload.Text = "Fast Load/Unload";
             checkBox_FastLoadUnload.UseVisualStyleBackColor = true;
             checkBox_FastLoadUnload.CheckedChanged += checkBox_FastLoadUnload_CheckedChanged;
@@ -1352,10 +1320,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_LTW.Anchor = AnchorStyles.Right;
             checkBox_LTW.AutoSize = true;
-            checkBox_LTW.Location = new Point(895, 53);
             checkBox_LTW.Name = "checkBox_LTW";
-            checkBox_LTW.Size = new Size(168, 19);
-            checkBox_LTW.TabIndex = 69;
             checkBox_LTW.Text = "Loot Through Walls (Risky)";
             checkBox_LTW.UseVisualStyleBackColor = true;
             checkBox_LTW.CheckedChanged += checkBox_LTW_CheckedChanged;
@@ -1364,10 +1329,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_WideLean.Anchor = AnchorStyles.Right;
             checkBox_WideLean.AutoSize = true;
-            checkBox_WideLean.Location = new Point(1069, 53);
             checkBox_WideLean.Name = "checkBox_WideLean";
-            checkBox_WideLean.Size = new Size(119, 19);
-            checkBox_WideLean.TabIndex = 65;
             checkBox_WideLean.Text = "Wide Lean (Risky)";
             checkBox_WideLean.UseVisualStyleBackColor = true;
             checkBox_WideLean.CheckedChanged += checkBox_WideLean_CheckedChanged;
@@ -1376,10 +1338,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_NoVisor.Anchor = AnchorStyles.Right;
             checkBox_NoVisor.AutoSize = true;
-            checkBox_NoVisor.Location = new Point(3, 80);
             checkBox_NoVisor.Name = "checkBox_NoVisor";
-            checkBox_NoVisor.Size = new Size(71, 19);
-            checkBox_NoVisor.TabIndex = 37;
             checkBox_NoVisor.Text = "No Visor";
             checkBox_NoVisor.UseVisualStyleBackColor = true;
             checkBox_NoVisor.CheckedChanged += checkBox_NoVisor_CheckedChanged;
@@ -1388,10 +1347,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_AlwaysDaySunny.Anchor = AnchorStyles.Right;
             checkBox_AlwaysDaySunny.AutoSize = true;
-            checkBox_AlwaysDaySunny.Location = new Point(80, 80);
             checkBox_AlwaysDaySunny.Name = "checkBox_AlwaysDaySunny";
-            checkBox_AlwaysDaySunny.Size = new Size(124, 19);
-            checkBox_AlwaysDaySunny.TabIndex = 45;
             checkBox_AlwaysDaySunny.Text = "Always Day/Sunny";
             checkBox_AlwaysDaySunny.UseVisualStyleBackColor = true;
             checkBox_AlwaysDaySunny.CheckedChanged += checkBox_AlwaysDay_CheckedChanged;
@@ -1400,10 +1356,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_NoWepMalf.Anchor = AnchorStyles.Right;
             checkBox_NoWepMalf.AutoSize = true;
-            checkBox_NoWepMalf.Location = new Point(210, 80);
             checkBox_NoWepMalf.Name = "checkBox_NoWepMalf";
-            checkBox_NoWepMalf.Size = new Size(142, 19);
-            checkBox_NoWepMalf.TabIndex = 58;
             checkBox_NoWepMalf.Text = "No Wep Malfunctions";
             checkBox_NoWepMalf.UseVisualStyleBackColor = true;
             checkBox_NoWepMalf.CheckedChanged += checkBox_NoWepMalf_CheckedChanged;
@@ -1412,10 +1365,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_FullBright.Anchor = AnchorStyles.Right;
             checkBox_FullBright.AutoSize = true;
-            checkBox_FullBright.Location = new Point(358, 80);
             checkBox_FullBright.Name = "checkBox_FullBright";
-            checkBox_FullBright.Size = new Size(80, 19);
-            checkBox_FullBright.TabIndex = 71;
             checkBox_FullBright.Text = "Full Bright";
             checkBox_FullBright.UseVisualStyleBackColor = true;
             checkBox_FullBright.CheckedChanged += checkBox_FullBright_CheckedChanged;
@@ -1424,10 +1374,7 @@ namespace eft_dma_radar.UI.Radar
             // 
             checkBox_RageMode.Anchor = AnchorStyles.Right;
             checkBox_RageMode.AutoSize = true;
-            checkBox_RageMode.Location = new Point(444, 80);
             checkBox_RageMode.Name = "checkBox_RageMode";
-            checkBox_RageMode.Size = new Size(124, 19);
-            checkBox_RageMode.TabIndex = 55;
             checkBox_RageMode.Text = "Rage Mode (Risky)";
             checkBox_RageMode.UseVisualStyleBackColor = true;
             checkBox_RageMode.CheckedChanged += checkBox_RageMode_CheckedChanged;
@@ -1435,10 +1382,7 @@ namespace eft_dma_radar.UI.Radar
             // button_AntiAfk
             // 
             button_AntiAfk.Anchor = AnchorStyles.Right;
-            button_AntiAfk.Location = new Point(574, 78);
             button_AntiAfk.Name = "button_AntiAfk";
-            button_AntiAfk.Size = new Size(96, 23);
-            button_AntiAfk.TabIndex = 57;
             button_AntiAfk.Text = "Anti-AFK";
             button_AntiAfk.UseVisualStyleBackColor = true;
             button_AntiAfk.Click += button_AntiAfk_Click;
@@ -1447,21 +1391,10 @@ namespace eft_dma_radar.UI.Radar
             // 
             button_GymHack.Anchor = AnchorStyles.Right;
             flowLayoutPanel_MemWrites.SetFlowBreak(button_GymHack, true);
-            button_GymHack.Location = new Point(676, 78);
             button_GymHack.Name = "button_GymHack";
-            button_GymHack.Size = new Size(96, 23);
-            button_GymHack.TabIndex = 70;
             button_GymHack.Text = "Gym Hack";
             button_GymHack.UseVisualStyleBackColor = true;
             button_GymHack.Click += button_GymHack_Click;
-            // 
-            // label22
-            // 
-            label22.Location = new Point(3, 104);
-            label22.Name = "label22";
-            label22.Size = new Size(0, 0);
-            label22.TabIndex = 66;
-            label22.Text = "label22";
             // 
             // flowLayoutPanel_Aimbot
             // 
@@ -3441,7 +3374,7 @@ namespace eft_dma_radar.UI.Radar
         private FlowLayoutPanel flowLayoutPanel_MonitorSettings;
         private FlowLayoutPanel flowLayoutPanel_ESPSettings;
         private Label label2;
-        private Label label3;
+        private Label label_MemoryWriteFeatures;
         private Label label11;
         private Label label12;
         private FlowLayoutPanel flowLayoutPanel_Aimbot;
@@ -3467,7 +3400,6 @@ namespace eft_dma_radar.UI.Radar
         private Label label_WideLeanAmt;
         private TrackBar trackBar_WideLeanAmt;
         private CheckBox checkBox_WideLean;
-        private Label label22;
         private Label label23;
         private Label label24;
         private Label label26;
@@ -3493,12 +3425,12 @@ namespace eft_dma_radar.UI.Radar
         private FlowLayoutPanel flowLayoutPanel_Loot_Containers;
         private Label label30;
         private CheckBox checkBox_Containers_SelectAll;
-        private Label label31;
         private CheckedListBox checkedListBox_Containers;
         private CheckBox checkBox_Containers_HideSearched;
         private Button button_GymHack;
         private CheckBox checkBox_FullBright;
-        private CheckBox checkBox_AdvancedMemWrites;
+        private CheckBox checkBox_Patches;
+        private CheckBox checkBox_AdvancedPatches;
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
         private FlowLayoutPanel flowLayoutPanel_AdvancedChams;
@@ -3517,7 +3449,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_AIAimlines;
         private CheckBox checkBox_LootWishlist;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Label label34;
+        private Label label_QuestHelper;
         private CheckedListBox checkedListBox_QuestHelper;
         private LinkLabel linkLabel_CheckForUpdates;
     }

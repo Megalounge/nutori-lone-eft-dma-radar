@@ -25,11 +25,7 @@ namespace eft_dma_shared.Common.Features
         {
             get
             {
-                if (!Memory.Ready || !Enabled)
-                    return false;
-                if (!DelayElapsed)
-                    return false;
-                return true;
+                return Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.Patches;
             }
         }
 
