@@ -39,7 +39,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
                     var todTime = Memory.ReadPtr(todComp + Offsets.TOD_Components.TOD_Time);
                     if (ObjectClass.ReadName(todTime) != "TOD_Time")
                         throw new ArgumentOutOfRangeException(nameof(todTime));
-                    var weatherControllerStatic = MonoLib.MonoClass.Find("Assembly-CSharp", "EFT.Weather.WeatherController", out _).GetStaticFieldData();
+                    var weatherControllerStatic = MonoLib.MonoClass.Find("Assembly-CSharp", "EFT.Weather.WeatherController", out _).GetStaticFieldDataPtr();
                     var weatherController = Memory.ReadPtr(weatherControllerStatic + 0x0);
                     var weatherDebug = Memory.ReadPtr(weatherController + Offsets.WeatherController.WeatherDebug);
                     if (ObjectClass.ReadName(weatherDebug) != "WeatherDebug")

@@ -628,7 +628,7 @@ namespace eft_dma_shared.Common.Unity
                 throw new InvalidOperationException();
             }
 
-            public ulong GetStaticFieldData()
+            public ulong GetStaticFieldDataPtr()
             {
                 var vTable = this.GetVTable(MonoRootDomain.Get());
                 ArgumentOutOfRangeException.ThrowIfZero((ulong)vTable, nameof(vTable));

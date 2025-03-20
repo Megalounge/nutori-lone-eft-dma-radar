@@ -115,6 +115,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_MoveSpeed = new CheckBox();
             checkBox_FastWeaponOps = new CheckBox();
             checkBox_FastLoadUnload = new CheckBox();
+            checkBox_ToggleWeaponCollision = new CheckBox();
             checkBox_LTW = new CheckBox();
             checkBox_WideLean = new CheckBox();
             checkBox_NoVisor = new CheckBox();
@@ -1198,6 +1199,7 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_MoveSpeed);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastWeaponOps);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastLoadUnload);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_ToggleWeaponCollision);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_LTW);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_WideLean);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoVisor);
@@ -1315,6 +1317,15 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastLoadUnload.Text = "Fast Load/Unload";
             checkBox_FastLoadUnload.UseVisualStyleBackColor = true;
             checkBox_FastLoadUnload.CheckedChanged += checkBox_FastLoadUnload_CheckedChanged;
+            // 
+            // checkBox_ToggleWeaponCollision
+            // 
+            checkBox_ToggleWeaponCollision.Anchor = AnchorStyles.Right;
+            checkBox_ToggleWeaponCollision.AutoSize = true;
+            checkBox_ToggleWeaponCollision.Name = "checkBox_ToggleWeaponCollision";
+            checkBox_ToggleWeaponCollision.Text = "Toggle Weapon Collision";
+            checkBox_ToggleWeaponCollision.UseVisualStyleBackColor = true;
+            checkBox_ToggleWeaponCollision.CheckedChanged += checkBox_ToggleWeaponCollision_CheckedChanged;
             // 
             // checkBox_LTW
             // 
@@ -3433,6 +3444,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_AdvancedPatches;
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
+        private CheckBox checkBox_ToggleWeaponCollision;
         private FlowLayoutPanel flowLayoutPanel_AdvancedChams;
         private Label label14;
         private Label label15;

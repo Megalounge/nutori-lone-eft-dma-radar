@@ -286,7 +286,7 @@ namespace eft_dma_radar.Tarkov.GameWorld
                         {
                             cm.FPSCamera.ThrowIfInvalidVirtualAddress();
                             // If we can get the camera but the screen name is MatchmakerFinalCountdown the raid hasn't fully begun yet
-                            _screenManagerStaticClass ??= MonoLib.MonoClass.Find("Assembly-CSharp", ClassNames.ScreenManager.ClassName, out _).GetStaticFieldData();
+                            _screenManagerStaticClass ??= MonoLib.MonoClass.Find("Assembly-CSharp", ClassNames.ScreenManager.ClassName, out _).GetStaticFieldDataPtr();
                             if (_screenManagerStaticClass is ulong screenManagerStaticClass)
                             {
                                 try

@@ -197,7 +197,8 @@ namespace SDK
 			public const uint LOOT_RAYCAST_DISTANCE = 0x230; // Single
 			public const uint DOOR_RAYCAST_DISTANCE = 0x234; // Single
 			public const uint STOP_AIMING_AT = 0x284; // Single
-			public const uint MOUSE_LOOK_HORIZONTAL_LIMIT = 0x37C; // UnityEngine.Vector2
+            public const uint WEAPON_OCCLUSION_LAYERS = 0x2A8; // Single
+            public const uint MOUSE_LOOK_HORIZONTAL_LIMIT = 0x37C; // UnityEngine.Vector2
 		}
 
 		public readonly partial struct ExfilController

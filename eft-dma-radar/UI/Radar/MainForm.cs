@@ -31,6 +31,7 @@ using static eft_dma_radar.UI.Hotkeys.HotkeyManager;
 using static eft_dma_radar.UI.Hotkeys.HotkeyManager.HotkeyActionController;
 using Timer = System.Timers.Timer;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using LonesEFTRadar.Tarkov.Features.MemoryWrites;
 
 namespace eft_dma_radar.UI.Radar
 {
@@ -550,6 +551,10 @@ namespace eft_dma_radar.UI.Radar
         private void checkBox_FastLoadUnload_CheckedChanged(object sender, EventArgs e)
         {
             MemPatchFeature<FastLoadUnload>.Instance.Enabled = checkBox_FastLoadUnload.Checked;
+        }
+        private void checkBox_ToggleWeaponCollision_CheckedChanged(object sender, EventArgs e)
+        {
+            MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled = checkBox_ToggleWeaponCollision.Checked;
         }
         private void checkBox_FastWeaponOps_CheckedChanged(object sender, EventArgs e)
         {
@@ -1611,6 +1616,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_VischeckVisColorPick, "Set the VISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(button_VischeckInvisColorPick, "Set the INVISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(checkBox_FastLoadUnload, "Allows you to pack/unpack magazines super fast.");
+            toolTip1.SetToolTip(checkBox_ToggleWeaponCollision, "Prevents weapon collision.");
             toolTip1.SetToolTip(checkBox_FastWeaponOps, "Makes weapon operations (instant ADS, reloading mag,etc.) faster for your player.\n" +
                 "NOTE: Trying to heal or do other actions while reloading a mag can cause the 'hands busy' bug.");
             toolTip1.SetToolTip(checkBox_FullBright, "Enables the Full Bright Feature. This will make the game world brighter.");
@@ -1869,6 +1875,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FullBright.Checked = MemWriteFeature<FullBright>.Instance.Enabled;
             checkBox_FastWeaponOps.Checked = MemWriteFeature<FastWeaponOps>.Instance.Enabled;
             checkBox_FastLoadUnload.Checked = MemPatchFeature<FastLoadUnload>.Instance.Enabled;
+            checkBox_ToggleWeaponCollision.Checked = MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled;
 
             switch (Aimbot.Config.TargetingMode)
             {

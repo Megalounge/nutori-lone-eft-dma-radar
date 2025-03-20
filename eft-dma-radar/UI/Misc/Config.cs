@@ -780,6 +780,12 @@ namespace eft_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("fastLoadUnload")]
         public bool FastLoadUnload { get; set; } = false;
+
+        /// <summary>
+        /// Disables weapons collision.
+        /// </summary>
+        [JsonPropertyName("toggleWeaponCollision")]
+        public bool ToggleWeaponCollision { get; set; } = false;
     }
 
     public sealed class SuperSpeedConfig

@@ -39,9 +39,9 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
                     try
                     {
                         LoneLogging.WriteLine("Initializing LTW...");
-                        var gw = MonoLib.MonoClass.Find("Assembly-CSharp", "EFT.GameWorld", out _).GetStaticFieldData();
+                        var gw = MonoLib.MonoClass.Find("Assembly-CSharp", "EFT.GameWorld", out _).GetStaticFieldDataPtr();
                         Memory.WriteValueEnsure<int>(gw + 0x14, 0); // LootMaskObstruction
-                        var hardSettings = MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsAddr).GetStaticFieldData();
+                        var hardSettings = MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsAddr).GetStaticFieldDataPtr();
                         if (hardSettings == 0x0)
                             throw new ArgumentNullException(nameof(hardSettings));
                         var hsClassName = ObjectClass.ReadName(hardSettingsAddr);

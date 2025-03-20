@@ -71,7 +71,7 @@ namespace arena_dma_radar.Arena.GameWorld
         /// </summary>
         public static void Initialize()
         {
-            _opticCameraManagerField = MonoLib.MonoClass.Find("Assembly-CSharp", ClassNames.OpticCameraManagerContainer.ClassName, out _).GetStaticFieldData();
+            _opticCameraManagerField = MonoLib.MonoClass.Find("Assembly-CSharp", ClassNames.OpticCameraManagerContainer.ClassName, out _).GetStaticFieldDataPtr();
             _opticCameraManagerField.ThrowIfInvalidVirtualAddress();
         }
 
