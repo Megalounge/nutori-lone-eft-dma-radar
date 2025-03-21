@@ -1667,7 +1667,7 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 }
 
                 if (showWep)
-                    lines.Add($"({Hands?.CurrentItem})");
+                    lines.Add($"{Hands?.CurrentItem}");
                 if (showDist)
                 {
                     if (lines.Count == 0)

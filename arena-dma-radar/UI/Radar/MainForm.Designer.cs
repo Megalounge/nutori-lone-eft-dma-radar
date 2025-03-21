@@ -1378,7 +1378,6 @@
             checkBox_MapFree.AutoSize = true;
             checkBox_MapFree.Location = new Point(6, 6);
             checkBox_MapFree.Name = "checkBox_MapFree";
-            checkBox_MapFree.Size = new Size(66, 25);
             checkBox_MapFree.TabIndex = 17;
             checkBox_MapFree.Text = "Map Free";
             checkBox_MapFree.UseVisualStyleBackColor = true;

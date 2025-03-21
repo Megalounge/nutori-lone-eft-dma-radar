@@ -875,7 +875,7 @@ namespace arena_dma_radar.Arena.ArenaPlayer
                     lines.Add($"{observed.Name}{health}");
                 }
                 if (showWep)
-                    lines.Add($"({observed.Hands?.InHands})");
+                    lines.Add($"{observed.Hands?.InHands}");
                 if (showDist)
                 {
                     if (lines.Count == 0)

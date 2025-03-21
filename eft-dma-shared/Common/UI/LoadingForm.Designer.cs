@@ -47,7 +47,7 @@
             flowLayoutPanel_Progress.Controls.Add(label_ProgressText);
             flowLayoutPanel_Progress.Controls.Add(progressBar1);
             flowLayoutPanel_Progress.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel_Progress.Location = new Point(118, 148);
+            flowLayoutPanel_Progress.Location = new Point(0, 0);
             flowLayoutPanel_Progress.Name = "flowLayoutPanel_Progress";
             flowLayoutPanel_Progress.Size = new Size(431, 49);
             flowLayoutPanel_Progress.TabIndex = 0;
@@ -57,6 +57,7 @@
             label_ProgressText.Anchor = AnchorStyles.None;
             label_ProgressText.AutoSize = true;
             label_ProgressText.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_ProgressText.ForeColor = Color.White;
             label_ProgressText.Location = new Point(215, 0);
             label_ProgressText.Name = "label_ProgressText";
             label_ProgressText.Size = new Size(0, 20);
@@ -75,7 +76,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(640, 360);
+            BackColor = Color.Black;
+            ClientSize = new Size(437, 55);
             Controls.Add(flowLayoutPanel_Progress);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -83,6 +85,7 @@
             MinimizeBox = false;
             Name = "LoadingForm";
             ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Loading";
             TopMost = true;
             flowLayoutPanel_Progress.ResumeLayout(false);

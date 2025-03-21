@@ -199,7 +199,8 @@ namespace SDK
 			public const uint STOP_AIMING_AT = 0x284; // Single
             public const uint WEAPON_OCCLUSION_LAYERS = 0x2A8; // Single
             public const uint MOUSE_LOOK_HORIZONTAL_LIMIT = 0x37C; // UnityEngine.Vector2
-		}
+            public const uint MOUSE_LOOK_VERTICAL_LIMIT = 0x384; // UnityEngine.Vector2
+        }
 
 		public readonly partial struct ExfilController
 		{

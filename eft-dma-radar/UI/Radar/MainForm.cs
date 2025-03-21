@@ -556,6 +556,10 @@ namespace eft_dma_radar.UI.Radar
         {
             MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled = checkBox_ToggleWeaponCollision.Checked;
         }
+        private void checkBox_UnclampFreeLook_CheckedChanged(object sender, EventArgs e)
+        {
+            MemWriteFeature<UnclampFreeLook>.Instance.Enabled = checkBox_UnclampFreeLook.Checked;
+        }
         private void checkBox_FastWeaponOps_CheckedChanged(object sender, EventArgs e)
         {
             MemWriteFeature<FastWeaponOps>.Instance.Enabled = checkBox_FastWeaponOps.Checked;
@@ -1058,8 +1062,10 @@ namespace eft_dma_radar.UI.Radar
         /// </summary>
         private void MapCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_mouseDown && checkBox_MapFree.Checked)
+            if (_mouseDown)
             {
+                checkBox_MapFree.Checked = true; // force unlock canvas
+
                 var deltaX = -(e.X - _lastMousePosition.X);
                 var deltaY = -(e.Y - _lastMousePosition.Y);
 
@@ -1617,6 +1623,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_VischeckInvisColorPick, "Set the INVISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(checkBox_FastLoadUnload, "Allows you to pack/unpack magazines super fast.");
             toolTip1.SetToolTip(checkBox_ToggleWeaponCollision, "Prevents weapon collision.");
+            toolTip1.SetToolTip(checkBox_UnclampFreeLook, "Unclamps free looking.");
             toolTip1.SetToolTip(checkBox_FastWeaponOps, "Makes weapon operations (instant ADS, reloading mag,etc.) faster for your player.\n" +
                 "NOTE: Trying to heal or do other actions while reloading a mag can cause the 'hands busy' bug.");
             toolTip1.SetToolTip(checkBox_FullBright, "Enables the Full Bright Feature. This will make the game world brighter.");
@@ -1876,6 +1883,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastWeaponOps.Checked = MemWriteFeature<FastWeaponOps>.Instance.Enabled;
             checkBox_FastLoadUnload.Checked = MemPatchFeature<FastLoadUnload>.Instance.Enabled;
             checkBox_ToggleWeaponCollision.Checked = MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled;
+            checkBox_UnclampFreeLook.Checked = MemWriteFeature<UnclampFreeLook>.Instance.Enabled;
 
             switch (Aimbot.Config.TargetingMode)
             {

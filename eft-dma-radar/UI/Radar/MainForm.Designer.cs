@@ -116,6 +116,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastWeaponOps = new CheckBox();
             checkBox_FastLoadUnload = new CheckBox();
             checkBox_ToggleWeaponCollision = new CheckBox();
+            checkBox_UnclampFreeLook = new CheckBox();
             checkBox_LTW = new CheckBox();
             checkBox_WideLean = new CheckBox();
             checkBox_NoVisor = new CheckBox();
@@ -557,7 +558,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_MapFree.AutoSize = true;
             checkBox_MapFree.Location = new Point(6, 6);
             checkBox_MapFree.Name = "checkBox_MapFree";
-            checkBox_MapFree.Size = new Size(66, 25);
             checkBox_MapFree.TabIndex = 17;
             checkBox_MapFree.Text = "Map Free";
             checkBox_MapFree.UseVisualStyleBackColor = true;
@@ -1200,6 +1200,7 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastWeaponOps);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastLoadUnload);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_ToggleWeaponCollision);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_UnclampFreeLook);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_LTW);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_WideLean);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoVisor);
@@ -1326,6 +1327,15 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ToggleWeaponCollision.Text = "Toggle Weapon Collision";
             checkBox_ToggleWeaponCollision.UseVisualStyleBackColor = true;
             checkBox_ToggleWeaponCollision.CheckedChanged += checkBox_ToggleWeaponCollision_CheckedChanged;
+            // 
+            // checkBox_UnclampFreeLook
+            // 
+            checkBox_UnclampFreeLook.Anchor = AnchorStyles.Right;
+            checkBox_UnclampFreeLook.AutoSize = true;
+            checkBox_UnclampFreeLook.Name = "checkBox_UnclampFreeLook";
+            checkBox_UnclampFreeLook.Text = "Unclamp Free Look";
+            checkBox_UnclampFreeLook.UseVisualStyleBackColor = true;
+            checkBox_UnclampFreeLook.CheckedChanged += checkBox_UnclampFreeLook_CheckedChanged;
             // 
             // checkBox_LTW
             // 
@@ -3445,6 +3455,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
         private CheckBox checkBox_ToggleWeaponCollision;
+        private CheckBox checkBox_UnclampFreeLook;
         private FlowLayoutPanel flowLayoutPanel_AdvancedChams;
         private Label label14;
         private Label label15;

@@ -782,6 +782,12 @@ namespace eft_dma_radar.UI.Misc
         public bool FastLoadUnload { get; set; } = false;
 
         /// <summary>
+        /// Unclamps free look.
+        /// </summary>
+        [JsonPropertyName("unclampFreeLook")]
+        public bool UnclampFreeLook { get; set; } = false;
+
+        /// <summary>
         /// Disables weapons collision.
         /// </summary>
         [JsonPropertyName("toggleWeaponCollision")]

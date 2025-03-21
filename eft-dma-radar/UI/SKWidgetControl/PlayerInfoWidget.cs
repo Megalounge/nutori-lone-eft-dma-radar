@@ -49,7 +49,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 .AppendFormat("{0,-7}", "Hours")
                 .AppendFormat("{0,-6}", "Raids")
                 .AppendFormat("{0,-6}", "S/R%")
-                .AppendFormat("{0,-5}", "Grp")
+                .AppendFormat("{0,-5}", "Acct Type")
                 .AppendFormat("{0,-8}", "Value")
                 .AppendFormat("{0,-30}", "In Hands")
                 .AppendFormat("{0,-5}", "Dist")
