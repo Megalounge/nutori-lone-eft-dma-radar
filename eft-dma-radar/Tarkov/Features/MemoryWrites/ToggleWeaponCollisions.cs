@@ -28,8 +28,6 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             }
         }
 
-        protected override TimeSpan Delay => TimeSpan.FromMilliseconds(100);
-
         public override void TryApply(ScatterWriteHandle writes)
         {
             try

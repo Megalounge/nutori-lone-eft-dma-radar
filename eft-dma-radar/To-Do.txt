@@ -1,0 +1,2 @@
+﻿Make all mempatch features toggleable
+Abstract the aimbot functionality such as selecting a target, etc.. and split the patch and write aimbot into their own files

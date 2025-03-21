@@ -23,10 +23,7 @@ namespace eft_dma_shared.Common.Features
 
         public virtual bool CanRun
         {
-            get
-            {
-                return Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.Patches;
-            }
+            get => Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.Patches;
         }
 
         public bool IsApplied { get; protected set; }

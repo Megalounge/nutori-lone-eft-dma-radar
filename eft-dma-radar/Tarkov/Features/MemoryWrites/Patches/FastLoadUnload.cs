@@ -1,7 +1,5 @@
 ﻿using eft_dma_shared.Common.Misc;
 using eft_dma_radar.Tarkov.EFTPlayer;
-using eft_dma_radar.Tarkov.Features;
-using eft_dma_radar.Tarkov.GameWorld;
 using eft_dma_shared.Common.Features;
 using eft_dma_shared.Common.Unity;
 using eft_dma_shared.Common.Unity.LowLevel.Hooks;
@@ -22,10 +20,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
 
         public override bool CanRun
         {
-            get
-            {
-                return Memory.Ready && DelayElapsed && Memory.Game is LocalGameWorld game && game.InRaid && game.RaidHasStarted;
-            }
+            get => base.CanRun && Memory.InRaid && Memory.RaidHasStarted;
         }
 
         protected override TimeSpan Delay => TimeSpan.FromSeconds(5);

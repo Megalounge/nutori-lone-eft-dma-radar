@@ -11,7 +11,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
             get => MemWrites.Config.NoWeaponMalfunctions;
             set => MemWrites.Config.NoWeaponMalfunctions = value;
         }
-        public override bool CanRun => base.CanRun && (Memory.Game?.RaidHasStarted ?? false);
+        public override bool CanRun => base.CanRun && Memory.RaidHasStarted;
         protected override byte[] Signature { get; } = new byte[]
         {
             0x55,                                    // push rbp

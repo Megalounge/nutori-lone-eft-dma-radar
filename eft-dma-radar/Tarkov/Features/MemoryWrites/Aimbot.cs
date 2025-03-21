@@ -11,6 +11,8 @@ using eft_dma_shared.Common.Players;
 using eft_dma_shared.Common.Ballistics;
 using eft_dma_shared.Common.Unity;
 using eft_dma_shared.Common.Unity.Collections;
+using eft_dma_shared.Common.Misc.Pools;
+using static eft_dma_shared.Common.Unity.UnityTransform;
 
 namespace eft_dma_radar.Tarkov.Features.MemoryWrites
 {
@@ -53,12 +55,6 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
             }.Start();
         }
 
-        public override void OnGameStop()
-        {
-            _weaponDirectionGetter = null;
-            _weaponDirectionPatched = default;
-        }
-
         public override bool Enabled
         {
             get => Config.Enabled;
@@ -78,10 +74,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
                     if (MemDMABase.WaitForRaid() && Enabled && MemWrites.Enabled && Memory.Game is LocalGameWorld game && game.RaidHasStarted)
                     {
                         while (Enabled && MemWrites.Enabled && game.InRaid)
-                        {
-                            _weaponDirectionGetter ??= GetWeaponDirectionGetter();
                             SetAimbot(game);
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -267,9 +260,12 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
 
                 /// Get Fireport Position & Run Prediction
                 Vector3 fireportPosition;
+                Quaternion fireportRotation;
                 try
                 {
-                    fireportPosition = Cache.FireportTransform.UpdatePosition();
+                    SharedArray<TrsX> fireportVertices = Cache.FireportTransform.ReadVertices();
+                    fireportPosition = Cache.FireportTransform.UpdatePosition(fireportVertices);
+                    fireportRotation = Cache.FireportTransform.GetRotation(fireportVertices);
                 }
                 catch
                 {
@@ -280,7 +276,12 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
                 newWeaponDirection.ThrowIfAbnormal();
 
                 Memory.WriteValue(localPlayer.PWA + Offsets.ProceduralWeaponAnimation.ShotNeedsFovAdjustments, false);
-                PatchWeaponDirectionGetter(newWeaponDirection);
+                Memory.WriteValue(localPlayer.PWA + Offsets.ProceduralWeaponAnimation._shotDirection, fireportRotation.InverseTransformDirection(newWeaponDirection));
+
+
+                //Memory.WriteValue(localPlayer.PWA + Offsets.ProceduralWeaponAnimation.ShotNeedsFovAdjustments, false);
+                //PatchWeaponDirectionGetter(newWeaponDirection);
+
                 Cache.LastFireportPos = fireportPosition;
                 Cache.LastPlayerPos = bonePosition;
             }
@@ -486,104 +487,15 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
 
         #region Silent Aim Internal
 
-        private static ulong? _weaponDirectionGetter;
-        private static bool _weaponDirectionPatched;
-
-        private static readonly byte[] _weaponDirectionGetterOriginalBytes = new byte[] // The original bytes of the WeaponDirection getter method.
-        {
-            0x55,                    					// push rbp
-            0x48, 0x8B, 0xEC,              				// mov rbp,rsp
-            0x48, 0x81, 0xEC, 0x90, 0x00, 0x00, 0x00,   // sub rsp,00000090
-            0x48, 0x89, 0x7D, 0xF8,           			// mov [rbp-08],rdi
-            0x48, 0x89, 0x55, 0xF0,           			// mov [rbp-10],rdx
-            0x48, 0x8B, 0xF9,              				// mov rdi,rcx
-            0x49, 0xBB,                                 // mov r11
-        };
-
-        private const string _patchMask = "xx????xxx????xxx????xxxx";
-        private static byte[] _weaponDirectionGetterPatchBytes = new byte[] // The silent aim bytes of the WeaponDirection getter method.
-        {
-            0xC7, 0x02, // mov [rdx], xBytes
-            0x0, 0x0, 0x0, 0x0, // X
-
-            0xC7, 0x42, 0x04, // mov [rdx+4], yBytes
-            0x0, 0x0, 0x0, 0x0, // Y
-
-            0xC7, 0x42, 0x08, // mov [rdx+8], zBytes
-            0x0, 0x0, 0x0, 0x0, // Z
-
-            0x48, 0x89, 0xD0, // mov rax, rdx
-
-            0xC3 // ret
-        };
-
-        private static ulong GetWeaponDirectionGetter()
-        {
-            var fClass = MonoLib.MonoClass.Find("Assembly-CSharp", ClassNames.FirearmController.ClassName, out _);
-            ulong fMethod = fClass.FindJittedMethod("get_WeaponDirection");
-            fMethod.ThrowIfInvalidVirtualAddress();
-            var scan = new byte[32];
-            Memory.ReadBuffer(fMethod, scan.AsSpan(), false, false);
-            // Make sure the method signature matches by checking the first two bytes
-            if (scan.FindSignatureOffset(_weaponDirectionGetterOriginalBytes) != -1 ||
-                scan.FindSignatureOffset(_weaponDirectionGetterPatchBytes, _patchMask) != -1)
-            {
-                LoneLogging.WriteLine("[AIMBOT] WeaponDirectionGetter method found!");
-                return fMethod;
-            }
-            throw new Exception("WeaponDirectionGetter method not found!");
-        }
-
-        private static void PatchWeaponDirectionGetter(Vector3 newWeaponDirection)
-        {
-            if (_weaponDirectionGetter is not ulong weaponDirectionGetter)
-                throw new Exception("WeaponDirectionGetter is not set!");
-
-            BinaryPrimitives.WriteSingleLittleEndian(_weaponDirectionGetterPatchBytes.AsSpan(2), newWeaponDirection.X);
-            BinaryPrimitives.WriteSingleLittleEndian(_weaponDirectionGetterPatchBytes.AsSpan(9), newWeaponDirection.Y);
-            BinaryPrimitives.WriteSingleLittleEndian(_weaponDirectionGetterPatchBytes.AsSpan(16), newWeaponDirection.Z);
-
-            // Patch getter
-            Memory.WriteBuffer(weaponDirectionGetter, _weaponDirectionGetterPatchBytes.AsSpan());
-            _weaponDirectionPatched = true;
-        }
-
-        private static bool RestoreWeaponDirectionGetter()
-        {
-            try
-            {
-                if (_weaponDirectionGetter is not ulong weaponDirectionGetter)
-                    return true; // Already unset
-
-                for (int i = 0; i < 3; i++)
-                {
-                    try
-                    {
-                        Memory.WriteBufferEnsure(weaponDirectionGetter, _weaponDirectionGetterOriginalBytes.AsSpan());
-                        _weaponDirectionPatched = false;
-                        return true;
-                    }
-                    catch { }
-                }
-                throw new Exception("Failed to restore Original Weapon Getter!");
-            }
-            catch (Exception ex)
-            {
-                LoneLogging.WriteLine($"[AIMBOT] RestoreWeaponDirectionGetter(): {ex}");
-            }
-
-            return false;
-        }
-
         /// <summary>
         /// Reset the Shot Direction (Silent Aim) back to default state.
         /// </summary>
         private static void ResetSilentAim()
         {
-            if (_weaponDirectionPatched)
+            if (Memory.LocalPlayer is LocalPlayer localPlayer && ILocalPlayer.HandsController is ulong handsController && handsController.IsValidVirtualAddress())
             {
-                RestoreWeaponDirectionGetter();
-                LoneLogging.WriteLine("Silent Aim [WEAPON GETTER RESET]");
+                Memory.WriteValue(localPlayer.PWA + Offsets.ProceduralWeaponAnimation._shotDirection, new Vector3() { X = 0f, Y = -1f, Z = 0f });
+                LoneLogging.WriteLine("Silent Aim [SHOT DIRECTION RESET]");
             }
         }
 

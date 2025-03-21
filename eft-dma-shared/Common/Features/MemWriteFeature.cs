@@ -27,14 +27,7 @@ namespace eft_dma_shared.Common.Features
 
         public virtual bool CanRun
         {
-            get
-            {
-                if (!Memory.InRaid || !Memory.RaidHasStarted)
-                    return false;
-                if (!DelayElapsed)
-                    return false;
-                return true;
-            }
+            get => Memory.InRaid && Memory.RaidHasStarted && DelayElapsed;
         }
 
         public virtual void TryApply(ScatterWriteHandle writes)
