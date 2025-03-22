@@ -12,3 +12,4 @@ Add extract switches to extract esp (D-2 power, Bunker Hermetic power, Parking G
 Might be able to do minecraft step hack with SimpleCharacterController._canStandUpRising/_canStepUpExpanse/_stepUpDumpPercent/_canStandUpObstacleHeight
 Might still be able to always sprint by setting the EPhysicalCondition (but I've heard this has been patched :( )
 Show limb health ontop of the player status
+Add custom color for dropped loot that is not found in raid

@@ -1287,7 +1287,7 @@ namespace eft_dma_radar.UI.Radar
             trackBar_LongJumpMultiplier.Name = "trackBar_LongJumpMultiplier";
             trackBar_LongJumpMultiplier.Size = new Size(78, 45);
             trackBar_LongJumpMultiplier.BackColor = SystemColors.Window;
-            trackBar_LongJumpMultiplier.Maximum = 200;
+            trackBar_LongJumpMultiplier.Maximum = 50;
             trackBar_LongJumpMultiplier.Minimum = 1;
             trackBar_LongJumpMultiplier.TickStyle = TickStyle.None;
             trackBar_LongJumpMultiplier.Value = 10;
