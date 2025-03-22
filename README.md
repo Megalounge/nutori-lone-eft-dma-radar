@@ -12,14 +12,14 @@
 
 - Disabled the locking of the Fuser ESP settings while the ESP is running
 
-- UI
+## UI
    - Made the Loader UI smaller and changed the background color to black
    - Removed the parentheses around the held weapon esp
    - Changed `Grp` to `Acct Type`
    - Removed the auto start functionality of `Auto Fullscreen`
    - Added `Auto Start` as a stand-alone option to the `Fuser ESP` settings
 
-- Functionality
+## Functionality
    - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
    - Added `ToggleWeaponCollisions` (Only visible client-side)
    - Added `UnclampFreeLook` (Only visible client-side)
@@ -27,9 +27,12 @@
    - Added `Instant Pose Change` (Only visible client-side)
    - Reworked how `PrecisionTimer` works for a more accurate ESP fps lock
 
-- Planned Changes
+## Planned Changes
    - Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
    - Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
    - Add loot list to radar/esp
    - Add player loot to esp when hovered
    - Make all Mono Patch features toggleable
+
+## Bugs
+   - I do not believe there are any issues with my modifications, but I have not extensively tested the features.
