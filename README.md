@@ -8,7 +8,7 @@
 ## Current Changes
 - Split `AdvancedMemWrites` into `MonoPatches` and `NativePatches`
    - `MonoPatches` controls the patching of mono compiled functions (game functions)
-   - `NativePatches` controls the patching of native compiled functions (NativeHook, AntiPage, Chams, etc..)
+   - `NativePatches` controls the patching of native compiled functions (NativeHook, AntiPage, Advanced Chams, etc..)
 
 - Disabled the locking of the Fuser ESP settings while the ESP is running
 
