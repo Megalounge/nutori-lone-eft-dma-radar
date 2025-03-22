@@ -21,9 +21,11 @@
 
 ## Functionality
    - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
-   - Added `ToggleWeaponCollisions` (Only visible client-side)
+   - Added `ToggleWeaponCollisions` (Risky, Only visible client-side)
+      - Marked as risky because of the potential to shoot through walls with it, which could be checked server-side.
    - Added `UnclampFreeLook` (Only visible client-side)
-   - Added `Long Jump`
+   - Added `Long Jump` (Risky)
+      - Marked as risky because of potential server-side checks.
    - Added `Instant Pose Change` (Only visible client-side)
    - Reworked how `PrecisionTimer` works for a more accurate ESP fps lock
 
