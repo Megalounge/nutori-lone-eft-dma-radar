@@ -1,4 +1,4 @@
-﻿Make all mempatch features toggleable
+﻿Make all mono patch features toggleable
 Abstract the aimbot functionality such as selecting a target, etc.. and split the patch and write aimbot into their own files
 Add GUI to show current in-game counters (kills, etc..)
 Change the "Max Distance" slider to "Player Max Distance" and add a different slider for looking at warning's max distance
@@ -7,3 +7,7 @@ Add loot list to radar/esp
 Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
 Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
 Figure out the proper way to make a stop esp button (I'm not a C# dev)
+Add extract switches to extract esp (D-2 power, Bunker Hermetic power, Parking Gate Power, etc..)
+3D look direction
+Might be able to do minecraft step hack with SimpleCharacterController._canStandUpRising/_canStepUpExpanse/_stepUpDumpPercent/_canStandUpObstacleHeight
+Might still be able to always sprint by setting the EPhysicalCondition (but I've heard this has been patched :( )

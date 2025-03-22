@@ -679,7 +679,7 @@ namespace eft_dma_radar.UI.Misc
         public bool MonoPatches { get; set; } = false;
 
         /// <summary>
-        /// Enables Native Patches (NativeHook, AntiPage, Chams, etc..).
+        /// Enables Native Patches (NativeHook, AntiPage, Advanced Chams, etc..).
         /// </summary>
         [JsonPropertyName("nativePatches")]
         public bool NativePatches { get; set; } = false;
@@ -804,6 +804,12 @@ namespace eft_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("longJump")]
         public bool LongJump { get; set; } = false;
+        
+        /// <summary>
+        /// Long jumping length multiplier.
+        /// </summary>
+        [JsonPropertyName("longJumpMultiplier")]
+        public float LongJumpMultiplier { get; set; } = 10f;
 
         /// <summary>
         /// Disables the lerp animation when changing pose level.

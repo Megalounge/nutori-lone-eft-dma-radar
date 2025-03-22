@@ -556,6 +556,12 @@ namespace eft_dma_radar.UI.Radar
         {
             MemWriteFeature<LongJump>.Instance.Enabled = checkBox_LongJump.Checked;
         }
+        private void trackBar_LongJumpMultiplier_ValueChanged(object sender, EventArgs e)
+        {
+            int value = trackBar_LongJumpMultiplier.Value;
+            label_LongJumpMultiplier.Text = $"Long Jump Multiplier: {value}";
+            MemWrites.Config.LongJumpMultiplier = value;
+        }
         private void checkBox_ToggleWeaponCollision_CheckedChanged(object sender, EventArgs e)
         {
             MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled = checkBox_ToggleWeaponCollision.Checked;

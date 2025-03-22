@@ -289,9 +289,9 @@ namespace arena_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("monoPatches")]
         public bool MonoPatches { get; set; } = false;
-        
+
         /// <summary>
-        /// Enables native patches (NativeHook, Anti-Page, Chams...)
+        /// Enables native patches (NativeHook, AntiPage, Advanced Chams...)
         /// </summary>
         [JsonPropertyName("nativePatches")]
         public bool NativePatches { get; set; } = false;

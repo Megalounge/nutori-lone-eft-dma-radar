@@ -3,13 +3,14 @@ using eft_dma_radar.Tarkov.GameWorld;
 using eft_dma_shared.Common.DMA.ScatterAPI;
 using eft_dma_shared.Common.Features;
 using eft_dma_shared.Common.Unity;
+using System.Collections.Frozen;
 
 namespace eft_dma_radar.Tarkov.Features.MemoryWrites
 {
     public sealed class AlwaysDaySunny : MemWriteFeature<AlwaysDaySunny>
     {
         private bool _set;
-        static HashSet<String> mapsWithoutSky = new HashSet<String>(StringComparer.OrdinalIgnoreCase) { "factory4_day", "factory4_night", "laboratory" };
+        private static FrozenSet<String> mapsWithoutSky = new HashSet<String>(StringComparer.OrdinalIgnoreCase) { "factory4_day", "factory4_night", "laboratory" }.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
 
         public override bool Enabled
         {

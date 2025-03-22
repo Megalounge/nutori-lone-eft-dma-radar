@@ -11,8 +11,6 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
     {
         private static float original_AIR_CONTROL_SAME_DIR = 1.2f;
         private static float original_AIR_CONTROL_NONE_OR_ORT_DIR = 0.9f;
-        private static float new_AIR_CONTROL_SAME_DIR = LongJump.original_AIR_CONTROL_SAME_DIR * 10f; // For testing purposes I'll just do 10x
-        private static float new_AIR_CONTROL_NONE_OR_ORT_DIR = LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR * 10f;
         private static ulong hardSettingsStaticFieldData = 0;
         private bool isApplied = false;
 
@@ -28,10 +26,10 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             try
             {
-                if (this.Enabled && !this.isApplied)
+                if (this.Enabled)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.new_AIR_CONTROL_SAME_DIR);
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.new_AIR_CONTROL_NONE_OR_ORT_DIR);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR * MemWrites.Config.LongJumpMultiplier);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR * MemWrites.Config.LongJumpMultiplier);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -41,7 +39,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                         }
                     };
                 }
-                else if (!this.Enabled && this.isApplied)
+                else if (!this.Enabled)
                 {
                     writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR);
                     writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR);

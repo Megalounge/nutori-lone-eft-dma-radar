@@ -117,6 +117,8 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastLoadUnload = new CheckBox();
             checkBox_ToggleWeaponCollision = new CheckBox();
             checkBox_LongJump = new CheckBox();
+            label_LongJumpMultiplier = new Label();
+            trackBar_LongJumpMultiplier = new TrackBar();
             checkBox_UnclampFreeLook = new CheckBox();
             checkBox_InstantPoseChange = new CheckBox();
             checkBox_LTW = new CheckBox();
@@ -1133,6 +1135,8 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastLoadUnload);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_ToggleWeaponCollision);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_LongJump);
+            flowLayoutPanel_MemWrites.Controls.Add(label_LongJumpMultiplier);
+            flowLayoutPanel_MemWrites.Controls.Add(trackBar_LongJumpMultiplier);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_UnclampFreeLook);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_InstantPoseChange);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_LTW);
@@ -1269,6 +1273,25 @@ namespace eft_dma_radar.UI.Radar
             checkBox_LongJump.Text = "Long Jump";
             checkBox_LongJump.UseVisualStyleBackColor = true;
             checkBox_LongJump.CheckedChanged += checkBox_LongJump_CheckedChanged;
+            // 
+            // label_LongJumpMultiplier
+            // 
+            label_LongJumpMultiplier.Anchor = AnchorStyles.Right;
+            label_LongJumpMultiplier.AutoSize = true;
+            label_LongJumpMultiplier.Name = "label_LongJumpMultiplier";
+            label_LongJumpMultiplier.Text = "Long Jump Multiplier: 10";
+            // 
+            // trackBar_LongJumpMultiplier
+            // 
+            trackBar_LongJumpMultiplier.Anchor = AnchorStyles.Right;
+            trackBar_LongJumpMultiplier.Name = "trackBar_LongJumpMultiplier";
+            trackBar_LongJumpMultiplier.Size = new Size(78, 45);
+            trackBar_LongJumpMultiplier.BackColor = SystemColors.Window;
+            trackBar_LongJumpMultiplier.Maximum = 200;
+            trackBar_LongJumpMultiplier.Minimum = 1;
+            trackBar_LongJumpMultiplier.TickStyle = TickStyle.None;
+            trackBar_LongJumpMultiplier.Value = 10;
+            trackBar_LongJumpMultiplier.ValueChanged += trackBar_LongJumpMultiplier_ValueChanged;
             // 
             // checkBox_UnclampFreeLook
             // 
@@ -3292,6 +3315,8 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
         private CheckBox checkBox_LongJump;
+        private Label label_LongJumpMultiplier;
+        private TrackBar trackBar_LongJumpMultiplier;
         private CheckBox checkBox_ToggleWeaponCollision;
         private CheckBox checkBox_UnclampFreeLook;
         private CheckBox checkBox_InstantPoseChange;
