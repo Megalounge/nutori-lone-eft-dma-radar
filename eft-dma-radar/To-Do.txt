@@ -11,3 +11,4 @@ Add extract switches to extract esp (D-2 power, Bunker Hermetic power, Parking G
 3D look direction
 Might be able to do minecraft step hack with SimpleCharacterController._canStandUpRising/_canStepUpExpanse/_stepUpDumpPercent/_canStandUpObstacleHeight
 Might still be able to always sprint by setting the EPhysicalCondition (but I've heard this has been patched :( )
+Show limb health ontop of the player status

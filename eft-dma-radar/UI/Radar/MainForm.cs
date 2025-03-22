@@ -1635,7 +1635,8 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_VischeckInvisColorPick, "Set the INVISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(checkBox_FastLoadUnload, "Allows you to pack/unpack magazines super fast.");
             toolTip1.SetToolTip(checkBox_ToggleWeaponCollision, "Prevents weapon collision. (Only visible client-side)");
-            toolTip1.SetToolTip(checkBox_LongJump, "Allows for jumping further.");
+            toolTip1.SetToolTip(checkBox_LongJump, "Allows for jumping further. (Risky)");
+            toolTip1.SetToolTip(trackBar_LongJumpMultiplier, "Jump Length Multiplier.");
             toolTip1.SetToolTip(checkBox_UnclampFreeLook, "Unclamps free looking. (Only visible client-side)");
             toolTip1.SetToolTip(checkBox_InstantPoseChange, "Disables the animation when changing crouching pose level. (Only visible client-side)");
             toolTip1.SetToolTip(checkBox_FastWeaponOps, "Makes weapon operations (instant ADS, reloading mag,etc.) faster for your player.\n" +

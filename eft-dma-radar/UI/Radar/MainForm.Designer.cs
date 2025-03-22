@@ -1270,7 +1270,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_LongJump.Anchor = AnchorStyles.Right;
             checkBox_LongJump.AutoSize = true;
             checkBox_LongJump.Name = "checkBox_LongJump";
-            checkBox_LongJump.Text = "Long Jump";
+            checkBox_LongJump.Text = "Long Jump (Risky)";
             checkBox_LongJump.UseVisualStyleBackColor = true;
             checkBox_LongJump.CheckedChanged += checkBox_LongJump_CheckedChanged;
             // 
