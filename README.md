@@ -3,30 +3,33 @@
 ![icon-static](https://github.com/user-attachments/assets/d3bc58ad-a987-4c94-bfe2-dd2236769f19)
 
 ## What is this?
-- This is an up-to-date build of Lone DMA EFT/Arena Radar. This is a standalone copy of the software with *No Restrictions*.
+- This is a fork of [Lone DMA EFT/Arena Radar](https://github.com/Lone83427/lone-eft-dma-radar) with my personal features and changes.
 
-## How do I start using this?
-1. Download the [Release](https://github.com/Lone83427/lone-eft-dma-radar/releases/tag/compiled).
-2. Unzip the downloaded package using the specified password `lone`.
-   - [7-Zip](https://www.7-zip.org/) is a good software for unzipping files.
-3. If this is your first time, read the README in the Setup folder.
-4. Run the .EXE `eft-dma-radar.exe` or `arena-dma-radar.exe`
-5. Enjoy!
-![image](https://github.com/user-attachments/assets/942d7a28-627b-4428-a3a9-60fccbe87ed1)
+## Current Changes
+- Split `AdvancedMemWrites` into `MonoPatches` and `NativePatches`
+   - `MonoPatches` controls the patching of mono compiled functions (game functions)
+   - `NativePatches` controls the patching of native compiled functions (NativeHook, AntiPage, Chams, etc..)
 
-## Arena
-- Arena is supported and will be maintained going forward.
+- Disabled the locking of the Fuser ESP settings while the ESP is running
 
-## Donations
-- If you would like to donate, any contribution is appreciated! ❤️
-  - Bitcoin: `bc1q7l4w7n3mt0rawztj0xl4me7mrnhjdr0hgjh2xp`
-  - Litecoin: `ltc1qlllsgdzq3dt2w2zchf7sxmy0t75sn4x6ethhez`
-  - Dogecoin: `DDiva1gAP1b9bi2cWfmZvDsQTQesxJAALw`
-  - Solana: `GYwdj8NpGG975oNY7s9mTjY92QhLYW7DpJoTjnGwDiQu`
+- UI
+   - Made the Loader UI smaller and changed the background color to black
+   - Removed the parentheses around the held weapon esp
+   - Changed `Grp` to `Acct Type`
+   - Removed the auto start functionality of `Auto Fullscreen`
+   - Added `Auto Start` as a stand-alone option to the `Fuser ESP` settings
 
-## Contact
-- For any inquiries or assistance, feel free to join the [EFT Educational Resources Discord Server](https://discord.gg/jGSnTCekdx). Please confine discussion to the [Lone DMA Section](https://discord.com/channels/1218731239599767632/1342207117704036382).
-- Report any major outages (after a game update,etc.) by opening an [Issue](https://github.com/Lone83427/lone-eft-dma-radar/issues). Please be *as detailed as possible*, don't just say "it's broke".
-  - This is **NOT** for feature requests or suggestions.
-  - Misuse of the Issues category will result in the privilege being revoked for that user.
-  - If misuse is rampant, the ability to open Issues may be disabled for all users.
+- Functionality
+   - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
+   - Added `ToggleWeaponCollisions` (Only visible client-side)
+   - Added `UnclampFreeLook` (Only visible client-side)
+   - Added `Long Jump`
+   - Added `Instant Pose Change` (Only visible client-side)
+   - Reworked how `PrecisionTimer` works for a more accurate ESP fps lock
+
+- Planned Changes
+   - Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
+   - Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
+   - Add loot list to radar/esp
+   - Add player loot to esp when hovered
+   - Make all Mono Patch features toggleable
