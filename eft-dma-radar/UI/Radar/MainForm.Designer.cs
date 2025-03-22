@@ -1261,7 +1261,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ToggleWeaponCollision.Anchor = AnchorStyles.Right;
             checkBox_ToggleWeaponCollision.AutoSize = true;
             checkBox_ToggleWeaponCollision.Name = "checkBox_ToggleWeaponCollision";
-            checkBox_ToggleWeaponCollision.Text = "Toggle Weapon Collision";
+            checkBox_ToggleWeaponCollision.Text = "Toggle Weapon Collision (Risky)";
             checkBox_ToggleWeaponCollision.UseVisualStyleBackColor = true;
             checkBox_ToggleWeaponCollision.CheckedChanged += checkBox_ToggleWeaponCollision_CheckedChanged;
             // 
