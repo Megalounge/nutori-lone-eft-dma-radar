@@ -3,24 +3,30 @@ using eft_dma_shared.Common.DMA.ScatterAPI;
 using eft_dma_shared.Common.Features;
 using eft_dma_shared.Common.Misc;
 using eft_dma_shared.Common.Unity;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
 {
-    class ToggleWeaponCollision : MemWriteFeature<ToggleWeaponCollision>
+    class InstantPoseChange : MemWriteFeature<InstantPoseChange>
     {
-        private static uint original_WEAPON_OCCLUSION_LAYERS = 1082136832;
-        private static uint new_WEAPON_OCCLUSION_LAYERS = 0;
+        private static float original_POSE_CHANGING_SPEED = 3f;
+        private static float new_POSE_CHANGING_SPEED = float.MaxValue;
         private static ulong hardSettingsStaticFieldData = 0;
         private bool isApplied = false;
 
         public override bool Enabled
         {
-            get => MemWrites.Config.ToggleWeaponCollision;
-            set => MemWrites.Config.ToggleWeaponCollision = value;
+            get => MemWrites.Config.InstantPoseChange;
+            set => MemWrites.Config.InstantPoseChange = value;
         }
 
-        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
+        public override bool CanRun => Memory.InRaid && Memory.RaidHasStarted && DelayElapsed && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
+
+        protected override TimeSpan Delay => TimeSpan.FromMilliseconds(100);
 
         public override void TryApply(ScatterWriteHandle writes)
         {
@@ -28,7 +34,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             {
                 if (this.Enabled && !this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.new_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.new_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -40,7 +46,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                 }
                 else if (!this.Enabled && this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.original_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.original_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
@@ -61,8 +67,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (ToggleWeaponCollision.hardSettingsStaticFieldData == 0)
-                ToggleWeaponCollision.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (InstantPoseChange.hardSettingsStaticFieldData == 0)
+                InstantPoseChange.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
         }
     }
 }

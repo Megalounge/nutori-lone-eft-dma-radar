@@ -2,3 +2,8 @@
 Abstract the aimbot functionality such as selecting a target, etc.. and split the patch and write aimbot into their own files
 Add GUI to show current in-game counters (kills, etc..)
 Change the "Max Distance" slider to "Player Max Distance" and add a different slider for looking at warning's max distance
+Add player loot to esp when hovered
+Add loot list to radar/esp
+Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
+Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
+Figure out the proper way to make a stop esp button (I'm not a C# dev)

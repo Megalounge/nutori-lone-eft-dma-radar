@@ -9,6 +9,8 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
     public sealed class AlwaysDaySunny : MemWriteFeature<AlwaysDaySunny>
     {
         private bool _set;
+        static HashSet<String> mapsWithoutSky = new HashSet<String>(StringComparer.OrdinalIgnoreCase) { "factory4_day", "factory4_night", "laboratory" };
+
         public override bool Enabled
         {
             get => MemWrites.Config.AlwaysDaySunny;
@@ -24,9 +26,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
             {
                 if (Enabled && !_set && Memory.Game is LocalGameWorld game)
                 {
-                    if (game.MapID.Equals("factory4_day", StringComparison.OrdinalIgnoreCase) ||
-                        game.MapID.Equals("factory4_night", StringComparison.OrdinalIgnoreCase) ||
-                        game.MapID.Equals("laboratory", StringComparison.OrdinalIgnoreCase))
+                    if (mapsWithoutSky.Contains(game.MapID))
                         return;
                     ulong fps = game.CameraManager?.FPSCamera ?? 0x0;
                     fps.ThrowIfInvalidVirtualAddress();

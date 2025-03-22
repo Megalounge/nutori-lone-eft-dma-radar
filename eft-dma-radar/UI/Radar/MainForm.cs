@@ -552,6 +552,10 @@ namespace eft_dma_radar.UI.Radar
         {
             MemPatchFeature<FastLoadUnload>.Instance.Enabled = checkBox_FastLoadUnload.Checked;
         }
+        private void checkBox_LongJump_CheckedChanged(object sender, EventArgs e)
+        {
+            MemWriteFeature<LongJump>.Instance.Enabled = checkBox_LongJump.Checked;
+        }
         private void checkBox_ToggleWeaponCollision_CheckedChanged(object sender, EventArgs e)
         {
             MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled = checkBox_ToggleWeaponCollision.Checked;
@@ -559,6 +563,10 @@ namespace eft_dma_radar.UI.Radar
         private void checkBox_UnclampFreeLook_CheckedChanged(object sender, EventArgs e)
         {
             MemWriteFeature<UnclampFreeLook>.Instance.Enabled = checkBox_UnclampFreeLook.Checked;
+        }
+        private void checkBox_InstantPoseChange_CheckedChanged(object sender, EventArgs e)
+        {
+            MemWriteFeature<InstantPoseChange>.Instance.Enabled = checkBox_InstantPoseChange.Checked;
         }
         private void checkBox_FastWeaponOps_CheckedChanged(object sender, EventArgs e)
         {
@@ -1062,10 +1070,8 @@ namespace eft_dma_radar.UI.Radar
         /// </summary>
         private void MapCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_mouseDown)
+            if (_mouseDown && checkBox_MapFree.Checked)
             {
-                checkBox_MapFree.Checked = true; // force unlock canvas
-
                 var deltaX = -(e.X - _lastMousePosition.X);
                 var deltaY = -(e.Y - _lastMousePosition.Y);
 
@@ -1622,8 +1628,10 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_VischeckVisColorPick, "Set the VISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(button_VischeckInvisColorPick, "Set the INVISIBLE color of the Vischeck Chams. Must be set before chams are injected.");
             toolTip1.SetToolTip(checkBox_FastLoadUnload, "Allows you to pack/unpack magazines super fast.");
-            toolTip1.SetToolTip(checkBox_ToggleWeaponCollision, "Prevents weapon collision.");
-            toolTip1.SetToolTip(checkBox_UnclampFreeLook, "Unclamps free looking.");
+            toolTip1.SetToolTip(checkBox_ToggleWeaponCollision, "Prevents weapon collision. (Only visible client-side)");
+            toolTip1.SetToolTip(checkBox_LongJump, "Allows for jumping further.");
+            toolTip1.SetToolTip(checkBox_UnclampFreeLook, "Unclamps free looking. (Only visible client-side)");
+            toolTip1.SetToolTip(checkBox_InstantPoseChange, "Disables the animation when changing crouching pose level. (Only visible client-side)");
             toolTip1.SetToolTip(checkBox_FastWeaponOps, "Makes weapon operations (instant ADS, reloading mag,etc.) faster for your player.\n" +
                 "NOTE: Trying to heal or do other actions while reloading a mag can cause the 'hands busy' bug.");
             toolTip1.SetToolTip(checkBox_FullBright, "Enables the Full Bright Feature. This will make the game world brighter.");
@@ -1718,9 +1726,9 @@ namespace eft_dma_radar.UI.Radar
                 "The resolution Height of your Game PC Monitor that Tarkov runs on. This must be correctly set for Aimview/Aimbot/ESP to function properly.");
             toolTip1.SetToolTip(button_DetectRes,
                 "Automatically detects the resolution of your Game PC Monitor that Tarkov runs on, and sets the Width/Height fields. Game must be running.");
-            toolTip1.SetToolTip(button_StartESP,
+            toolTip1.SetToolTip(button_ESP_Start,
                 "Starts the ESP Window. This will render ESP over a black background. Move this window to the screen that is being fused, and double click to go Fullscreen.");
-            toolTip1.SetToolTip(label_ESPFPSCap,
+            toolTip1.SetToolTip(label_ESP_FPSCap,
                 "Sets an FPS Cap for the ESP Window. Generally this can be the refresh rate of your Game PC Monitor. This also helps reduce resource usage on your Radar PC.\nSetting this to 0 disables it entirely.");
             toolTip1.SetToolTip(button_EspColorPicker,
                 "Opens the 'ESP Color Picker' that will allow you to specify custom colors for different ESP Elements.");
@@ -1751,7 +1759,9 @@ namespace eft_dma_radar.UI.Radar
     "Sets the lines scaling factor for the ESP Window.\nIf you are rendering at a really high resolution, you may want to increase this.");
             toolTip1.SetToolTip(checkBox_ESP_AutoFS,
                 "Sets 'Auto Fullscreen' for the ESP Window.\nWhen set this will automatically go into full screen mode on the selected screen when the application starts, and when hitting the Start ESP button.");
-            toolTip1.SetToolTip(comboBox_ESPAutoFS, "Sets the screen for 'Auto Fullscreen'.");
+            toolTip1.SetToolTip(checkBox_ESP_AutoStart,
+                "When set the ESP window will automatically start on application launch.");
+            toolTip1.SetToolTip(comboBox_ESP_SelectedScreen, "Sets the screen for 'Auto Fullscreen'.");
             toolTip1.SetToolTip(checkBox_AimbotDisableReLock,
                 "Disables 're-locking' onto a new target with aimbot when the current target dies/is no longer valid.\n Prevents accidentally killing multiple targets in quick succession before you can react.");
             toolTip1.SetToolTip(label_ESP_HighAlert,
@@ -1883,7 +1893,9 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastWeaponOps.Checked = MemWriteFeature<FastWeaponOps>.Instance.Enabled;
             checkBox_FastLoadUnload.Checked = MemPatchFeature<FastLoadUnload>.Instance.Enabled;
             checkBox_ToggleWeaponCollision.Checked = MemWriteFeature<ToggleWeaponCollision>.Instance.Enabled;
+            checkBox_LongJump.Checked = MemWriteFeature<LongJump>.Instance.Enabled;
             checkBox_UnclampFreeLook.Checked = MemWriteFeature<UnclampFreeLook>.Instance.Enabled;
+            checkBox_InstantPoseChange.Checked = MemWriteFeature<InstantPoseChange>.Instance.Enabled;
 
             switch (Aimbot.Config.TargetingMode)
             {
@@ -2679,7 +2691,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPAIRender_Labels.Checked = Config.ESP.AIRendering.ShowLabels;
             checkBox_ESPAIRender_Weapons.Checked = Config.ESP.AIRendering.ShowWeapons;
             checkBox_ESPAIRender_Dist.Checked = Config.ESP.AIRendering.ShowDist;
-            textBox_EspFpsCap.Text = Config.ESP.FPSCap.ToString();
+            textBox_ESP_FPSCap.Text = Config.ESP.FPSCap.ToString();
             checkBox_ESP_Exfils.Checked = Config.ESP.ShowExfils;
             checkBox_ESP_Loot.Checked = Config.ESP.ShowLoot;
             checkBox_ESP_Explosives.Checked = Config.ESP.ShowExplosives;
@@ -2700,6 +2712,7 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspLineScale.Value = (int)Math.Round(Config.ESP.LineScale * 100f);
             trackBar_ESPContainerDist.Value = (int)Math.Round(Config.ESP.ContainerDrawDistance);
             checkBox_ESP_AutoFS.Checked = Config.ESP.AutoFullscreen;
+            checkBox_ESP_AutoStart.Checked = Config.ESP.AutoStart;
             /// High Alert Combobox
             foreach (var mode in Enum.GetValues(typeof(HighAlertMode)).Cast<HighAlertMode>())
             {
@@ -2720,11 +2733,11 @@ namespace eft_dma_radar.UI.Radar
             for (var i = 0; i < allScreens.Length; i++)
             {
                 var entry = new ScreenEntry(i);
-                comboBox_ESPAutoFS.Items.Add(entry);
+                comboBox_ESP_SelectedScreen.Items.Add(entry);
             }
 
-            comboBox_ESPAutoFS.SelectedIndex = Config.ESP.SelectedScreen;
-            if (checkBox_ESP_AutoFS.Checked)
+            comboBox_ESP_SelectedScreen.SelectedIndex = Config.ESP.SelectedScreen;
+            if (checkBox_ESP_AutoStart.Checked)
                 StartESP();
         }
 
@@ -2735,27 +2748,35 @@ namespace eft_dma_radar.UI.Radar
             Config.ESP.ContainerDrawDistance = amt;
         }
 
+        private void checkBox_ESP_AutoStart_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ESP.AutoStart = checkBox_ESP_AutoFS.Checked;
+        }
+        
         private void checkBox_ESP_AutoFS_CheckedChanged(object sender, EventArgs e)
         {
             var enabled = checkBox_ESP_AutoFS.Checked;
-            comboBox_ESPAutoFS.Enabled = enabled;
+            comboBox_ESP_SelectedScreen.Enabled = enabled;
             Config.ESP.AutoFullscreen = enabled;
         }
 
         private void comboBox_ESPAutoFS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_ESPAutoFS.SelectedItem is ScreenEntry entry)
+            if (comboBox_ESP_SelectedScreen.SelectedItem is ScreenEntry entry)
                 Config.ESP.SelectedScreen = entry.ScreenNumber;
         }
 
-        private void button_StartESP_Click(object sender, EventArgs e) =>
-            StartESP();
+        private void button_ESP_Start_Click(object sender, EventArgs e)
+            => StartESP();
 
         private void StartESP()
         {
-            button_StartESP.Text = "Running...";
-            flowLayoutPanel_ESPSettings.Enabled = false;
+            button_ESP_Start.Text = "Running...";
             flowLayoutPanel_MonitorSettings.Enabled = false;
+            label_ESP_FPSCap.Enabled = false;
+            textBox_ESP_FPSCap.Enabled = false;
+            comboBox_ESP_SelectedScreen.Enabled = false;
+
             var t = new Thread(() =>
             {
                 try
@@ -2770,12 +2791,7 @@ namespace eft_dma_radar.UI.Radar
                 }
                 finally
                 {
-                    Invoke(() =>
-                    {
-                        button_StartESP.Text = "Start ESP";
-                        flowLayoutPanel_ESPSettings.Enabled = true;
-                        flowLayoutPanel_MonitorSettings.Enabled = true;
-                    });
+                    this.Invoke(() => this.StopESP());
                 }
             })
             {
@@ -2787,12 +2803,21 @@ namespace eft_dma_radar.UI.Radar
             tabControl1.SelectedIndex = 0; // Switch back to Radar
         }
 
-        private void textBox_EspFpsCap_TextChanged(object sender, EventArgs e)
+        private void StopESP()
         {
-            if (int.TryParse(textBox_EspFpsCap.Text, out var value))
+            button_ESP_Start.Text = "Start ESP";
+            flowLayoutPanel_MonitorSettings.Enabled = true;
+            label_ESP_FPSCap.Enabled = true;
+            textBox_ESP_FPSCap.Enabled = true;
+            comboBox_ESP_SelectedScreen.Enabled = true;
+        }
+
+        private void textBox_ESP_FPSCap_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBox_ESP_FPSCap.Text, out var value))
                 Config.ESP.FPSCap = value;
             else
-                textBox_EspFpsCap.Text = Config.ESP.FPSCap.ToString();
+                textBox_ESP_FPSCap.Text = Config.ESP.FPSCap.ToString();
         }
 
         private void TrackBar_EspGrenadeDist_ValueChanged(object sender, EventArgs e)

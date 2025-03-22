@@ -26,10 +26,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             set => MemWrites.Config.UnclampFreeLook = value;
         }
 
-        public override bool CanRun
-        {
-            get => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
-        }
+        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
 
         public override void TryApply(ScatterWriteHandle writes)
         {

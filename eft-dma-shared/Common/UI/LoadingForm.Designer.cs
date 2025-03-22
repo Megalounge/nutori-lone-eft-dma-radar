@@ -50,7 +50,6 @@
             flowLayoutPanel_Progress.Location = new Point(0, 0);
             flowLayoutPanel_Progress.Name = "flowLayoutPanel_Progress";
             flowLayoutPanel_Progress.Size = new Size(431, 49);
-            flowLayoutPanel_Progress.TabIndex = 0;
             // 
             // label_ProgressText
             // 
@@ -61,7 +60,6 @@
             label_ProgressText.Location = new Point(215, 0);
             label_ProgressText.Name = "label_ProgressText";
             label_ProgressText.Size = new Size(0, 20);
-            label_ProgressText.TabIndex = 1;
             label_ProgressText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // progressBar1
@@ -70,7 +68,6 @@
             progressBar1.Location = new Point(3, 23);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(425, 23);
-            progressBar1.TabIndex = 0;
             // 
             // LoadingForm
             // 

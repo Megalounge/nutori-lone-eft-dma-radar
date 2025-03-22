@@ -55,7 +55,6 @@
             groupBox_Main.Location = new Point(0, 0);
             groupBox_Main.Name = "groupBox_Main";
             groupBox_Main.Size = new Size(534, 313);
-            groupBox_Main.TabIndex = 0;
             groupBox_Main.TabStop = false;
             groupBox_Main.Text = "Set Hotkeys In-Game";
             // 
@@ -64,7 +63,6 @@
             button_Save.Location = new Point(444, 251);
             button_Save.Name = "button_Save";
             button_Save.Size = new Size(78, 49);
-            button_Save.TabIndex = 7;
             button_Save.Text = "Save";
             button_Save.UseVisualStyleBackColor = true;
             button_Save.Click += button_Save_Click;
@@ -74,7 +72,6 @@
             button_Remove.Location = new Point(444, 69);
             button_Remove.Name = "button_Remove";
             button_Remove.Size = new Size(75, 23);
-            button_Remove.TabIndex = 6;
             button_Remove.Text = "Remove";
             button_Remove.UseVisualStyleBackColor = true;
             button_Remove.Click += button_Remove_Click;
@@ -84,7 +81,6 @@
             button_Add.Location = new Point(444, 40);
             button_Add.Name = "button_Add";
             button_Add.Size = new Size(75, 23);
-            button_Add.TabIndex = 5;
             button_Add.Text = "Add";
             button_Add.UseVisualStyleBackColor = true;
             button_Add.Click += button_Add_Click;
@@ -95,7 +91,6 @@
             label2.Location = new Point(12, 19);
             label2.Name = "label2";
             label2.Size = new Size(47, 15);
-            label2.TabIndex = 4;
             label2.Text = "Actions";
             // 
             // label1
@@ -104,7 +99,6 @@
             label1.Location = new Point(257, 19);
             label1.Name = "label1";
             label1.Size = new Size(50, 15);
-            label1.TabIndex = 3;
             label1.Text = "Hotkeys";
             // 
             // comboBox_Hotkeys
@@ -114,7 +108,6 @@
             comboBox_Hotkeys.Location = new Point(257, 40);
             comboBox_Hotkeys.Name = "comboBox_Hotkeys";
             comboBox_Hotkeys.Size = new Size(169, 23);
-            comboBox_Hotkeys.TabIndex = 2;
             comboBox_Hotkeys.SelectedIndexChanged += comboBox_Hotkeys_SelectedIndexChanged;
             // 
             // comboBox_Actions
@@ -124,7 +117,6 @@
             comboBox_Actions.Location = new Point(12, 40);
             comboBox_Actions.Name = "comboBox_Actions";
             comboBox_Actions.Size = new Size(218, 23);
-            comboBox_Actions.TabIndex = 1;
             comboBox_Actions.SelectedIndexChanged += comboBox_Actions_SelectedIndexChanged;
             // 
             // listBox_Values
@@ -134,7 +126,6 @@
             listBox_Values.Location = new Point(12, 86);
             listBox_Values.Name = "listBox_Values";
             listBox_Values.Size = new Size(414, 214);
-            listBox_Values.TabIndex = 0;
             listBox_Values.SelectedIndexChanged += listBox_Values_SelectedIndexChanged;
             // 
             // HotkeyManager

@@ -124,10 +124,7 @@ namespace eft_dma_radar.UI.ESP
 
         private void RenderTimer_Elapsed(object sender, EventArgs e)
         {
-            this.Invoke(() =>
-            {
-                skglControl_ESP.Invalidate();
-            });
+            this.Invoke(() => skglControl_ESP.Invalidate());
         }
 
         #endregion

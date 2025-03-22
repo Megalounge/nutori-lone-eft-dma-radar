@@ -613,6 +613,12 @@ namespace eft_dma_radar.UI.Misc
         public bool AutoFullscreen { get; set; } = false;
 
         /// <summary>
+        /// Enable 'Auto Start' on Startup/Start.
+        /// </summary>
+        [JsonPropertyName("autoStart")]
+        public bool AutoStart { get; set; } = false;
+
+        /// <summary>
         /// Selected screen for Auto Startup.
         /// </summary>
         [JsonPropertyName("selectedScreen")]
@@ -792,6 +798,18 @@ namespace eft_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("toggleWeaponCollision")]
         public bool ToggleWeaponCollision { get; set; } = false;
+        
+        /// <summary>
+        /// Enables long jumping.
+        /// </summary>
+        [JsonPropertyName("longJump")]
+        public bool LongJump { get; set; } = false;
+
+        /// <summary>
+        /// Disables the lerp animation when changing pose level.
+        /// </summary>
+        [JsonPropertyName("instantPoseChange")]
+        public bool InstantPoseChange { get; set; } = false;
     }
 
     public sealed class SuperSpeedConfig

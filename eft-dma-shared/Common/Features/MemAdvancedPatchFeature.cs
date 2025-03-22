@@ -9,9 +9,6 @@ namespace eft_dma_shared.Common.Features
     public abstract class MemAdvancedPatchFeature<T> : MemPatchFeature<T>
         where T : IMemPatchFeature
     {
-        public override bool CanRun
-        {
-            get => Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.AdvancedPatches;
-        }
+        public override bool CanRun => Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.AdvancedPatches;
     }
 }

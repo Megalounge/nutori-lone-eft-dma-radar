@@ -44,7 +44,6 @@
             comboBox_Colors.Location = new Point(12, 26);
             comboBox_Colors.Name = "comboBox_Colors";
             comboBox_Colors.Size = new Size(170, 23);
-            comboBox_Colors.TabIndex = 0;
             comboBox_Colors.SelectedIndexChanged += comboBox_Colors_SelectedIndexChanged;
             // 
             // textBox_ColorValue
@@ -53,7 +52,6 @@
             textBox_ColorValue.MaxLength = 12;
             textBox_ColorValue.Name = "textBox_ColorValue";
             textBox_ColorValue.Size = new Size(100, 23);
-            textBox_ColorValue.TabIndex = 1;
             textBox_ColorValue.TextChanged += textBox_ColorValue_TextChanged;
             // 
             // button_Edit
@@ -61,7 +59,6 @@
             button_Edit.Location = new Point(315, 26);
             button_Edit.Name = "button_Edit";
             button_Edit.Size = new Size(47, 23);
-            button_Edit.TabIndex = 2;
             button_Edit.Text = "Edit";
             button_Edit.UseVisualStyleBackColor = true;
             button_Edit.Click += button_Edit_Click;
@@ -71,7 +68,6 @@
             button_Save.Location = new Point(133, 74);
             button_Save.Name = "button_Save";
             button_Save.Size = new Size(102, 44);
-            button_Save.TabIndex = 3;
             button_Save.Text = "Save All";
             button_Save.UseVisualStyleBackColor = true;
             button_Save.Click += button_Save_Click;

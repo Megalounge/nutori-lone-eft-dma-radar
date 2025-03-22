@@ -442,9 +442,9 @@ namespace arena_dma_radar.UI.Radar
                 "The resolution Height of your Game PC Monitor that Tarkov runs on. This must be correctly set for Aimview/Aimbot/ESP to function properly.");
             toolTip1.SetToolTip(button_DetectRes,
                 "Automatically detects the resolution of your Game PC Monitor that Tarkov runs on, and sets the Width/Height fields. Game must be running.");
-            toolTip1.SetToolTip(button_StartESP,
+            toolTip1.SetToolTip(button_ESP_Start,
                 "Starts the ESP Window. This will render ESP over a black background. Move this window to the screen that is being fused, and double click to go Fullscreen.");
-            toolTip1.SetToolTip(label_ESPFPSCap,
+            toolTip1.SetToolTip(label_ESP_FPSCap,
                 "Sets an FPS Cap for the ESP Window. Generally this can be the refresh rate of your Game PC Monitor. This also helps reduce resource usage on your Radar PC.\nSetting this to 0 disables it entirely.");
             toolTip1.SetToolTip(button_EspColorPicker,
                 "Opens the 'ESP Color Picker' that will allow you to specify custom colors for different ESP Elements.");
@@ -456,8 +456,10 @@ namespace arena_dma_radar.UI.Radar
             toolTip1.SetToolTip(trackBar_EspLineScale,
     "Sets the lines scaling factor for the ESP Window.\nIf you are rendering at a really high resolution, you may want to increase this.");
             toolTip1.SetToolTip(checkBox_ESP_AutoFS,
-                "Sets 'Auto Fullscreen' for the ESP Window.\nWhen set this will automatically go into full screen mode on the selected screen when the application starts, and when hitting the Start ESP button.");
-            toolTip1.SetToolTip(comboBox_ESPAutoFS, "Sets the screen for 'Auto Fullscreen'.");
+                "Sets 'Auto Fullscreen' for the ESP Window.\nWhen set this will automatically go into full screen mode on the selected screen when hitting the Start ESP button.");
+            toolTip1.SetToolTip(checkBox_ESP_AutoStart,
+                "When set the ESP window will automatically start on application launch.");
+            toolTip1.SetToolTip(comboBox_ESP_SelectedScreen, "Sets the screen for 'Auto Fullscreen'.");
             toolTip1.SetToolTip(checkBox_ESP_AimFov,
                 "Enables the rendering of an 'Aim FOV Circle' in the center of your ESP Window. This is used for Aimbot Targeting.");
             toolTip1.SetToolTip(checkBox_ESP_AimLock,
@@ -1567,6 +1569,7 @@ namespace arena_dma_radar.UI.Radar
             trackBar_EspFontScale.Value = (int)Math.Round(Config.ESP.FontScale * 100f);
             trackBar_EspLineScale.Value = (int)Math.Round(Config.ESP.LineScale * 100f);
             checkBox_ESP_AutoFS.Checked = Config.ESP.AutoFullscreen;
+            checkBox_ESP_AutoStart.Checked = Config.ESP.AutoStart;
             checkBox_ESP_HighAlert.Checked = Config.ESP.HighAlert;
             checkBox_ESP_AimLock.Checked = Config.ESP.ShowAimLock;
             checkBox_ESP_AimFov.Checked = Config.ESP.ShowAimFOV;
@@ -1596,11 +1599,11 @@ namespace arena_dma_radar.UI.Radar
             for (var i = 0; i < allScreens.Length; i++)
             {
                 var entry = new ScreenEntry(i);
-                comboBox_ESPAutoFS.Items.Add(entry);
+                comboBox_ESP_SelectedScreen.Items.Add(entry);
             }
 
-            comboBox_ESPAutoFS.SelectedIndex = Config.ESP.SelectedScreen;
-            if (checkBox_ESP_AutoFS.Checked)
+            comboBox_ESP_SelectedScreen.SelectedIndex = Config.ESP.SelectedScreen;
+            if (checkBox_ESP_AutoStart.Checked)
                 StartESP();
         }
 
@@ -1631,29 +1634,49 @@ namespace arena_dma_radar.UI.Radar
             Config.ESP.PlayerRendering.ShowDist = checkBox_ESPRender_Dist.Checked;
         }
 
+        private void checkBox_ESP_AutoStart_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ESP.AutoStart = checkBox_ESP_AutoStart.Checked;
+        }
+        
         private void checkBox_ESP_AutoFS_CheckedChanged(object sender, EventArgs e)
         {
             var enabled = checkBox_ESP_AutoFS.Checked;
-            comboBox_ESPAutoFS.Enabled = enabled;
+            comboBox_ESP_SelectedScreen.Enabled = enabled;
             Config.ESP.AutoFullscreen = enabled;
         }
 
         private void comboBox_ESPAutoFS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_ESPAutoFS.SelectedItem is ScreenEntry entry)
+            if (comboBox_ESP_SelectedScreen.SelectedItem is ScreenEntry entry)
                 Config.ESP.SelectedScreen = entry.ScreenNumber;
         }
 
-        private void button_StartESP_Click(object sender, EventArgs e) =>
+        private void button_ESP_Start_Click(object sender, EventArgs e) =>
             StartESP();
+
+        //[DllImport("winmm.dll", EntryPoint = "timeEndPeriod")]
+        //private static extern int TimeEndPeriod(uint uMilliseconds);
+        //[DllImport("ntdll.dll")]
+        //private static extern int NtQueryTimerResolution(out uint minRes, out uint maxRes, out uint currentRes);
+        //
+        //private uint GetCurrentTimerResolution()
+        //{
+        //    if (NtQueryTimerResolution(out uint minRes, out uint maxRes, out uint currentRes) == 0)
+        //    {
+        //        return currentRes;
+        //    }
+        //    return 
+        //}
 
         private void StartESP()
         {
-            button_StartESP.Text = "Running...";
-            flowLayoutPanel_ESPSettings.Enabled = false;
+            button_ESP_Start.Text = "Running...";
+            //flowLayoutPanel_ESPSettings.Enabled = false;
             flowLayoutPanel_MonitorSettings.Enabled = false;
             var t = new Thread(() =>
             {
+
                 try
                 {
                     EspForm.ShowESP = true;
@@ -1668,8 +1691,8 @@ namespace arena_dma_radar.UI.Radar
                 {
                     Invoke(() =>
                     {
-                        button_StartESP.Text = "Start ESP";
-                        flowLayoutPanel_ESPSettings.Enabled = true;
+                        button_ESP_Start.Text = "Start ESP";
+                        //flowLayoutPanel_ESPSettings.Enabled = true;
                         flowLayoutPanel_MonitorSettings.Enabled = true;
                     });
                 }

@@ -39,7 +39,6 @@
             button_OK.Location = new Point(482, 39);
             button_OK.Name = "button_OK";
             button_OK.Size = new Size(75, 23);
-            button_OK.TabIndex = 0;
             button_OK.Text = "OK";
             button_OK.UseVisualStyleBackColor = true;
             button_OK.Click += button_OK_Click;
@@ -50,7 +49,6 @@
             label_Prompt.Location = new Point(12, 21);
             label_Prompt.Name = "label_Prompt";
             label_Prompt.Size = new Size(47, 15);
-            label_Prompt.TabIndex = 1;
             label_Prompt.Text = "Prompt";
             // 
             // textBox_Input
@@ -59,7 +57,6 @@
             textBox_Input.MaxLength = 512;
             textBox_Input.Name = "textBox_Input";
             textBox_Input.Size = new Size(450, 23);
-            textBox_Input.TabIndex = 2;
             // 
             // InputBox
             // 

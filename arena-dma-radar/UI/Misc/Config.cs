@@ -532,10 +532,16 @@ namespace arena_dma_radar.UI.Misc
         public int FPSCap { get; set; } = 60;
 
         /// <summary>
-        /// Enable 'Auto Full Screen' on Startup/Start.
+        /// Enable 'Auto Full Screen' on Start.
         /// </summary>
         [JsonPropertyName("autoFS")]
         public bool AutoFullscreen { get; set; } = false;
+        
+        /// <summary>
+        /// Enable 'Auto Full Screen' on Start.
+        /// </summary>
+        [JsonPropertyName("autoStart")]
+        public bool AutoStart { get; set; } = false;
 
         /// <summary>
         /// Selected screen for Auto Startup.

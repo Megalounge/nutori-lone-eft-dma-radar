@@ -25,10 +25,7 @@ namespace eft_dma_shared.Common.Features
 
         protected bool DelayElapsed => Delay == TimeSpan.Zero || _sw.Elapsed >= Delay;
 
-        public virtual bool CanRun
-        {
-            get => Memory.InRaid && Memory.RaidHasStarted && DelayElapsed;
-        }
+        public virtual bool CanRun => Memory.InRaid && Memory.RaidHasStarted && DelayElapsed;
 
         public virtual void TryApply(ScatterWriteHandle writes)
         {

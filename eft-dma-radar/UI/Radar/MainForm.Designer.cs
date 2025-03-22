@@ -116,7 +116,9 @@ namespace eft_dma_radar.UI.Radar
             checkBox_FastWeaponOps = new CheckBox();
             checkBox_FastLoadUnload = new CheckBox();
             checkBox_ToggleWeaponCollision = new CheckBox();
+            checkBox_LongJump = new CheckBox();
             checkBox_UnclampFreeLook = new CheckBox();
+            checkBox_InstantPoseChange = new CheckBox();
             checkBox_LTW = new CheckBox();
             checkBox_WideLean = new CheckBox();
             checkBox_NoVisor = new CheckBox();
@@ -180,12 +182,13 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESPSettings = new FlowLayoutPanel();
             label12 = new Label();
             label26 = new Label();
-            button_StartESP = new Button();
+            button_ESP_Start = new Button();
             button_EspColorPicker = new Button();
-            label_ESPFPSCap = new Label();
-            textBox_EspFpsCap = new TextBox();
+            label_ESP_FPSCap = new Label();
+            textBox_ESP_FPSCap = new TextBox();
             checkBox_ESP_AutoFS = new CheckBox();
-            comboBox_ESPAutoFS = new ComboBox();
+            checkBox_ESP_AutoStart = new CheckBox();
+            comboBox_ESP_SelectedScreen = new ComboBox();
             label_ESP_HighAlert = new Label();
             comboBox_ESP_HighAlert = new ComboBox();
             checkBox_ESP_Loot = new CheckBox();
@@ -337,7 +340,6 @@ namespace eft_dma_radar.UI.Radar
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1264, 681);
-            tabControl1.TabIndex = 8;
             // 
             // tabPage1
             // 
@@ -351,7 +353,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(1256, 653);
-            tabPage1.TabIndex = 0;
             tabPage1.Text = "Radar";
             // 
             // flowLayoutPanel_Loot
@@ -377,7 +378,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Loot.Location = new Point(6, 36);
             flowLayoutPanel_Loot.Name = "flowLayoutPanel_Loot";
             flowLayoutPanel_Loot.Size = new Size(407, 146);
-            flowLayoutPanel_Loot.TabIndex = 19;
             flowLayoutPanel_Loot.Visible = false;
             // 
             // label20
@@ -388,7 +388,6 @@ namespace eft_dma_radar.UI.Radar
             label20.Location = new Point(3, 0);
             label20.Name = "label20";
             label20.Size = new Size(44, 21);
-            label20.TabIndex = 0;
             label20.Text = "Loot";
             // 
             // label6
@@ -399,7 +398,6 @@ namespace eft_dma_radar.UI.Radar
             label6.Location = new Point(3, 21);
             label6.Name = "label6";
             label6.Size = new Size(110, 15);
-            label6.TabIndex = 0;
             label6.Text = "Sort by Ruble Value";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -410,7 +408,6 @@ namespace eft_dma_radar.UI.Radar
             label7.Location = new Point(3, 43);
             label7.Name = "label7";
             label7.Size = new Size(47, 15);
-            label7.TabIndex = 3;
             label7.Text = "Regular";
             // 
             // textBox_LootRegValue
@@ -420,7 +417,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_LootRegValue.MaxLength = 7;
             textBox_LootRegValue.Name = "textBox_LootRegValue";
             textBox_LootRegValue.Size = new Size(50, 23);
-            textBox_LootRegValue.TabIndex = 1;
             textBox_LootRegValue.Text = "50000";
             textBox_LootRegValue.TextAlign = HorizontalAlignment.Center;
             textBox_LootRegValue.TextChanged += textBox_LootRegValue_TextChanged;
@@ -432,7 +428,6 @@ namespace eft_dma_radar.UI.Radar
             label8.Location = new Point(112, 43);
             label8.Name = "label8";
             label8.Size = new Size(51, 15);
-            label8.TabIndex = 4;
             label8.Text = "Valuable";
             // 
             // textBox_LootImpValue
@@ -442,7 +437,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_LootImpValue.MaxLength = 8;
             textBox_LootImpValue.Name = "textBox_LootImpValue";
             textBox_LootImpValue.Size = new Size(57, 23);
-            textBox_LootImpValue.TabIndex = 2;
             textBox_LootImpValue.Text = "200000";
             textBox_LootImpValue.TextAlign = HorizontalAlignment.Center;
             textBox_LootImpValue.TextChanged += textBox_LootImpValue_TextChanged;
@@ -455,7 +449,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_LootPPS.Location = new Point(232, 41);
             checkBox_LootPPS.Name = "checkBox_LootPPS";
             checkBox_LootPPS.Size = new Size(95, 19);
-            checkBox_LootPPS.TabIndex = 25;
             checkBox_LootPPS.Text = "Price Per Slot";
             checkBox_LootPPS.UseVisualStyleBackColor = true;
             checkBox_LootPPS.CheckedChanged += checkBox_LootPPS_CheckedChanged;
@@ -467,7 +460,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_Loot_FleaPrice.Location = new Point(3, 68);
             radioButton_Loot_FleaPrice.Name = "radioButton_Loot_FleaPrice";
             radioButton_Loot_FleaPrice.Size = new Size(80, 19);
-            radioButton_Loot_FleaPrice.TabIndex = 27;
             radioButton_Loot_FleaPrice.TabStop = true;
             radioButton_Loot_FleaPrice.Text = "Flea Prices";
             radioButton_Loot_FleaPrice.UseVisualStyleBackColor = true;
@@ -480,7 +472,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_Loot_VendorPrice.Location = new Point(89, 68);
             radioButton_Loot_VendorPrice.Name = "radioButton_Loot_VendorPrice";
             radioButton_Loot_VendorPrice.Size = new Size(92, 19);
-            radioButton_Loot_VendorPrice.TabIndex = 28;
             radioButton_Loot_VendorPrice.Text = "Trader Prices";
             radioButton_Loot_VendorPrice.UseVisualStyleBackColor = true;
             radioButton_Loot_VendorPrice.CheckedChanged += radioButton_Loot_VendorPrice_CheckedChanged;
@@ -491,7 +482,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_HideCorpses.Location = new Point(3, 93);
             checkBox_HideCorpses.Name = "checkBox_HideCorpses";
             checkBox_HideCorpses.Size = new Size(96, 19);
-            checkBox_HideCorpses.TabIndex = 22;
             checkBox_HideCorpses.Text = "Hide Corpses";
             checkBox_HideCorpses.UseVisualStyleBackColor = true;
             checkBox_HideCorpses.CheckedChanged += checkBox_HideCorpses_CheckedChanged;
@@ -502,7 +492,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowMeds.Location = new Point(105, 93);
             checkBox_ShowMeds.Name = "checkBox_ShowMeds";
             checkBox_ShowMeds.Size = new Size(87, 19);
-            checkBox_ShowMeds.TabIndex = 23;
             checkBox_ShowMeds.Text = "Show Meds";
             checkBox_ShowMeds.UseVisualStyleBackColor = true;
             checkBox_ShowMeds.CheckedChanged += checkBox_ShowMeds_CheckedChanged;
@@ -513,7 +502,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowFood.Location = new Point(198, 93);
             checkBox_ShowFood.Name = "checkBox_ShowFood";
             checkBox_ShowFood.Size = new Size(85, 19);
-            checkBox_ShowFood.TabIndex = 24;
             checkBox_ShowFood.Text = "Show Food";
             checkBox_ShowFood.UseVisualStyleBackColor = true;
             checkBox_ShowFood.CheckedChanged += checkBox_ShowFood_CheckedChanged;
@@ -525,7 +513,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowBackpacks.Location = new Point(289, 93);
             checkBox_ShowBackpacks.Name = "checkBox_ShowBackpacks";
             checkBox_ShowBackpacks.Size = new Size(113, 19);
-            checkBox_ShowBackpacks.TabIndex = 26;
             checkBox_ShowBackpacks.Text = "Show Backpacks";
             checkBox_ShowBackpacks.UseVisualStyleBackColor = true;
             checkBox_ShowBackpacks.CheckedChanged += checkBox_ShowBackpacks_CheckedChanged;
@@ -537,7 +524,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_LootFilterByName.Name = "textBox_LootFilterByName";
             textBox_LootFilterByName.PlaceholderText = "Loot Search (ex: Item1,Item2,etc.)";
             textBox_LootFilterByName.Size = new Size(317, 23);
-            textBox_LootFilterByName.TabIndex = 5;
             textBox_LootFilterByName.TextAlign = HorizontalAlignment.Center;
             textBox_LootFilterByName.TextChanged += textBox_LootFilterByName_TextChanged;
             // 
@@ -546,7 +532,6 @@ namespace eft_dma_radar.UI.Radar
             button_Loot.Location = new Point(85, 6);
             button_Loot.Name = "button_Loot";
             button_Loot.Size = new Size(44, 25);
-            button_Loot.TabIndex = 12;
             button_Loot.Text = "Loot";
             button_Loot.UseVisualStyleBackColor = true;
             button_Loot.Visible = false;
@@ -558,7 +543,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_MapFree.AutoSize = true;
             checkBox_MapFree.Location = new Point(6, 6);
             checkBox_MapFree.Name = "checkBox_MapFree";
-            checkBox_MapFree.TabIndex = 17;
             checkBox_MapFree.Text = "Map Free";
             checkBox_MapFree.UseVisualStyleBackColor = true;
             checkBox_MapFree.CheckedChanged += checkBox_MapFree_CheckedChanged;
@@ -576,7 +560,6 @@ namespace eft_dma_radar.UI.Radar
             groupBox_MapSetup.Location = new Point(6, 36);
             groupBox_MapSetup.Name = "groupBox_MapSetup";
             groupBox_MapSetup.Size = new Size(327, 175);
-            groupBox_MapSetup.TabIndex = 11;
             groupBox_MapSetup.TabStop = false;
             groupBox_MapSetup.Text = "Map Setup";
             groupBox_MapSetup.Visible = false;
@@ -586,7 +569,6 @@ namespace eft_dma_radar.UI.Radar
             button_MapSetupApply.Location = new Point(6, 143);
             button_MapSetupApply.Name = "button_MapSetupApply";
             button_MapSetupApply.Size = new Size(75, 23);
-            button_MapSetupApply.TabIndex = 16;
             button_MapSetupApply.Text = "Apply";
             button_MapSetupApply.UseVisualStyleBackColor = true;
             button_MapSetupApply.Click += button_MapSetupApply_Click;
@@ -596,7 +578,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_mapScale.Location = new Point(46, 101);
             textBox_mapScale.Name = "textBox_mapScale";
             textBox_mapScale.Size = new Size(50, 23);
-            textBox_mapScale.TabIndex = 15;
             // 
             // label5
             // 
@@ -604,7 +585,6 @@ namespace eft_dma_radar.UI.Radar
             label5.Location = new Point(6, 104);
             label5.Name = "label5";
             label5.Size = new Size(34, 15);
-            label5.TabIndex = 14;
             label5.Text = "Scale";
             // 
             // textBox_mapY
@@ -612,7 +592,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_mapY.Location = new Point(102, 67);
             textBox_mapY.Name = "textBox_mapY";
             textBox_mapY.Size = new Size(50, 23);
-            textBox_mapY.TabIndex = 13;
             // 
             // label4
             // 
@@ -620,7 +599,6 @@ namespace eft_dma_radar.UI.Radar
             label4.Location = new Point(6, 70);
             label4.Name = "label4";
             label4.Size = new Size(24, 15);
-            label4.TabIndex = 12;
             label4.Text = "X,Y";
             // 
             // textBox_mapX
@@ -628,7 +606,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_mapX.Location = new Point(46, 67);
             textBox_mapX.Name = "textBox_mapX";
             textBox_mapX.Size = new Size(50, 23);
-            textBox_mapX.TabIndex = 11;
             // 
             // label_Pos
             // 
@@ -637,7 +614,6 @@ namespace eft_dma_radar.UI.Radar
             label_Pos.Margin = new Padding(4, 0, 4, 0);
             label_Pos.Name = "label_Pos";
             label_Pos.Size = new Size(43, 15);
-            label_Pos.TabIndex = 10;
             label_Pos.Text = "coords";
             // 
             // skglControl_Radar
@@ -648,7 +624,6 @@ namespace eft_dma_radar.UI.Radar
             skglControl_Radar.Margin = new Padding(4, 3, 4, 3);
             skglControl_Radar.Name = "skglControl_Radar";
             skglControl_Radar.Size = new Size(1250, 647);
-            skglControl_Radar.TabIndex = 18;
             skglControl_Radar.VSync = true;
             // 
             // tabPage2
@@ -658,7 +633,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(1256, 653);
-            tabPage2.TabIndex = 1;
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
             // 
@@ -677,7 +651,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Settings.Location = new Point(3, 3);
             flowLayoutPanel_Settings.Name = "flowLayoutPanel_Settings";
             flowLayoutPanel_Settings.Size = new Size(1250, 647);
-            flowLayoutPanel_Settings.TabIndex = 10;
             flowLayoutPanel_Settings.WrapContents = false;
             // 
             // flowLayoutPanel_RadarSettings
@@ -714,7 +687,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_RadarSettings.Location = new Point(3, 3);
             flowLayoutPanel_RadarSettings.Name = "flowLayoutPanel_RadarSettings";
             flowLayoutPanel_RadarSettings.Size = new Size(1230, 177);
-            flowLayoutPanel_RadarSettings.TabIndex = 0;
             // 
             // label2
             // 
@@ -724,7 +696,6 @@ namespace eft_dma_radar.UI.Radar
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
             label2.Size = new Size(179, 21);
-            label2.TabIndex = 45;
             label2.Text = "Radar/General Settings";
             // 
             // label24
@@ -732,7 +703,6 @@ namespace eft_dma_radar.UI.Radar
             label24.Location = new Point(3, 21);
             label24.Name = "label24";
             label24.Size = new Size(0, 0);
-            label24.TabIndex = 46;
             label24.Text = "label24";
             // 
             // linkLabel_CheckForUpdates
@@ -744,7 +714,6 @@ namespace eft_dma_radar.UI.Radar
             linkLabel_CheckForUpdates.Margin = new Padding(3, 6, 3, 6);
             linkLabel_CheckForUpdates.Name = "linkLabel_CheckForUpdates";
             linkLabel_CheckForUpdates.Size = new Size(278, 15);
-            linkLabel_CheckForUpdates.TabIndex = 61;
             linkLabel_CheckForUpdates.TabStop = true;
             linkLabel_CheckForUpdates.Text = "Check for updates at lone-eft.com/ongoingsupport";
             linkLabel_CheckForUpdates.LinkClicked += linkLabel_CheckForUpdates_LinkClicked;
@@ -756,7 +725,6 @@ namespace eft_dma_radar.UI.Radar
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(169, 45);
-            label1.TabIndex = 16;
             label1.Text = "Zoom In: F1 / Mouse Whl Up\r\nZoom Out: F2 / Mouse Whl Dn\r\nToggle Fullscreen: F11";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -766,7 +734,6 @@ namespace eft_dma_radar.UI.Radar
             button_Restart.Location = new Point(180, 51);
             button_Restart.Name = "button_Restart";
             button_Restart.Size = new Size(107, 41);
-            button_Restart.TabIndex = 18;
             button_Restart.Text = "Restart Radar";
             button_Restart.UseVisualStyleBackColor = true;
             button_Restart.Click += button_Restart_Click;
@@ -776,7 +743,6 @@ namespace eft_dma_radar.UI.Radar
             button_HotkeyManager.Location = new Point(293, 51);
             button_HotkeyManager.Name = "button_HotkeyManager";
             button_HotkeyManager.Size = new Size(107, 41);
-            button_HotkeyManager.TabIndex = 34;
             button_HotkeyManager.Text = "Hotkey Manager";
             button_HotkeyManager.UseVisualStyleBackColor = true;
             button_HotkeyManager.Click += button_HotkeyManager_Click;
@@ -786,7 +752,6 @@ namespace eft_dma_radar.UI.Radar
             button_Radar_ColorPicker.Location = new Point(406, 51);
             button_Radar_ColorPicker.Name = "button_Radar_ColorPicker";
             button_Radar_ColorPicker.Size = new Size(107, 41);
-            button_Radar_ColorPicker.TabIndex = 21;
             button_Radar_ColorPicker.Text = "Color Picker";
             button_Radar_ColorPicker.UseVisualStyleBackColor = true;
             button_Radar_ColorPicker.Click += button_Radar_ColorPicker_Click;
@@ -796,7 +761,6 @@ namespace eft_dma_radar.UI.Radar
             button_BackupConfig.Location = new Point(519, 51);
             button_BackupConfig.Name = "button_BackupConfig";
             button_BackupConfig.Size = new Size(107, 41);
-            button_BackupConfig.TabIndex = 20;
             button_BackupConfig.Text = "Backup Config";
             button_BackupConfig.UseVisualStyleBackColor = true;
             button_BackupConfig.Click += button_BackupConfig_Click;
@@ -809,7 +773,6 @@ namespace eft_dma_radar.UI.Radar
             label_AimlineLength.Margin = new Padding(4, 0, 4, 0);
             label_AimlineLength.Name = "label_AimlineLength";
             label_AimlineLength.Size = new Size(88, 15);
-            label_AimlineLength.TabIndex = 13;
             label_AimlineLength.Text = "Aimline Length";
             label_AimlineLength.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -825,7 +788,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_AimlineLength.Name = "trackBar_AimlineLength";
             trackBar_AimlineLength.Size = new Size(92, 45);
             trackBar_AimlineLength.SmallChange = 5;
-            trackBar_AimlineLength.TabIndex = 11;
             trackBar_AimlineLength.TickStyle = TickStyle.None;
             trackBar_AimlineLength.Value = 1500;
             // 
@@ -836,7 +798,6 @@ namespace eft_dma_radar.UI.Radar
             label_MaxDist.Location = new Point(828, 66);
             label_MaxDist.Name = "label_MaxDist";
             label_MaxDist.Size = new Size(73, 15);
-            label_MaxDist.TabIndex = 35;
             label_MaxDist.Text = "Max Dist 350";
             // 
             // trackBar_MaxDist
@@ -849,7 +810,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_MaxDist.Minimum = 100;
             trackBar_MaxDist.Name = "trackBar_MaxDist";
             trackBar_MaxDist.Size = new Size(92, 45);
-            trackBar_MaxDist.TabIndex = 36;
             trackBar_MaxDist.TickStyle = TickStyle.None;
             trackBar_MaxDist.Value = 350;
             // 
@@ -860,7 +820,6 @@ namespace eft_dma_radar.UI.Radar
             label_UIScale.Location = new Point(1005, 66);
             label_UIScale.Name = "label_UIScale";
             label_UIScale.Size = new Size(72, 15);
-            label_UIScale.TabIndex = 28;
             label_UIScale.Text = "UI Scale 1.00";
             label_UIScale.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -874,7 +833,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_UIScale.Minimum = 50;
             trackBar_UIScale.Name = "trackBar_UIScale";
             trackBar_UIScale.Size = new Size(92, 45);
-            trackBar_UIScale.TabIndex = 27;
             trackBar_UIScale.TickStyle = TickStyle.None;
             trackBar_UIScale.Value = 100;
             // 
@@ -885,7 +843,6 @@ namespace eft_dma_radar.UI.Radar
             label_ContainerDist.Location = new Point(3, 117);
             label_ContainerDist.Name = "label_ContainerDist";
             label_ContainerDist.Size = new Size(103, 15);
-            label_ContainerDist.TabIndex = 59;
             label_ContainerDist.Text = "Container Dist 150";
             // 
             // trackBar_ContainerDist
@@ -898,7 +855,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_ContainerDist.Minimum = 5;
             trackBar_ContainerDist.Name = "trackBar_ContainerDist";
             trackBar_ContainerDist.Size = new Size(78, 45);
-            trackBar_ContainerDist.TabIndex = 58;
             trackBar_ContainerDist.TickStyle = TickStyle.None;
             trackBar_ContainerDist.Value = 150;
             // 
@@ -908,7 +864,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_MapSetup.Location = new Point(3, 153);
             checkBox_MapSetup.Name = "checkBox_MapSetup";
             checkBox_MapSetup.Size = new Size(153, 19);
-            checkBox_MapSetup.TabIndex = 9;
             checkBox_MapSetup.Text = "Show Map Setup Helper";
             checkBox_MapSetup.UseVisualStyleBackColor = true;
             checkBox_MapSetup.CheckedChanged += checkBox_MapSetup_CheckedChanged;
@@ -919,7 +874,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_Aimview.Location = new Point(162, 153);
             checkBox_Aimview.Name = "checkBox_Aimview";
             checkBox_Aimview.Size = new Size(86, 19);
-            checkBox_Aimview.TabIndex = 19;
             checkBox_Aimview.Text = "ESP Widget";
             checkBox_Aimview.UseVisualStyleBackColor = true;
             checkBox_Aimview.CheckedChanged += checkBox_Aimview_CheckedChanged;
@@ -930,7 +884,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowInfoTab.Location = new Point(254, 153);
             checkBox_ShowInfoTab.Name = "checkBox_ShowInfoTab";
             checkBox_ShowInfoTab.Size = new Size(123, 19);
-            checkBox_ShowInfoTab.TabIndex = 31;
             checkBox_ShowInfoTab.Text = "Player Info Widget";
             checkBox_ShowInfoTab.UseVisualStyleBackColor = true;
             // 
@@ -940,7 +893,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_GrpConnect.Location = new Point(383, 153);
             checkBox_GrpConnect.Name = "checkBox_GrpConnect";
             checkBox_GrpConnect.Size = new Size(112, 19);
-            checkBox_GrpConnect.TabIndex = 33;
             checkBox_GrpConnect.Text = "Connect Groups";
             checkBox_GrpConnect.UseVisualStyleBackColor = true;
             // 
@@ -950,7 +902,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_HideNames.Location = new Point(501, 153);
             checkBox_HideNames.Name = "checkBox_HideNames";
             checkBox_HideNames.Size = new Size(91, 19);
-            checkBox_HideNames.TabIndex = 26;
             checkBox_HideNames.Text = "Hide Names";
             checkBox_HideNames.UseVisualStyleBackColor = true;
             checkBox_HideNames.CheckedChanged += checkBox_HideNames_CheckedChanged;
@@ -961,7 +912,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowMines.Location = new Point(598, 153);
             checkBox_ShowMines.Name = "checkBox_ShowMines";
             checkBox_ShowMines.Size = new Size(90, 19);
-            checkBox_ShowMines.TabIndex = 38;
             checkBox_ShowMines.Text = "Show Mines";
             checkBox_ShowMines.UseVisualStyleBackColor = true;
             // 
@@ -971,7 +921,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_TeammateAimlines.Location = new Point(694, 153);
             checkBox_TeammateAimlines.Name = "checkBox_TeammateAimlines";
             checkBox_TeammateAimlines.Size = new Size(131, 19);
-            checkBox_TeammateAimlines.TabIndex = 39;
             checkBox_TeammateAimlines.Text = "Teammate Aimlines";
             checkBox_TeammateAimlines.UseVisualStyleBackColor = true;
             checkBox_TeammateAimlines.CheckedChanged += checkBox_TeammateAimlines_CheckedChanged;
@@ -985,7 +934,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_AIAimlines.Location = new Point(831, 153);
             checkBox_AIAimlines.Name = "checkBox_AIAimlines";
             checkBox_AIAimlines.Size = new Size(86, 19);
-            checkBox_AIAimlines.TabIndex = 60;
             checkBox_AIAimlines.Text = "AI Aimlines";
             checkBox_AIAimlines.UseVisualStyleBackColor = true;
             checkBox_AIAimlines.CheckedChanged += checkBox_AIAimlines_CheckedChanged;
@@ -1005,7 +953,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel5.Location = new Point(3, 186);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
             flowLayoutPanel5.Size = new Size(1230, 185);
-            flowLayoutPanel5.TabIndex = 61;
             // 
             // label29
             // 
@@ -1015,7 +962,6 @@ namespace eft_dma_radar.UI.Radar
             label29.Location = new Point(3, 0);
             label29.Name = "label29";
             label29.Size = new Size(44, 21);
-            label29.TabIndex = 46;
             label29.Text = "Loot";
             // 
             // checkBox_Loot
@@ -1025,7 +971,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_Loot.Location = new Point(3, 94);
             checkBox_Loot.Name = "checkBox_Loot";
             checkBox_Loot.Size = new Size(105, 19);
-            checkBox_Loot.TabIndex = 17;
             checkBox_Loot.Text = "Show Loot (F3)";
             checkBox_Loot.UseVisualStyleBackColor = true;
             checkBox_Loot.CheckedChanged += checkBox_Loot_CheckedChanged;
@@ -1037,7 +982,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_LootWishlist.Location = new Point(114, 94);
             checkBox_LootWishlist.Name = "checkBox_LootWishlist";
             checkBox_LootWishlist.Size = new Size(126, 19);
-            checkBox_LootWishlist.TabIndex = 61;
             checkBox_LootWishlist.Text = "Show Loot Wishlist";
             checkBox_LootWishlist.UseVisualStyleBackColor = true;
             checkBox_LootWishlist.CheckedChanged += checkBox_LootWishlist_CheckedChanged;
@@ -1049,7 +993,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ShowContainers.Location = new Point(246, 94);
             checkBox_ShowContainers.Name = "checkBox_ShowContainers";
             checkBox_ShowContainers.Size = new Size(147, 19);
-            checkBox_ShowContainers.TabIndex = 47;
             checkBox_ShowContainers.Text = "Show Static Containers";
             checkBox_ShowContainers.UseVisualStyleBackColor = true;
             checkBox_ShowContainers.CheckedChanged += checkBox_ShowContainers_CheckedChanged;
@@ -1067,7 +1010,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Loot_Containers.Location = new Point(399, 28);
             flowLayoutPanel_Loot_Containers.Name = "flowLayoutPanel_Loot_Containers";
             flowLayoutPanel_Loot_Containers.Size = new Size(304, 152);
-            flowLayoutPanel_Loot_Containers.TabIndex = 60;
             // 
             // label30
             // 
@@ -1077,7 +1019,6 @@ namespace eft_dma_radar.UI.Radar
             label30.Location = new Point(3, 0);
             label30.Name = "label30";
             label30.Size = new Size(96, 15);
-            label30.TabIndex = 52;
             label30.Text = "Static Containers";
             // 
             // checkBox_Containers_SelectAll
@@ -1088,7 +1029,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_Containers_SelectAll.Location = new Point(3, 28);
             checkBox_Containers_SelectAll.Name = "checkBox_Containers_SelectAll";
             checkBox_Containers_SelectAll.Size = new Size(74, 19);
-            checkBox_Containers_SelectAll.TabIndex = 61;
             checkBox_Containers_SelectAll.Text = "Select All";
             checkBox_Containers_SelectAll.UseVisualStyleBackColor = true;
             // 
@@ -1099,7 +1039,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_Containers_HideSearched.Location = new Point(89, 28);
             checkBox_Containers_HideSearched.Name = "checkBox_Containers_HideSearched";
             checkBox_Containers_HideSearched.Size = new Size(102, 19);
-            checkBox_Containers_HideSearched.TabIndex = 63;
             checkBox_Containers_HideSearched.Text = "Hide Searched";
             checkBox_Containers_HideSearched.UseVisualStyleBackColor = true;
             checkBox_Containers_HideSearched.CheckedChanged += checkBox_Containers_HideSearched_CheckedChanged;
@@ -1110,7 +1049,6 @@ namespace eft_dma_radar.UI.Radar
             checkedListBox_Containers.Location = new Point(3, 53);
             checkedListBox_Containers.Name = "checkedListBox_Containers";
             checkedListBox_Containers.Size = new Size(296, 94);
-            checkedListBox_Containers.TabIndex = 60;
             // 
             // flowLayoutPanel1
             // 
@@ -1125,7 +1063,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel1.Location = new Point(3, 377);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1230, 181);
-            flowLayoutPanel1.TabIndex = 62;
             // 
             // label_QuestHelper
             // 
@@ -1135,7 +1072,6 @@ namespace eft_dma_radar.UI.Radar
             label_QuestHelper.Location = new Point(3, 0);
             label_QuestHelper.Name = "label_QuestHelper";
             label_QuestHelper.Size = new Size(107, 21);
-            label_QuestHelper.TabIndex = 46;
             label_QuestHelper.Text = "Quest Helper";
             // 
             // checkBox_QuestHelper_Enabled
@@ -1147,7 +1083,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_QuestHelper_Enabled.Location = new Point(3, 92);
             checkBox_QuestHelper_Enabled.Name = "checkBox_QuestHelper_Enabled";
             checkBox_QuestHelper_Enabled.Size = new Size(68, 19);
-            checkBox_QuestHelper_Enabled.TabIndex = 37;
             checkBox_QuestHelper_Enabled.Text = "Enabled";
             checkBox_QuestHelper_Enabled.UseVisualStyleBackColor = true;
             checkBox_QuestHelper_Enabled.CheckedChanged += checkBox_QuestHelper_CheckedChanged;
@@ -1159,7 +1094,6 @@ namespace eft_dma_radar.UI.Radar
             checkedListBox_QuestHelper.Location = new Point(77, 28);
             checkedListBox_QuestHelper.Name = "checkedListBox_QuestHelper";
             checkedListBox_QuestHelper.Size = new Size(343, 148);
-            checkedListBox_QuestHelper.TabIndex = 48;
             // 
             // flowLayoutPanel_MemWriteCheckbox
             // 
@@ -1170,7 +1104,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWriteCheckbox.Location = new Point(3, 564);
             flowLayoutPanel_MemWriteCheckbox.Name = "flowLayoutPanel_MemWriteCheckbox";
             flowLayoutPanel_MemWriteCheckbox.Size = new Size(190, 25);
-            flowLayoutPanel_MemWriteCheckbox.TabIndex = 62;
             // 
             // checkBox_EnableMemWrite
             // 
@@ -1179,7 +1112,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_EnableMemWrite.Location = new Point(3, 3);
             checkBox_EnableMemWrite.Name = "checkBox_EnableMemWrite";
             checkBox_EnableMemWrite.Size = new Size(184, 19);
-            checkBox_EnableMemWrite.TabIndex = 44;
             checkBox_EnableMemWrite.Text = "Enable Memory Writes (Risky)";
             checkBox_EnableMemWrite.UseVisualStyleBackColor = true;
             // 
@@ -1200,7 +1132,9 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastWeaponOps);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_FastLoadUnload);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_ToggleWeaponCollision);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_LongJump);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_UnclampFreeLook);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_InstantPoseChange);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_LTW);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_WideLean);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoVisor);
@@ -1220,7 +1154,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.Location = new Point(3, 595);
             flowLayoutPanel_MemWrites.Name = "flowLayoutPanel_MemWrites";
             flowLayoutPanel_MemWrites.Size = new Size(1230, 328);
-            flowLayoutPanel_MemWrites.TabIndex = 1;
             // 
             // label_MemoryWriteFeatures
             // 
@@ -1328,6 +1261,15 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ToggleWeaponCollision.UseVisualStyleBackColor = true;
             checkBox_ToggleWeaponCollision.CheckedChanged += checkBox_ToggleWeaponCollision_CheckedChanged;
             // 
+            // checkBox_LongJump
+            // 
+            checkBox_LongJump.Anchor = AnchorStyles.Right;
+            checkBox_LongJump.AutoSize = true;
+            checkBox_LongJump.Name = "checkBox_LongJump";
+            checkBox_LongJump.Text = "Long Jump";
+            checkBox_LongJump.UseVisualStyleBackColor = true;
+            checkBox_LongJump.CheckedChanged += checkBox_LongJump_CheckedChanged;
+            // 
             // checkBox_UnclampFreeLook
             // 
             checkBox_UnclampFreeLook.Anchor = AnchorStyles.Right;
@@ -1336,6 +1278,15 @@ namespace eft_dma_radar.UI.Radar
             checkBox_UnclampFreeLook.Text = "Unclamp Free Look";
             checkBox_UnclampFreeLook.UseVisualStyleBackColor = true;
             checkBox_UnclampFreeLook.CheckedChanged += checkBox_UnclampFreeLook_CheckedChanged;
+            // 
+            // checkBox_InstantPoseChange
+            // 
+            checkBox_InstantPoseChange.Anchor = AnchorStyles.Right;
+            checkBox_InstantPoseChange.AutoSize = true;
+            checkBox_InstantPoseChange.Name = "checkBox_InstantPoseChange";
+            checkBox_InstantPoseChange.Text = "Instant Pose Change";
+            checkBox_InstantPoseChange.UseVisualStyleBackColor = true;
+            checkBox_InstantPoseChange.CheckedChanged += checkBox_InstantPoseChange_CheckedChanged;
             // 
             // checkBox_LTW
             // 
@@ -1440,7 +1391,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Aimbot.Location = new Point(9, 107);
             flowLayoutPanel_Aimbot.Name = "flowLayoutPanel_Aimbot";
             flowLayoutPanel_Aimbot.Size = new Size(542, 102);
-            flowLayoutPanel_Aimbot.TabIndex = 4;
             // 
             // label13
             // 
@@ -1450,7 +1400,6 @@ namespace eft_dma_radar.UI.Radar
             label13.Location = new Point(3, 0);
             label13.Name = "label13";
             label13.Size = new Size(113, 15);
-            label13.TabIndex = 0;
             label13.Text = "Aimbot (Silent Aim)";
             // 
             // label23
@@ -1458,7 +1407,6 @@ namespace eft_dma_radar.UI.Radar
             label23.Location = new Point(3, 15);
             label23.Name = "label23";
             label23.Size = new Size(0, 0);
-            label23.TabIndex = 70;
             label23.Text = "label23";
             // 
             // checkBox_SA_SafeLock
@@ -1468,7 +1416,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_SA_SafeLock.Location = new Point(9, 31);
             checkBox_SA_SafeLock.Name = "checkBox_SA_SafeLock";
             checkBox_SA_SafeLock.Size = new Size(76, 19);
-            checkBox_SA_SafeLock.TabIndex = 59;
             checkBox_SA_SafeLock.Text = "Safe Lock";
             checkBox_SA_SafeLock.UseVisualStyleBackColor = true;
             checkBox_SA_SafeLock.CheckedChanged += checkBox_SA_SafeLock_CheckedChanged;
@@ -1480,7 +1427,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_SA_AutoBone.Location = new Point(91, 31);
             checkBox_SA_AutoBone.Name = "checkBox_SA_AutoBone";
             checkBox_SA_AutoBone.Size = new Size(82, 19);
-            checkBox_SA_AutoBone.TabIndex = 0;
             checkBox_SA_AutoBone.Text = "Auto Bone";
             checkBox_SA_AutoBone.UseVisualStyleBackColor = true;
             checkBox_SA_AutoBone.CheckedChanged += checkBox_SA_AutoBone_CheckedChanged;
@@ -1493,7 +1439,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_AimTarget_FOV.Location = new Point(179, 31);
             radioButton_AimTarget_FOV.Name = "radioButton_AimTarget_FOV";
             radioButton_AimTarget_FOV.Size = new Size(47, 19);
-            radioButton_AimTarget_FOV.TabIndex = 52;
             radioButton_AimTarget_FOV.TabStop = true;
             radioButton_AimTarget_FOV.Text = "FOV";
             radioButton_AimTarget_FOV.UseVisualStyleBackColor = true;
@@ -1506,7 +1451,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_AimTarget_CQB.Location = new Point(232, 31);
             radioButton_AimTarget_CQB.Name = "radioButton_AimTarget_CQB";
             radioButton_AimTarget_CQB.Size = new Size(49, 19);
-            radioButton_AimTarget_CQB.TabIndex = 53;
             radioButton_AimTarget_CQB.Text = "CQB";
             radioButton_AimTarget_CQB.UseVisualStyleBackColor = true;
             radioButton_AimTarget_CQB.CheckedChanged += radioButton_AimbotCQBMode_CheckedChanged;
@@ -1518,7 +1462,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_AimbotDisableReLock.Location = new Point(287, 31);
             checkBox_AimbotDisableReLock.Name = "checkBox_AimbotDisableReLock";
             checkBox_AimbotDisableReLock.Size = new Size(110, 19);
-            checkBox_AimbotDisableReLock.TabIndex = 59;
             checkBox_AimbotDisableReLock.Text = "Disable Re-Lock";
             checkBox_AimbotDisableReLock.UseVisualStyleBackColor = true;
             checkBox_AimbotDisableReLock.CheckedChanged += checkBox_AimbotDisableReLock_CheckedChanged;
@@ -1530,7 +1473,6 @@ namespace eft_dma_radar.UI.Radar
             label_AimFOV.Location = new Point(403, 33);
             label_AimFOV.Name = "label_AimFOV";
             label_AimFOV.Size = new Size(50, 15);
-            label_AimFOV.TabIndex = 57;
             label_AimFOV.Text = "FOV 150";
             // 
             // trackBar_AimFOV
@@ -1543,7 +1485,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_AimFOV.Minimum = 5;
             trackBar_AimFOV.Name = "trackBar_AimFOV";
             trackBar_AimFOV.Size = new Size(78, 45);
-            trackBar_AimFOV.TabIndex = 56;
             trackBar_AimFOV.TickStyle = TickStyle.None;
             trackBar_AimFOV.Value = 150;
             // 
@@ -1554,7 +1495,6 @@ namespace eft_dma_radar.UI.Radar
             label10.Location = new Point(3, 75);
             label10.Name = "label10";
             label10.Size = new Size(40, 15);
-            label10.TabIndex = 51;
             label10.Text = "Target";
             // 
             // comboBox_AimbotTarget
@@ -1565,7 +1505,6 @@ namespace eft_dma_radar.UI.Radar
             comboBox_AimbotTarget.Location = new Point(49, 71);
             comboBox_AimbotTarget.Name = "comboBox_AimbotTarget";
             comboBox_AimbotTarget.Size = new Size(121, 23);
-            comboBox_AimbotTarget.TabIndex = 50;
             // 
             // checkBox_AimHeadAI
             // 
@@ -1576,7 +1515,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_AimHeadAI.Location = new Point(176, 73);
             checkBox_AimHeadAI.Name = "checkBox_AimHeadAI";
             checkBox_AimHeadAI.Size = new Size(91, 19);
-            checkBox_AimHeadAI.TabIndex = 2;
             checkBox_AimHeadAI.Text = "Headshot AI";
             checkBox_AimHeadAI.UseVisualStyleBackColor = true;
             checkBox_AimHeadAI.CheckedChanged += checkBox_HeadAI_CheckedChanged;
@@ -1588,7 +1526,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_AimRandomBone.Location = new Point(273, 73);
             checkBox_AimRandomBone.Name = "checkBox_AimRandomBone";
             checkBox_AimRandomBone.Size = new Size(101, 19);
-            checkBox_AimRandomBone.TabIndex = 68;
             checkBox_AimRandomBone.Text = "Random Bone";
             checkBox_AimRandomBone.UseVisualStyleBackColor = true;
             checkBox_AimRandomBone.CheckedChanged += checkBox_AimRandomBone_CheckedChanged;
@@ -1600,7 +1537,6 @@ namespace eft_dma_radar.UI.Radar
             button_RandomBoneCfg.Location = new Point(380, 69);
             button_RandomBoneCfg.Name = "button_RandomBoneCfg";
             button_RandomBoneCfg.Size = new Size(57, 28);
-            button_RandomBoneCfg.TabIndex = 69;
             button_RandomBoneCfg.Text = "Cfg";
             button_RandomBoneCfg.UseVisualStyleBackColor = true;
             button_RandomBoneCfg.Click += button_RandomBoneCfg_Click;
@@ -1619,7 +1555,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_NoRecoil.Location = new Point(557, 107);
             flowLayoutPanel_NoRecoil.Name = "flowLayoutPanel_NoRecoil";
             flowLayoutPanel_NoRecoil.Size = new Size(277, 68);
-            flowLayoutPanel_NoRecoil.TabIndex = 4;
             // 
             // label16
             // 
@@ -1629,7 +1564,6 @@ namespace eft_dma_radar.UI.Radar
             label16.Location = new Point(3, 0);
             label16.Name = "label16";
             label16.Size = new Size(58, 15);
-            label16.TabIndex = 52;
             label16.Text = "No Recoil";
             // 
             // label_Recoil
@@ -1639,7 +1573,6 @@ namespace eft_dma_radar.UI.Radar
             label_Recoil.Location = new Point(3, 33);
             label_Recoil.Name = "label_Recoil";
             label_Recoil.Size = new Size(48, 15);
-            label_Recoil.TabIndex = 50;
             label_Recoil.Text = "Recoil 0";
             // 
             // trackBar_NoRecoil
@@ -1650,7 +1583,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_NoRecoil.Maximum = 100;
             trackBar_NoRecoil.Name = "trackBar_NoRecoil";
             trackBar_NoRecoil.Size = new Size(80, 45);
-            trackBar_NoRecoil.TabIndex = 48;
             trackBar_NoRecoil.TickStyle = TickStyle.None;
             // 
             // label_Sway
@@ -1660,7 +1592,6 @@ namespace eft_dma_radar.UI.Radar
             label_Sway.Location = new Point(143, 33);
             label_Sway.Name = "label_Sway";
             label_Sway.Size = new Size(43, 15);
-            label_Sway.TabIndex = 51;
             label_Sway.Text = "Sway 0";
             // 
             // trackBar_NoSway
@@ -1671,7 +1602,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_NoSway.Maximum = 100;
             trackBar_NoSway.Name = "trackBar_NoSway";
             trackBar_NoSway.Size = new Size(80, 45);
-            trackBar_NoSway.TabIndex = 49;
             trackBar_NoSway.TickStyle = TickStyle.None;
             // 
             // flowLayoutPanel_Chams
@@ -1688,7 +1618,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Chams.Location = new Point(3, 215);
             flowLayoutPanel_Chams.Name = "flowLayoutPanel_Chams";
             flowLayoutPanel_Chams.Size = new Size(457, 108);
-            flowLayoutPanel_Chams.TabIndex = 4;
             // 
             // label17
             // 
@@ -1698,7 +1627,6 @@ namespace eft_dma_radar.UI.Radar
             label17.Location = new Point(3, 0);
             label17.Name = "label17";
             label17.Size = new Size(43, 15);
-            label17.TabIndex = 3;
             label17.Text = "Chams";
             // 
             // radioButton_Chams_Basic
@@ -1709,7 +1637,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_Chams_Basic.Location = new Point(3, 56);
             radioButton_Chams_Basic.Name = "radioButton_Chams_Basic";
             radioButton_Chams_Basic.Size = new Size(52, 19);
-            radioButton_Chams_Basic.TabIndex = 1;
             radioButton_Chams_Basic.TabStop = true;
             radioButton_Chams_Basic.Text = "Basic";
             radioButton_Chams_Basic.UseVisualStyleBackColor = true;
@@ -1723,7 +1650,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_Chams_Visible.Location = new Point(61, 56);
             radioButton_Chams_Visible.Name = "radioButton_Chams_Visible";
             radioButton_Chams_Visible.Size = new Size(59, 19);
-            radioButton_Chams_Visible.TabIndex = 6;
             radioButton_Chams_Visible.Text = "Visible";
             radioButton_Chams_Visible.UseVisualStyleBackColor = true;
             radioButton_Chams_Visible.CheckedChanged += radioButton_Chams_Visible_CheckedChanged;
@@ -1736,7 +1662,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_Chams_Vischeck.Location = new Point(126, 56);
             radioButton_Chams_Vischeck.Name = "radioButton_Chams_Vischeck";
             radioButton_Chams_Vischeck.Size = new Size(71, 19);
-            radioButton_Chams_Vischeck.TabIndex = 2;
             radioButton_Chams_Vischeck.Text = "Vischeck";
             radioButton_Chams_Vischeck.UseVisualStyleBackColor = true;
             radioButton_Chams_Vischeck.CheckedChanged += radioButton_Chams_Vischeck_CheckedChanged;
@@ -1758,7 +1683,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_AdvancedChams.Location = new Point(203, 28);
             flowLayoutPanel_AdvancedChams.Name = "flowLayoutPanel_AdvancedChams";
             flowLayoutPanel_AdvancedChams.Size = new Size(249, 75);
-            flowLayoutPanel_AdvancedChams.TabIndex = 5;
             // 
             // label14
             // 
@@ -1768,7 +1692,6 @@ namespace eft_dma_radar.UI.Radar
             label14.Location = new Point(3, 0);
             label14.Name = "label14";
             label14.Size = new Size(145, 15);
-            label14.TabIndex = 3;
             label14.Text = "Advanced Chams Settings";
             // 
             // label15
@@ -1778,7 +1701,6 @@ namespace eft_dma_radar.UI.Radar
             label15.Location = new Point(3, 22);
             label15.Name = "label15";
             label15.Size = new Size(73, 15);
-            label15.TabIndex = 5;
             label15.Text = "Visible Color";
             // 
             // textBox_VischeckVisColor
@@ -1788,7 +1710,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_VischeckVisColor.MaxLength = 9;
             textBox_VischeckVisColor.Name = "textBox_VischeckVisColor";
             textBox_VischeckVisColor.Size = new Size(72, 23);
-            textBox_VischeckVisColor.TabIndex = 4;
             textBox_VischeckVisColor.TextChanged += textBox_VischeckVisColor_TextChanged;
             // 
             // button_VischeckVisColorPick
@@ -1797,7 +1718,6 @@ namespace eft_dma_radar.UI.Radar
             button_VischeckVisColorPick.Location = new Point(160, 18);
             button_VischeckVisColorPick.Name = "button_VischeckVisColorPick";
             button_VischeckVisColorPick.Size = new Size(75, 23);
-            button_VischeckVisColorPick.TabIndex = 8;
             button_VischeckVisColorPick.Text = "Color";
             button_VischeckVisColorPick.UseVisualStyleBackColor = true;
             button_VischeckVisColorPick.Click += button_VischeckVisColorPick_Click;
@@ -1809,7 +1729,6 @@ namespace eft_dma_radar.UI.Radar
             label33.Location = new Point(3, 51);
             label33.Name = "label33";
             label33.Size = new Size(82, 15);
-            label33.TabIndex = 7;
             label33.Text = "Invisible Color";
             // 
             // textBox_VischeckInvisColor
@@ -1819,7 +1738,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_VischeckInvisColor.MaxLength = 9;
             textBox_VischeckInvisColor.Name = "textBox_VischeckInvisColor";
             textBox_VischeckInvisColor.Size = new Size(72, 23);
-            textBox_VischeckInvisColor.TabIndex = 6;
             textBox_VischeckInvisColor.TextChanged += textBox_VischeckInvisColor_TextChanged;
             // 
             // button_VischeckInvisColorPick
@@ -1827,7 +1745,6 @@ namespace eft_dma_radar.UI.Radar
             button_VischeckInvisColorPick.Location = new Point(169, 47);
             button_VischeckInvisColorPick.Name = "button_VischeckInvisColorPick";
             button_VischeckInvisColorPick.Size = new Size(75, 23);
-            button_VischeckInvisColorPick.TabIndex = 9;
             button_VischeckInvisColorPick.Text = "Color";
             button_VischeckInvisColorPick.UseVisualStyleBackColor = true;
             button_VischeckInvisColorPick.Click += button_VischeckInvisColorPick_Click;
@@ -1844,7 +1761,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_LTW.Location = new Point(466, 215);
             flowLayoutPanel_LTW.Name = "flowLayoutPanel_LTW";
             flowLayoutPanel_LTW.Size = new Size(236, 68);
-            flowLayoutPanel_LTW.TabIndex = 5;
             // 
             // label28
             // 
@@ -1854,7 +1770,6 @@ namespace eft_dma_radar.UI.Radar
             label28.Location = new Point(3, 0);
             label28.Name = "label28";
             label28.Size = new Size(112, 15);
-            label28.TabIndex = 3;
             label28.Text = "Loot Through Walls";
             // 
             // label_LTWAmount
@@ -1864,7 +1779,6 @@ namespace eft_dma_radar.UI.Radar
             label_LTWAmount.Location = new Point(3, 33);
             label_LTWAmount.Name = "label_LTWAmount";
             label_LTWAmount.Size = new Size(110, 15);
-            label_LTWAmount.TabIndex = 59;
             label_LTWAmount.Text = "Zoom Amount 2.00";
             // 
             // trackBar_LTWAmount
@@ -1878,7 +1792,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_LTWAmount.Minimum = 100;
             trackBar_LTWAmount.Name = "trackBar_LTWAmount";
             trackBar_LTWAmount.Size = new Size(78, 45);
-            trackBar_LTWAmount.TabIndex = 58;
             trackBar_LTWAmount.TickStyle = TickStyle.None;
             trackBar_LTWAmount.Value = 200;
             // 
@@ -1896,7 +1809,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_WideLean.Location = new Point(708, 215);
             flowLayoutPanel_WideLean.Name = "flowLayoutPanel_WideLean";
             flowLayoutPanel_WideLean.Size = new Size(340, 68);
-            flowLayoutPanel_WideLean.TabIndex = 64;
             // 
             // label_WideLean
             // 
@@ -1906,7 +1818,6 @@ namespace eft_dma_radar.UI.Radar
             label_WideLean.Location = new Point(3, 0);
             label_WideLean.Name = "label_WideLean";
             label_WideLean.Size = new Size(63, 15);
-            label_WideLean.TabIndex = 3;
             label_WideLean.Text = "Wide Lean";
             // 
             // label21
@@ -1916,7 +1827,6 @@ namespace eft_dma_radar.UI.Radar
             label21.Location = new Point(3, 33);
             label21.Name = "label21";
             label21.Size = new Size(38, 15);
-            label21.TabIndex = 63;
             label21.Text = "Mode";
             // 
             // comboBox_WideLeanMode
@@ -1927,7 +1837,6 @@ namespace eft_dma_radar.UI.Radar
             comboBox_WideLeanMode.Location = new Point(47, 29);
             comboBox_WideLeanMode.Name = "comboBox_WideLeanMode";
             comboBox_WideLeanMode.Size = new Size(121, 23);
-            comboBox_WideLeanMode.TabIndex = 62;
             // 
             // label_WideLeanAmt
             // 
@@ -1936,7 +1845,6 @@ namespace eft_dma_radar.UI.Radar
             label_WideLeanAmt.Location = new Point(174, 33);
             label_WideLeanAmt.Name = "label_WideLeanAmt";
             label_WideLeanAmt.Size = new Size(75, 15);
-            label_WideLeanAmt.TabIndex = 65;
             label_WideLeanAmt.Text = "Amount 0.50";
             // 
             // trackBar_WideLeanAmt
@@ -1948,7 +1856,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_WideLeanAmt.Minimum = 1;
             trackBar_WideLeanAmt.Name = "trackBar_WideLeanAmt";
             trackBar_WideLeanAmt.Size = new Size(80, 45);
-            trackBar_WideLeanAmt.TabIndex = 64;
             trackBar_WideLeanAmt.TickStyle = TickStyle.None;
             trackBar_WideLeanAmt.Value = 50;
             // 
@@ -1968,7 +1875,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MonitorSettings.Location = new Point(3, 929);
             flowLayoutPanel_MonitorSettings.Name = "flowLayoutPanel_MonitorSettings";
             flowLayoutPanel_MonitorSettings.Size = new Size(1230, 70);
-            flowLayoutPanel_MonitorSettings.TabIndex = 2;
             // 
             // label11
             // 
@@ -1978,7 +1884,6 @@ namespace eft_dma_radar.UI.Radar
             label11.Location = new Point(3, 0);
             label11.Name = "label11";
             label11.Size = new Size(206, 21);
-            label11.TabIndex = 46;
             label11.Text = "Monitor Info (Aimbot/ESP)";
             // 
             // label_Width
@@ -1988,7 +1893,6 @@ namespace eft_dma_radar.UI.Radar
             label_Width.Location = new Point(3, 37);
             label_Width.Name = "label_Width";
             label_Width.Size = new Size(39, 15);
-            label_Width.TabIndex = 2;
             label_Width.Text = "Width";
             // 
             // textBox_ResWidth
@@ -1998,7 +1902,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_ResWidth.MaxLength = 5;
             textBox_ResWidth.Name = "textBox_ResWidth";
             textBox_ResWidth.Size = new Size(51, 23);
-            textBox_ResWidth.TabIndex = 0;
             textBox_ResWidth.Text = "1920";
             textBox_ResWidth.TextAlign = HorizontalAlignment.Center;
             textBox_ResWidth.TextChanged += textBox_ResWidth_TextChanged;
@@ -2010,7 +1913,6 @@ namespace eft_dma_radar.UI.Radar
             label_Height.Location = new Point(105, 37);
             label_Height.Name = "label_Height";
             label_Height.Size = new Size(43, 15);
-            label_Height.TabIndex = 3;
             label_Height.Text = "Height";
             // 
             // textBox_ResHeight
@@ -2020,7 +1922,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_ResHeight.MaxLength = 5;
             textBox_ResHeight.Name = "textBox_ResHeight";
             textBox_ResHeight.Size = new Size(51, 23);
-            textBox_ResHeight.TabIndex = 1;
             textBox_ResHeight.Text = "1080";
             textBox_ResHeight.TextAlign = HorizontalAlignment.Center;
             textBox_ResHeight.TextChanged += textBox_ResHeight_TextChanged;
@@ -2030,7 +1931,6 @@ namespace eft_dma_radar.UI.Radar
             button_DetectRes.Location = new Point(211, 24);
             button_DetectRes.Name = "button_DetectRes";
             button_DetectRes.Size = new Size(107, 41);
-            button_DetectRes.TabIndex = 4;
             button_DetectRes.Text = "Auto-Detect";
             button_DetectRes.UseVisualStyleBackColor = true;
             button_DetectRes.Click += button_DetectRes_Click;
@@ -2042,12 +1942,13 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESPSettings.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_ESPSettings.Controls.Add(label12);
             flowLayoutPanel_ESPSettings.Controls.Add(label26);
-            flowLayoutPanel_ESPSettings.Controls.Add(button_StartESP);
+            flowLayoutPanel_ESPSettings.Controls.Add(button_ESP_Start);
             flowLayoutPanel_ESPSettings.Controls.Add(button_EspColorPicker);
-            flowLayoutPanel_ESPSettings.Controls.Add(label_ESPFPSCap);
-            flowLayoutPanel_ESPSettings.Controls.Add(textBox_EspFpsCap);
+            flowLayoutPanel_ESPSettings.Controls.Add(label_ESP_FPSCap);
+            flowLayoutPanel_ESPSettings.Controls.Add(textBox_ESP_FPSCap);
             flowLayoutPanel_ESPSettings.Controls.Add(checkBox_ESP_AutoFS);
-            flowLayoutPanel_ESPSettings.Controls.Add(comboBox_ESPAutoFS);
+            flowLayoutPanel_ESPSettings.Controls.Add(checkBox_ESP_AutoStart);
+            flowLayoutPanel_ESPSettings.Controls.Add(comboBox_ESP_SelectedScreen);
             flowLayoutPanel_ESPSettings.Controls.Add(label_ESP_HighAlert);
             flowLayoutPanel_ESPSettings.Controls.Add(comboBox_ESP_HighAlert);
             flowLayoutPanel_ESPSettings.Controls.Add(checkBox_ESP_Loot);
@@ -2071,7 +1972,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESPSettings.Location = new Point(3, 1005);
             flowLayoutPanel_ESPSettings.Name = "flowLayoutPanel_ESPSettings";
             flowLayoutPanel_ESPSettings.Size = new Size(1230, 311);
-            flowLayoutPanel_ESPSettings.TabIndex = 3;
             // 
             // label12
             // 
@@ -2081,7 +1981,6 @@ namespace eft_dma_radar.UI.Radar
             label12.Location = new Point(3, 0);
             label12.Name = "label12";
             label12.Size = new Size(79, 21);
-            label12.TabIndex = 69;
             label12.Text = "Fuser ESP";
             // 
             // label26
@@ -2089,19 +1988,17 @@ namespace eft_dma_radar.UI.Radar
             label26.Location = new Point(3, 21);
             label26.Name = "label26";
             label26.Size = new Size(0, 0);
-            label26.TabIndex = 70;
             label26.Text = "label26";
             // 
-            // button_StartESP
+            // button_ESP_Start
             // 
-            button_StartESP.Anchor = AnchorStyles.Right;
-            button_StartESP.Location = new Point(9, 24);
-            button_StartESP.Name = "button_StartESP";
-            button_StartESP.Size = new Size(107, 41);
-            button_StartESP.TabIndex = 0;
-            button_StartESP.Text = "Start ESP";
-            button_StartESP.UseVisualStyleBackColor = true;
-            button_StartESP.Click += button_StartESP_Click;
+            button_ESP_Start.Anchor = AnchorStyles.Right;
+            button_ESP_Start.Location = new Point(9, 24);
+            button_ESP_Start.Name = "button_StartESP";
+            button_ESP_Start.Size = new Size(107, 41);
+            button_ESP_Start.Text = "Start ESP";
+            button_ESP_Start.UseVisualStyleBackColor = true;
+            button_ESP_Start.Click += button_ESP_Start_Click;
             // 
             // button_EspColorPicker
             // 
@@ -2109,32 +2006,29 @@ namespace eft_dma_radar.UI.Radar
             button_EspColorPicker.Location = new Point(122, 24);
             button_EspColorPicker.Name = "button_EspColorPicker";
             button_EspColorPicker.Size = new Size(107, 41);
-            button_EspColorPicker.TabIndex = 47;
             button_EspColorPicker.Text = "Color Picker";
             button_EspColorPicker.UseVisualStyleBackColor = true;
             button_EspColorPicker.Click += button_EspColorPicker_Click;
             // 
             // label_ESPFPSCap
             // 
-            label_ESPFPSCap.Anchor = AnchorStyles.Right;
-            label_ESPFPSCap.AutoSize = true;
-            label_ESPFPSCap.Location = new Point(235, 37);
-            label_ESPFPSCap.Name = "label_ESPFPSCap";
-            label_ESPFPSCap.Size = new Size(50, 15);
-            label_ESPFPSCap.TabIndex = 46;
-            label_ESPFPSCap.Text = "FPS Cap";
+            label_ESP_FPSCap.Anchor = AnchorStyles.Right;
+            label_ESP_FPSCap.AutoSize = true;
+            label_ESP_FPSCap.Location = new Point(235, 37);
+            label_ESP_FPSCap.Name = "label_ESPFPSCap";
+            label_ESP_FPSCap.Size = new Size(50, 15);
+            label_ESP_FPSCap.Text = "FPS Cap";
             // 
             // textBox_EspFpsCap
             // 
-            textBox_EspFpsCap.Anchor = AnchorStyles.Right;
-            textBox_EspFpsCap.Location = new Point(291, 33);
-            textBox_EspFpsCap.MaxLength = 4;
-            textBox_EspFpsCap.Name = "textBox_EspFpsCap";
-            textBox_EspFpsCap.Size = new Size(63, 23);
-            textBox_EspFpsCap.TabIndex = 45;
-            textBox_EspFpsCap.Text = "60";
-            textBox_EspFpsCap.TextAlign = HorizontalAlignment.Center;
-            textBox_EspFpsCap.TextChanged += textBox_EspFpsCap_TextChanged;
+            textBox_ESP_FPSCap.Anchor = AnchorStyles.Right;
+            textBox_ESP_FPSCap.Location = new Point(291, 33);
+            textBox_ESP_FPSCap.MaxLength = 4;
+            textBox_ESP_FPSCap.Name = "textBox_ESP_FPSCap";
+            textBox_ESP_FPSCap.Size = new Size(63, 23);
+            textBox_ESP_FPSCap.Text = "60";
+            textBox_ESP_FPSCap.TextAlign = HorizontalAlignment.Center;
+            textBox_ESP_FPSCap.TextChanged += textBox_ESP_FPSCap_TextChanged;
             // 
             // checkBox_ESP_AutoFS
             // 
@@ -2143,22 +2037,30 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_AutoFS.Location = new Point(360, 35);
             checkBox_ESP_AutoFS.Name = "checkBox_ESP_AutoFS";
             checkBox_ESP_AutoFS.Size = new Size(108, 19);
-            checkBox_ESP_AutoFS.TabIndex = 55;
             checkBox_ESP_AutoFS.Text = "Auto Fullscreen";
             checkBox_ESP_AutoFS.UseVisualStyleBackColor = true;
             checkBox_ESP_AutoFS.CheckedChanged += checkBox_ESP_AutoFS_CheckedChanged;
             // 
+            // checkBox_ESP_AutoStart
+            // 
+            checkBox_ESP_AutoStart.Anchor = AnchorStyles.Right;
+            checkBox_ESP_AutoStart.AutoSize = true;
+            checkBox_ESP_AutoStart.Location = new Point(360, 35);
+            checkBox_ESP_AutoStart.Name = "checkBox_ESP_AutoStart";
+            checkBox_ESP_AutoStart.Text = "Auto Start";
+            checkBox_ESP_AutoStart.UseVisualStyleBackColor = true;
+            checkBox_ESP_AutoStart.CheckedChanged += checkBox_ESP_AutoStart_CheckedChanged;
+            // 
             // comboBox_ESPAutoFS
             // 
-            comboBox_ESPAutoFS.Anchor = AnchorStyles.Right;
-            comboBox_ESPAutoFS.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_ESPAutoFS.Enabled = false;
-            comboBox_ESPAutoFS.FormattingEnabled = true;
-            comboBox_ESPAutoFS.Location = new Point(474, 33);
-            comboBox_ESPAutoFS.Name = "comboBox_ESPAutoFS";
-            comboBox_ESPAutoFS.Size = new Size(121, 23);
-            comboBox_ESPAutoFS.TabIndex = 56;
-            comboBox_ESPAutoFS.SelectedIndexChanged += comboBox_ESPAutoFS_SelectedIndexChanged;
+            comboBox_ESP_SelectedScreen.Anchor = AnchorStyles.Right;
+            comboBox_ESP_SelectedScreen.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_ESP_SelectedScreen.Enabled = false;
+            comboBox_ESP_SelectedScreen.FormattingEnabled = true;
+            comboBox_ESP_SelectedScreen.Location = new Point(474, 33);
+            comboBox_ESP_SelectedScreen.Name = "comboBox_ESPAutoFS";
+            comboBox_ESP_SelectedScreen.Size = new Size(121, 23);
+            comboBox_ESP_SelectedScreen.SelectedIndexChanged += comboBox_ESPAutoFS_SelectedIndexChanged;
             // 
             // label_ESP_HighAlert
             // 
@@ -2167,7 +2069,6 @@ namespace eft_dma_radar.UI.Radar
             label_ESP_HighAlert.Location = new Point(601, 37);
             label_ESP_HighAlert.Name = "label_ESP_HighAlert";
             label_ESP_HighAlert.Size = new Size(61, 15);
-            label_ESP_HighAlert.TabIndex = 61;
             label_ESP_HighAlert.Text = "High Alert";
             // 
             // comboBox_ESP_HighAlert
@@ -2179,7 +2080,6 @@ namespace eft_dma_radar.UI.Radar
             comboBox_ESP_HighAlert.Location = new Point(668, 33);
             comboBox_ESP_HighAlert.Name = "comboBox_ESP_HighAlert";
             comboBox_ESP_HighAlert.Size = new Size(121, 23);
-            comboBox_ESP_HighAlert.TabIndex = 62;
             comboBox_ESP_HighAlert.SelectedIndexChanged += comboBox_ESP_HighAlert_SelectedIndexChanged;
             // 
             // checkBox_ESP_Loot
@@ -2188,7 +2088,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_Loot.Location = new Point(3, 71);
             checkBox_ESP_Loot.Name = "checkBox_ESP_Loot";
             checkBox_ESP_Loot.Size = new Size(82, 19);
-            checkBox_ESP_Loot.TabIndex = 58;
             checkBox_ESP_Loot.Text = "Show Loot";
             checkBox_ESP_Loot.UseVisualStyleBackColor = true;
             checkBox_ESP_Loot.CheckedChanged += checkBox_ESP_Loot_CheckedChanged;
@@ -2199,7 +2098,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_Exfils.Location = new Point(91, 71);
             checkBox_ESP_Exfils.Name = "checkBox_ESP_Exfils";
             checkBox_ESP_Exfils.Size = new Size(84, 19);
-            checkBox_ESP_Exfils.TabIndex = 7;
             checkBox_ESP_Exfils.Text = "Show Exfils";
             checkBox_ESP_Exfils.UseVisualStyleBackColor = true;
             checkBox_ESP_Exfils.CheckedChanged += checkBox_ESP_Exfils_CheckedChanged;
@@ -2210,7 +2108,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_Explosives.Location = new Point(181, 71);
             checkBox_ESP_Explosives.Name = "checkBox_ESP_Explosives";
             checkBox_ESP_Explosives.Size = new Size(111, 19);
-            checkBox_ESP_Explosives.TabIndex = 8;
             checkBox_ESP_Explosives.Text = "Show Explosives";
             checkBox_ESP_Explosives.UseVisualStyleBackColor = true;
             checkBox_ESP_Explosives.CheckedChanged += checkBox_ESP_Explosives_CheckedChanged;
@@ -2221,7 +2118,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_ShowMag.Location = new Point(298, 71);
             checkBox_ESP_ShowMag.Name = "checkBox_ESP_ShowMag";
             checkBox_ESP_ShowMag.Size = new Size(109, 19);
-            checkBox_ESP_ShowMag.TabIndex = 60;
             checkBox_ESP_ShowMag.Text = "Show Magazine";
             checkBox_ESP_ShowMag.UseVisualStyleBackColor = true;
             checkBox_ESP_ShowMag.CheckedChanged += checkBox_ESP_ShowMag_CheckedChanged;
@@ -2232,7 +2128,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_Dist.Location = new Point(413, 71);
             checkBox_ESP_Dist.Name = "checkBox_ESP_Dist";
             checkBox_ESP_Dist.Size = new Size(108, 19);
-            checkBox_ESP_Dist.TabIndex = 48;
             checkBox_ESP_Dist.Text = "Show Distances";
             checkBox_ESP_Dist.UseVisualStyleBackColor = true;
             checkBox_ESP_Dist.CheckedChanged += checkBox_ESP_Dist_CheckedChanged;
@@ -2243,7 +2138,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_ShowMines.Location = new Point(527, 71);
             checkBox_ESP_ShowMines.Name = "checkBox_ESP_ShowMines";
             checkBox_ESP_ShowMines.Size = new Size(90, 19);
-            checkBox_ESP_ShowMines.TabIndex = 59;
             checkBox_ESP_ShowMines.Text = "Show Mines";
             checkBox_ESP_ShowMines.UseVisualStyleBackColor = true;
             checkBox_ESP_ShowMines.CheckedChanged += checkBox_ESP_ShowMines_CheckedChanged;
@@ -2254,7 +2148,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_FireportAim.Location = new Point(623, 71);
             checkBox_ESP_FireportAim.Name = "checkBox_ESP_FireportAim";
             checkBox_ESP_FireportAim.Size = new Size(124, 19);
-            checkBox_ESP_FireportAim.TabIndex = 71;
             checkBox_ESP_FireportAim.Text = "Show Fireport Aim";
             checkBox_ESP_FireportAim.UseVisualStyleBackColor = true;
             checkBox_ESP_FireportAim.CheckedChanged += checkBox_ESP_FireportAim_CheckedChanged;
@@ -2265,7 +2158,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_AimFov.Location = new Point(753, 71);
             checkBox_ESP_AimFov.Name = "checkBox_ESP_AimFov";
             checkBox_ESP_AimFov.Size = new Size(105, 19);
-            checkBox_ESP_AimFov.TabIndex = 43;
             checkBox_ESP_AimFov.Text = "Show Aim FOV";
             checkBox_ESP_AimFov.UseVisualStyleBackColor = true;
             checkBox_ESP_AimFov.CheckedChanged += checkBox_ESP_AimFov_CheckedChanged;
@@ -2276,7 +2168,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_AimLock.Location = new Point(864, 71);
             checkBox_ESP_AimLock.Name = "checkBox_ESP_AimLock";
             checkBox_ESP_AimLock.Size = new Size(126, 19);
-            checkBox_ESP_AimLock.TabIndex = 49;
             checkBox_ESP_AimLock.Text = "Show Aimbot Lock";
             checkBox_ESP_AimLock.UseVisualStyleBackColor = true;
             checkBox_ESP_AimLock.CheckedChanged += checkBox_ESP_AimLock_CheckedChanged;
@@ -2287,7 +2178,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_RaidStats.Location = new Point(996, 71);
             checkBox_ESP_RaidStats.Name = "checkBox_ESP_RaidStats";
             checkBox_ESP_RaidStats.Size = new Size(109, 19);
-            checkBox_ESP_RaidStats.TabIndex = 68;
             checkBox_ESP_RaidStats.Text = "Show Raid Stats";
             checkBox_ESP_RaidStats.UseVisualStyleBackColor = true;
             checkBox_ESP_RaidStats.CheckedChanged += checkBox_ESP_RaidStats_CheckedChanged;
@@ -2298,7 +2188,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_StatusText.Location = new Point(1111, 71);
             checkBox_ESP_StatusText.Name = "checkBox_ESP_StatusText";
             checkBox_ESP_StatusText.Size = new Size(114, 19);
-            checkBox_ESP_StatusText.TabIndex = 73;
             checkBox_ESP_StatusText.Text = "Show Status Text";
             checkBox_ESP_StatusText.UseVisualStyleBackColor = true;
             checkBox_ESP_StatusText.CheckedChanged += checkBox_ESP_StatusText_CheckedChanged;
@@ -2309,7 +2198,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESP_FPS.Location = new Point(3, 96);
             checkBox_ESP_FPS.Name = "checkBox_ESP_FPS";
             checkBox_ESP_FPS.Size = new Size(86, 19);
-            checkBox_ESP_FPS.TabIndex = 5;
             checkBox_ESP_FPS.Text = "Display FPS";
             checkBox_ESP_FPS.UseVisualStyleBackColor = true;
             checkBox_ESP_FPS.CheckedChanged += checkBox_ESP_FPS_CheckedChanged;
@@ -2321,7 +2209,6 @@ namespace eft_dma_radar.UI.Radar
             label27.Location = new Point(95, 93);
             label27.Name = "label27";
             label27.Size = new Size(0, 15);
-            label27.TabIndex = 72;
             // 
             // flowLayoutPanel_ESP_PlayerRender
             // 
@@ -2339,7 +2226,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESP_PlayerRender.Location = new Point(3, 121);
             flowLayoutPanel_ESP_PlayerRender.Name = "flowLayoutPanel_ESP_PlayerRender";
             flowLayoutPanel_ESP_PlayerRender.Size = new Size(253, 77);
-            flowLayoutPanel_ESP_PlayerRender.TabIndex = 5;
             // 
             // label18
             // 
@@ -2349,7 +2235,6 @@ namespace eft_dma_radar.UI.Radar
             label18.Location = new Point(3, 0);
             label18.Name = "label18";
             label18.Size = new Size(113, 15);
-            label18.TabIndex = 71;
             label18.Text = "Player Render Mode";
             // 
             // radioButton_ESPRender_None
@@ -2358,7 +2243,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPRender_None.Location = new Point(3, 28);
             radioButton_ESPRender_None.Name = "radioButton_ESPRender_None";
             radioButton_ESPRender_None.Size = new Size(54, 19);
-            radioButton_ESPRender_None.TabIndex = 63;
             radioButton_ESPRender_None.Text = "None";
             radioButton_ESPRender_None.UseVisualStyleBackColor = true;
             radioButton_ESPRender_None.CheckedChanged += radioButton_ESPRender_None_CheckedChanged;
@@ -2370,7 +2254,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPRender_Bones.Location = new Point(63, 28);
             radioButton_ESPRender_Bones.Name = "radioButton_ESPRender_Bones";
             radioButton_ESPRender_Bones.Size = new Size(57, 19);
-            radioButton_ESPRender_Bones.TabIndex = 64;
             radioButton_ESPRender_Bones.TabStop = true;
             radioButton_ESPRender_Bones.Text = "Bones";
             radioButton_ESPRender_Bones.UseVisualStyleBackColor = true;
@@ -2382,7 +2265,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPRender_Box.Location = new Point(126, 28);
             radioButton_ESPRender_Box.Name = "radioButton_ESPRender_Box";
             radioButton_ESPRender_Box.Size = new Size(44, 19);
-            radioButton_ESPRender_Box.TabIndex = 65;
             radioButton_ESPRender_Box.Text = "Box";
             radioButton_ESPRender_Box.UseVisualStyleBackColor = true;
             radioButton_ESPRender_Box.CheckedChanged += radioButton_ESPRender_Box_CheckedChanged;
@@ -2394,7 +2276,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPRender_Presence.Location = new Point(176, 28);
             radioButton_ESPRender_Presence.Name = "radioButton_ESPRender_Presence";
             radioButton_ESPRender_Presence.Size = new Size(72, 19);
-            radioButton_ESPRender_Presence.TabIndex = 67;
             radioButton_ESPRender_Presence.TabStop = true;
             radioButton_ESPRender_Presence.Text = "Presence";
             radioButton_ESPRender_Presence.UseVisualStyleBackColor = true;
@@ -2406,7 +2287,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPRender_Labels.Location = new Point(3, 53);
             checkBox_ESPRender_Labels.Name = "checkBox_ESPRender_Labels";
             checkBox_ESPRender_Labels.Size = new Size(59, 19);
-            checkBox_ESPRender_Labels.TabIndex = 68;
             checkBox_ESPRender_Labels.Text = "Labels";
             checkBox_ESPRender_Labels.UseVisualStyleBackColor = true;
             checkBox_ESPRender_Labels.CheckedChanged += checkBox_ESPRender_Labels_CheckedChanged;
@@ -2417,7 +2297,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPRender_Weapons.Location = new Point(68, 53);
             checkBox_ESPRender_Weapons.Name = "checkBox_ESPRender_Weapons";
             checkBox_ESPRender_Weapons.Size = new Size(75, 19);
-            checkBox_ESPRender_Weapons.TabIndex = 69;
             checkBox_ESPRender_Weapons.Text = "Weapons";
             checkBox_ESPRender_Weapons.UseVisualStyleBackColor = true;
             checkBox_ESPRender_Weapons.CheckedChanged += checkBox_ESPRender_Weapons_CheckedChanged;
@@ -2428,7 +2307,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPRender_Dist.Location = new Point(149, 53);
             checkBox_ESPRender_Dist.Name = "checkBox_ESPRender_Dist";
             checkBox_ESPRender_Dist.Size = new Size(46, 19);
-            checkBox_ESPRender_Dist.TabIndex = 70;
             checkBox_ESPRender_Dist.Text = "Dist";
             checkBox_ESPRender_Dist.UseVisualStyleBackColor = true;
             checkBox_ESPRender_Dist.CheckedChanged += checkBox_ESPRender_Dist_CheckedChanged;
@@ -2450,7 +2328,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESP_AIRender.Location = new Point(262, 121);
             flowLayoutPanel_ESP_AIRender.Name = "flowLayoutPanel_ESP_AIRender";
             flowLayoutPanel_ESP_AIRender.Size = new Size(253, 77);
-            flowLayoutPanel_ESP_AIRender.TabIndex = 5;
             // 
             // label19
             // 
@@ -2460,7 +2337,6 @@ namespace eft_dma_radar.UI.Radar
             label19.Location = new Point(3, 0);
             label19.Name = "label19";
             label19.Size = new Size(93, 15);
-            label19.TabIndex = 74;
             label19.Text = "AI Render Mode";
             // 
             // radioButton_ESPAIRender_None
@@ -2469,7 +2345,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPAIRender_None.Location = new Point(3, 28);
             radioButton_ESPAIRender_None.Name = "radioButton_ESPAIRender_None";
             radioButton_ESPAIRender_None.Size = new Size(54, 19);
-            radioButton_ESPAIRender_None.TabIndex = 63;
             radioButton_ESPAIRender_None.Text = "None";
             radioButton_ESPAIRender_None.UseVisualStyleBackColor = true;
             radioButton_ESPAIRender_None.CheckedChanged += radioButton_ESPAIRender_None_CheckedChanged;
@@ -2481,7 +2356,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPAIRender_Bones.Location = new Point(63, 28);
             radioButton_ESPAIRender_Bones.Name = "radioButton_ESPAIRender_Bones";
             radioButton_ESPAIRender_Bones.Size = new Size(57, 19);
-            radioButton_ESPAIRender_Bones.TabIndex = 64;
             radioButton_ESPAIRender_Bones.TabStop = true;
             radioButton_ESPAIRender_Bones.Text = "Bones";
             radioButton_ESPAIRender_Bones.UseVisualStyleBackColor = true;
@@ -2493,7 +2367,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPAIRender_Box.Location = new Point(126, 28);
             radioButton_ESPAIRender_Box.Name = "radioButton_ESPAIRender_Box";
             radioButton_ESPAIRender_Box.Size = new Size(44, 19);
-            radioButton_ESPAIRender_Box.TabIndex = 65;
             radioButton_ESPAIRender_Box.Text = "Box";
             radioButton_ESPAIRender_Box.UseVisualStyleBackColor = true;
             radioButton_ESPAIRender_Box.CheckedChanged += radioButton_ESPAIRender_Box_CheckedChanged;
@@ -2505,7 +2378,6 @@ namespace eft_dma_radar.UI.Radar
             radioButton_ESPAIRender_Presence.Location = new Point(176, 28);
             radioButton_ESPAIRender_Presence.Name = "radioButton_ESPAIRender_Presence";
             radioButton_ESPAIRender_Presence.Size = new Size(72, 19);
-            radioButton_ESPAIRender_Presence.TabIndex = 67;
             radioButton_ESPAIRender_Presence.Text = "Presence";
             radioButton_ESPAIRender_Presence.UseVisualStyleBackColor = true;
             radioButton_ESPAIRender_Presence.CheckedChanged += radioButton_ESPAIRender_Presence_CheckedChanged;
@@ -2516,7 +2388,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPAIRender_Labels.Location = new Point(3, 53);
             checkBox_ESPAIRender_Labels.Name = "checkBox_ESPAIRender_Labels";
             checkBox_ESPAIRender_Labels.Size = new Size(59, 19);
-            checkBox_ESPAIRender_Labels.TabIndex = 71;
             checkBox_ESPAIRender_Labels.Text = "Labels";
             checkBox_ESPAIRender_Labels.UseVisualStyleBackColor = true;
             checkBox_ESPAIRender_Labels.CheckedChanged += checkBox_ESPAIRender_Labels_CheckedChanged;
@@ -2527,7 +2398,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPAIRender_Weapons.Location = new Point(68, 53);
             checkBox_ESPAIRender_Weapons.Name = "checkBox_ESPAIRender_Weapons";
             checkBox_ESPAIRender_Weapons.Size = new Size(75, 19);
-            checkBox_ESPAIRender_Weapons.TabIndex = 72;
             checkBox_ESPAIRender_Weapons.Text = "Weapons";
             checkBox_ESPAIRender_Weapons.UseVisualStyleBackColor = true;
             checkBox_ESPAIRender_Weapons.CheckedChanged += checkBox_ESPAIRender_Weapons_CheckedChanged;
@@ -2538,7 +2408,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPAIRender_Dist.Location = new Point(149, 53);
             checkBox_ESPAIRender_Dist.Name = "checkBox_ESPAIRender_Dist";
             checkBox_ESPAIRender_Dist.Size = new Size(46, 19);
-            checkBox_ESPAIRender_Dist.TabIndex = 73;
             checkBox_ESPAIRender_Dist.Text = "Dist";
             checkBox_ESPAIRender_Dist.UseVisualStyleBackColor = true;
             checkBox_ESPAIRender_Dist.CheckedChanged += checkBox_ESPAIRender_Dist_CheckedChanged;
@@ -2564,7 +2433,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel4.Location = new Point(3, 204);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
             flowLayoutPanel4.Size = new Size(714, 102);
-            flowLayoutPanel4.TabIndex = 4;
             // 
             // label_EspLootDist
             // 
@@ -2573,7 +2441,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspLootDist.Location = new Point(3, 18);
             label_EspLootDist.Name = "label_EspLootDist";
             label_EspLootDist.Size = new Size(69, 15);
-            label_EspLootDist.TabIndex = 44;
             label_EspLootDist.Text = "Loot Dist 50";
             // 
             // trackBar_EspLootDist
@@ -2585,7 +2452,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspLootDist.Minimum = 5;
             trackBar_EspLootDist.Name = "trackBar_EspLootDist";
             trackBar_EspLootDist.Size = new Size(82, 45);
-            trackBar_EspLootDist.TabIndex = 12;
             trackBar_EspLootDist.TickStyle = TickStyle.None;
             trackBar_EspLootDist.Value = 50;
             // 
@@ -2596,7 +2462,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspImpLootDist.Location = new Point(166, 18);
             label_EspImpLootDist.Name = "label_EspImpLootDist";
             label_EspImpLootDist.Size = new Size(93, 15);
-            label_EspImpLootDist.TabIndex = 51;
             label_EspImpLootDist.Text = "Imp Loot Dist 50";
             // 
             // trackBar_EspImpLootDist
@@ -2608,7 +2473,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspImpLootDist.Minimum = 5;
             trackBar_EspImpLootDist.Name = "trackBar_EspImpLootDist";
             trackBar_EspImpLootDist.Size = new Size(82, 45);
-            trackBar_EspImpLootDist.TabIndex = 52;
             trackBar_EspImpLootDist.TickStyle = TickStyle.None;
             trackBar_EspImpLootDist.Value = 50;
             // 
@@ -2619,7 +2483,6 @@ namespace eft_dma_radar.UI.Radar
             label_ESPContainerDist.Location = new Point(353, 18);
             label_ESPContainerDist.Name = "label_ESPContainerDist";
             label_ESPContainerDist.Size = new Size(97, 15);
-            label_ESPContainerDist.TabIndex = 76;
             label_ESPContainerDist.Text = "Container Dist 50";
             // 
             // trackBar_ESPContainerDist
@@ -2632,7 +2495,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_ESPContainerDist.Minimum = 5;
             trackBar_ESPContainerDist.Name = "trackBar_ESPContainerDist";
             trackBar_ESPContainerDist.Size = new Size(78, 45);
-            trackBar_ESPContainerDist.TabIndex = 75;
             trackBar_ESPContainerDist.TickStyle = TickStyle.None;
             trackBar_ESPContainerDist.Value = 50;
             // 
@@ -2643,7 +2505,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspQuestHelperDist.Location = new Point(3, 69);
             label_EspQuestHelperDist.Name = "label_EspQuestHelperDist";
             label_EspQuestHelperDist.Size = new Size(82, 15);
-            label_EspQuestHelperDist.TabIndex = 53;
             label_EspQuestHelperDist.Text = "Quest Dist 100";
             // 
             // trackBar_EspQuestHelperDist
@@ -2655,7 +2516,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspQuestHelperDist.Minimum = 5;
             trackBar_EspQuestHelperDist.Name = "trackBar_EspQuestHelperDist";
             trackBar_EspQuestHelperDist.Size = new Size(82, 45);
-            trackBar_EspQuestHelperDist.TabIndex = 54;
             trackBar_EspQuestHelperDist.TickStyle = TickStyle.None;
             trackBar_EspQuestHelperDist.Value = 100;
             // 
@@ -2666,7 +2526,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspExplosivesDist.Location = new Point(179, 69);
             label_EspExplosivesDist.Name = "label_EspExplosivesDist";
             label_EspExplosivesDist.Size = new Size(98, 15);
-            label_EspExplosivesDist.TabIndex = 42;
             label_EspExplosivesDist.Text = "Explosives Dist 50";
             // 
             // trackBar_EspGrenadeDist
@@ -2678,7 +2537,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspGrenadeDist.Minimum = 15;
             trackBar_EspGrenadeDist.Name = "trackBar_EspGrenadeDist";
             trackBar_EspGrenadeDist.Size = new Size(82, 45);
-            trackBar_EspGrenadeDist.TabIndex = 43;
             trackBar_EspGrenadeDist.TickStyle = TickStyle.None;
             trackBar_EspGrenadeDist.Value = 50;
             // 
@@ -2689,7 +2547,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspFontScale.Location = new Point(371, 69);
             label_EspFontScale.Name = "label_EspFontScale";
             label_EspFontScale.Size = new Size(85, 15);
-            label_EspFontScale.TabIndex = 16;
             label_EspFontScale.Text = "Font Scale 1.00";
             // 
             // trackBar_EspFontScale
@@ -2701,7 +2558,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspFontScale.Minimum = 50;
             trackBar_EspFontScale.Name = "trackBar_EspFontScale";
             trackBar_EspFontScale.Size = new Size(77, 45);
-            trackBar_EspFontScale.TabIndex = 42;
             trackBar_EspFontScale.TickStyle = TickStyle.None;
             trackBar_EspFontScale.Value = 100;
             // 
@@ -2712,7 +2568,6 @@ namespace eft_dma_radar.UI.Radar
             label_EspLineScale.Location = new Point(545, 69);
             label_EspLineScale.Name = "label_EspLineScale";
             label_EspLineScale.Size = new Size(83, 15);
-            label_EspLineScale.TabIndex = 55;
             label_EspLineScale.Text = "Line Scale 1.00";
             // 
             // trackBar_EspLineScale
@@ -2724,7 +2579,6 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspLineScale.Minimum = 10;
             trackBar_EspLineScale.Name = "trackBar_EspLineScale";
             trackBar_EspLineScale.Size = new Size(77, 45);
-            trackBar_EspLineScale.TabIndex = 56;
             trackBar_EspLineScale.TickStyle = TickStyle.None;
             trackBar_EspLineScale.Value = 100;
             // 
@@ -2734,7 +2588,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(1256, 653);
-            tabPage3.TabIndex = 2;
             tabPage3.Text = "Player Loadouts";
             tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -2746,7 +2599,6 @@ namespace eft_dma_radar.UI.Radar
             richTextBox_PlayersInfo.Name = "richTextBox_PlayersInfo";
             richTextBox_PlayersInfo.ReadOnly = true;
             richTextBox_PlayersInfo.Size = new Size(1256, 653);
-            richTextBox_PlayersInfo.TabIndex = 0;
             richTextBox_PlayersInfo.Text = "";
             // 
             // tabPage4
@@ -2755,7 +2607,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
             tabPage4.Size = new Size(1256, 653);
-            tabPage4.TabIndex = 3;
             tabPage4.Text = "Player History";
             tabPage4.UseVisualStyleBackColor = true;
             // 
@@ -2775,7 +2626,6 @@ namespace eft_dma_radar.UI.Radar
             dataGridView_PlayerHistory.RowHeadersVisible = false;
             dataGridView_PlayerHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_PlayerHistory.Size = new Size(1256, 653);
-            dataGridView_PlayerHistory.TabIndex = 0;
             // 
             // PHistory_Name
             // 
@@ -2887,7 +2737,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
             tabPage5.Size = new Size(1256, 653);
-            tabPage5.TabIndex = 4;
             tabPage5.Text = "Player Watchlist";
             tabPage5.UseVisualStyleBackColor = true;
             // 
@@ -2902,7 +2751,6 @@ namespace eft_dma_radar.UI.Radar
             dataGridView_Watchlist.MultiSelect = false;
             dataGridView_Watchlist.Name = "dataGridView_Watchlist";
             dataGridView_Watchlist.Size = new Size(1250, 647);
-            dataGridView_Watchlist.TabIndex = 0;
             // 
             // Column_PWAcctID
             // 
@@ -2942,7 +2790,6 @@ namespace eft_dma_radar.UI.Radar
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
             tabPage6.Size = new Size(1256, 653);
-            tabPage6.TabIndex = 5;
             tabPage6.Text = "Loot Filters";
             tabPage6.UseVisualStyleBackColor = true;
             // 
@@ -2960,7 +2807,6 @@ namespace eft_dma_radar.UI.Radar
             tableLayoutPanel_ImportantLoot.RowStyles.Add(new RowStyle());
             tableLayoutPanel_ImportantLoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel_ImportantLoot.Size = new Size(1250, 647);
-            tableLayoutPanel_ImportantLoot.TabIndex = 1;
             // 
             // flowLayoutPanel2
             // 
@@ -2977,7 +2823,6 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel2.Location = new Point(3, 3);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new Size(822, 60);
-            flowLayoutPanel2.TabIndex = 2;
             // 
             // checkBox_CurrentLootFilter_Enabled
             // 
@@ -2987,7 +2832,6 @@ namespace eft_dma_radar.UI.Radar
             checkBox_CurrentLootFilter_Enabled.Name = "checkBox_CurrentLootFilter_Enabled";
             checkBox_CurrentLootFilter_Enabled.RightToLeft = RightToLeft.Yes;
             checkBox_CurrentLootFilter_Enabled.Size = new Size(68, 19);
-            checkBox_CurrentLootFilter_Enabled.TabIndex = 8;
             checkBox_CurrentLootFilter_Enabled.Text = "Enabled";
             checkBox_CurrentLootFilter_Enabled.UseVisualStyleBackColor = true;
             checkBox_CurrentLootFilter_Enabled.CheckedChanged += checkBox_CurrentLootFilter_Enabled_CheckedChanged;
@@ -3000,7 +2844,6 @@ namespace eft_dma_radar.UI.Radar
             comboBox_LootFilters.Location = new Point(77, 4);
             comboBox_LootFilters.Name = "comboBox_LootFilters";
             comboBox_LootFilters.Size = new Size(229, 23);
-            comboBox_LootFilters.TabIndex = 4;
             comboBox_LootFilters.SelectedIndexChanged += comboBox_LootFilters_SelectedIndexChanged;
             // 
             // button_LootFilters_Add
@@ -3009,7 +2852,6 @@ namespace eft_dma_radar.UI.Radar
             button_LootFilters_Add.Location = new Point(312, 3);
             button_LootFilters_Add.Name = "button_LootFilters_Add";
             button_LootFilters_Add.Size = new Size(75, 24);
-            button_LootFilters_Add.TabIndex = 5;
             button_LootFilters_Add.Text = "Add";
             button_LootFilters_Add.UseVisualStyleBackColor = true;
             button_LootFilters_Add.Click += button_LootFilters_Add_Click;
@@ -3020,7 +2862,6 @@ namespace eft_dma_radar.UI.Radar
             button_LootFilters_Rename.Location = new Point(393, 3);
             button_LootFilters_Rename.Name = "button_LootFilters_Rename";
             button_LootFilters_Rename.Size = new Size(75, 24);
-            button_LootFilters_Rename.TabIndex = 7;
             button_LootFilters_Rename.Text = "Rename";
             button_LootFilters_Rename.UseVisualStyleBackColor = true;
             button_LootFilters_Rename.Click += button_LootFilters_Rename_Click;
@@ -3032,7 +2873,6 @@ namespace eft_dma_radar.UI.Radar
             button_LootFilters_Delete.Location = new Point(474, 3);
             button_LootFilters_Delete.Name = "button_LootFilters_Delete";
             button_LootFilters_Delete.Size = new Size(75, 25);
-            button_LootFilters_Delete.TabIndex = 6;
             button_LootFilters_Delete.Text = "Delete";
             button_LootFilters_Delete.UseVisualStyleBackColor = true;
             button_LootFilters_Delete.Click += button_LootFilters_Delete_Click;
@@ -3045,7 +2885,6 @@ namespace eft_dma_radar.UI.Radar
             comboBox_LootFiltersItem_Items.Location = new Point(3, 34);
             comboBox_LootFiltersItem_Items.Name = "comboBox_LootFiltersItem_Items";
             comboBox_LootFiltersItem_Items.Size = new Size(467, 23);
-            comboBox_LootFiltersItem_Items.TabIndex = 1;
             // 
             // textBox_LootFiltersItem_Search
             // 
@@ -3055,7 +2894,6 @@ namespace eft_dma_radar.UI.Radar
             textBox_LootFiltersItem_Search.Name = "textBox_LootFiltersItem_Search";
             textBox_LootFiltersItem_Search.PlaceholderText = "Search by item name...";
             textBox_LootFiltersItem_Search.Size = new Size(250, 23);
-            textBox_LootFiltersItem_Search.TabIndex = 2;
             textBox_LootFiltersItem_Search.TextChanged += textBox_ImpLoot_Search_TextChanged;
             // 
             // button_LootFiltersItem_Add
@@ -3064,7 +2902,6 @@ namespace eft_dma_radar.UI.Radar
             button_LootFiltersItem_Add.Location = new Point(732, 34);
             button_LootFiltersItem_Add.Name = "button_LootFiltersItem_Add";
             button_LootFiltersItem_Add.Size = new Size(87, 23);
-            button_LootFiltersItem_Add.TabIndex = 3;
             button_LootFiltersItem_Add.Text = "Add";
             button_LootFiltersItem_Add.UseVisualStyleBackColor = true;
             button_LootFiltersItem_Add.Click += button_ImpLoot_Add_Click;
@@ -3078,7 +2915,6 @@ namespace eft_dma_radar.UI.Radar
             dataGridView_Loot.MultiSelect = false;
             dataGridView_Loot.Name = "dataGridView_Loot";
             dataGridView_Loot.Size = new Size(1316, 575);
-            dataGridView_Loot.TabIndex = 0;
             // 
             // Column_LootEnabled
             // 
@@ -3295,7 +3131,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_Chams;
         private RadioButton radioButton_AimTarget_CQB;
         private RadioButton radioButton_AimTarget_FOV;
-        private Button button_StartESP;
+        private Button button_ESP_Start;
         private CheckBox checkBox_ESP_Explosives;
         private CheckBox checkBox_ESP_Exfils;
         private CheckBox checkBox_ESP_FPS;
@@ -3305,8 +3141,8 @@ namespace eft_dma_radar.UI.Radar
         private TrackBar trackBar_EspGrenadeDist;
         private Label label_EspExplosivesDist;
         private Label label_EspLootDist;
-        private Label label_ESPFPSCap;
-        private TextBox textBox_EspFpsCap;
+        private Label label_ESP_FPSCap;
+        private TextBox textBox_ESP_FPSCap;
         private Label label_AimFOV;
         private TrackBar trackBar_AimFOV;
         private CheckBox checkBox_ESP_AimFov;
@@ -3326,8 +3162,9 @@ namespace eft_dma_radar.UI.Radar
         private TrackBar trackBar_NoRecoil;
         private Label label_Sway;
         private Label label_Recoil;
-        private ComboBox comboBox_ESPAutoFS;
+        private ComboBox comboBox_ESP_SelectedScreen;
         private CheckBox checkBox_ESP_AutoFS;
+        private CheckBox checkBox_ESP_AutoStart;
         private CheckBox checkBox_ESP_Loot;
         private CheckBox checkBox_ESP_ShowMines;
         private CheckBox checkBox_ShowMines;
@@ -3454,8 +3291,10 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_AdvancedPatches;
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
+        private CheckBox checkBox_LongJump;
         private CheckBox checkBox_ToggleWeaponCollision;
         private CheckBox checkBox_UnclampFreeLook;
+        private CheckBox checkBox_InstantPoseChange;
         private FlowLayoutPanel flowLayoutPanel_AdvancedChams;
         private Label label14;
         private Label label15;

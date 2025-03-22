@@ -7,17 +7,19 @@ using eft_dma_shared.Common.Unity;
 
 namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
 {
-    class ToggleWeaponCollision : MemWriteFeature<ToggleWeaponCollision>
+    class LongJump : MemWriteFeature<LongJump>
     {
-        private static uint original_WEAPON_OCCLUSION_LAYERS = 1082136832;
-        private static uint new_WEAPON_OCCLUSION_LAYERS = 0;
+        private static float original_AIR_CONTROL_SAME_DIR = 1.2f;
+        private static float original_AIR_CONTROL_NONE_OR_ORT_DIR = 0.9f;
+        private static float new_AIR_CONTROL_SAME_DIR = LongJump.original_AIR_CONTROL_SAME_DIR * 10f; // For testing purposes I'll just do 10x
+        private static float new_AIR_CONTROL_NONE_OR_ORT_DIR = LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR * 10f;
         private static ulong hardSettingsStaticFieldData = 0;
         private bool isApplied = false;
 
         public override bool Enabled
         {
-            get => MemWrites.Config.ToggleWeaponCollision;
-            set => MemWrites.Config.ToggleWeaponCollision = value;
+            get => MemWrites.Config.LongJump;
+            set => MemWrites.Config.LongJump = value;
         }
 
         public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
@@ -28,7 +30,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             {
                 if (this.Enabled && !this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.new_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.new_AIR_CONTROL_SAME_DIR);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.new_AIR_CONTROL_NONE_OR_ORT_DIR);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -40,7 +43,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                 }
                 else if (!this.Enabled && this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.original_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR);
+                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
@@ -61,8 +65,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (ToggleWeaponCollision.hardSettingsStaticFieldData == 0)
-                ToggleWeaponCollision.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (LongJump.hardSettingsStaticFieldData == 0)
+                LongJump.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
         }
     }
 }

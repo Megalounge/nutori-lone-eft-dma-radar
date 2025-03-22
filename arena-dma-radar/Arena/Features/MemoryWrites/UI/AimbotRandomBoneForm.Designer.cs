@@ -57,7 +57,6 @@
             groupBox_RandomBone.Location = new Point(0, 0);
             groupBox_RandomBone.Name = "groupBox_RandomBone";
             groupBox_RandomBone.Size = new Size(313, 192);
-            groupBox_RandomBone.TabIndex = 0;
             groupBox_RandomBone.TabStop = false;
             groupBox_RandomBone.Text = "Body Zone Percentages";
             // 
@@ -66,7 +65,6 @@
             button_OK.Location = new Point(116, 146);
             button_OK.Name = "button_OK";
             button_OK.Size = new Size(81, 34);
-            button_OK.TabIndex = 8;
             button_OK.Text = "OK";
             button_OK.UseVisualStyleBackColor = true;
             button_OK.Click += button_OK_Click;
@@ -77,7 +75,6 @@
             textBox_Legs.MaxLength = 3;
             textBox_Legs.Name = "textBox_Legs";
             textBox_Legs.Size = new Size(64, 23);
-            textBox_Legs.TabIndex = 7;
             textBox_Legs.Text = "26";
             textBox_Legs.TextChanged += textBox_Legs_TextChanged;
             // 
@@ -87,7 +84,6 @@
             textBox_Arms.MaxLength = 3;
             textBox_Arms.Name = "textBox_Arms";
             textBox_Arms.Size = new Size(64, 23);
-            textBox_Arms.TabIndex = 6;
             textBox_Arms.Text = "26";
             textBox_Arms.TextChanged += textBox_Arms_TextChanged;
             // 
@@ -97,7 +93,6 @@
             textBox_Torso.MaxLength = 3;
             textBox_Torso.Name = "textBox_Torso";
             textBox_Torso.Size = new Size(64, 23);
-            textBox_Torso.TabIndex = 5;
             textBox_Torso.Text = "38";
             textBox_Torso.TextChanged += textBox_Torso_TextChanged;
             // 
@@ -107,7 +102,6 @@
             textBox_Head.MaxLength = 3;
             textBox_Head.Name = "textBox_Head";
             textBox_Head.Size = new Size(64, 23);
-            textBox_Head.TabIndex = 4;
             textBox_Head.Text = "10";
             textBox_Head.TextChanged += textBox_Head_TextChanged;
             // 
@@ -117,7 +111,6 @@
             label4.Location = new Point(10, 118);
             label4.Name = "label4";
             label4.Size = new Size(31, 15);
-            label4.TabIndex = 3;
             label4.Text = "Legs";
             // 
             // label3
@@ -126,7 +119,6 @@
             label3.Location = new Point(6, 89);
             label3.Name = "label3";
             label3.Size = new Size(35, 15);
-            label3.TabIndex = 2;
             label3.Text = "Arms";
             // 
             // label2
@@ -135,7 +127,6 @@
             label2.Location = new Point(6, 58);
             label2.Name = "label2";
             label2.Size = new Size(35, 15);
-            label2.TabIndex = 1;
             label2.Text = "Torso";
             // 
             // label1
@@ -144,7 +135,6 @@
             label1.Location = new Point(6, 29);
             label1.Name = "label1";
             label1.Size = new Size(35, 15);
-            label1.TabIndex = 0;
             label1.Text = "Head";
             // 
             // AimbotRandomBoneForm

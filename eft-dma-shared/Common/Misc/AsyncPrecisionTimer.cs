@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
+﻿using System.Runtime.Intrinsics.X86;
+using System.Threading.Tasks;
 
 namespace eft_dma_shared.Common.Misc
 {
     /// <summary>
     /// Provides a High Precision Timer mechanism that resolves to 100-nanosecond periods.
+    /// Current implementation will wait for the previously called EventHandler (AsyncPrecisionTimer::Elapsed) to finish before restarting the timer if it has not already.
     /// </summary>
-    public sealed class PrecisionTimer : IDisposable
+    public sealed class AsyncPrecisionTimer : IDisposable
     {
         private readonly WaitTimer _timer = new();
         private readonly TimeSpan _interval;
@@ -16,13 +17,18 @@ namespace eft_dma_shared.Common.Misc
         /// Callback to execute when timer fires.
         /// </summary>
         public event EventHandler Elapsed = null;
+        
+        /// <summary>
+        /// Thread running the previously called ElpasedEventHandler
+        /// </summary>
+        private Task? ElapsedEventHandlerThread = default;
 
-        public PrecisionTimer()
+        public AsyncPrecisionTimer()
         {
             _timer = new();
         }
 
-        public PrecisionTimer(TimeSpan interval)
+        public AsyncPrecisionTimer(TimeSpan interval)
         {
             _interval = interval;
         }
@@ -49,17 +55,13 @@ namespace eft_dma_shared.Common.Misc
             _isRunning = false;
         }
 
-        private void Worker()
+        private async void Worker()
         {
             _isRunning = true;
             while (_isRunning)
             {
                 try
                 {
-                    Stopwatch ElapsedInvokeTimer = Stopwatch.StartNew();
-                    Elapsed?.Invoke(this, EventArgs.Empty);
-                    ElapsedInvokeTimer.Stop();
-
                     if (_interval <= TimeSpan.Zero) // Busy wait
                     {
                         if (X86Base.IsSupported)
@@ -68,7 +70,12 @@ namespace eft_dma_shared.Common.Misc
                             Thread.Yield();
                     }
                     else
-                        _timer.AutoWait(_interval - new TimeSpan(ElapsedInvokeTimer.ElapsedTicks));
+                        _timer.AutoWait(_interval);
+                    if (_isRunning)
+                    {
+                        if (ElapsedEventHandlerThread != null) await ElapsedEventHandlerThread;
+                        ElapsedEventHandlerThread = Task.Run(() => { Elapsed?.Invoke(this, EventArgs.Empty); });
+                    }
                 }
                 catch { }
             }

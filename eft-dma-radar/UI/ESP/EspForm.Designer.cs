@@ -40,7 +40,6 @@
             skglControl_ESP.Margin = new Padding(4, 3, 4, 3);
             skglControl_ESP.Name = "skglControl_ESP";
             skglControl_ESP.Size = new Size(624, 441);
-            skglControl_ESP.TabIndex = 0;
             skglControl_ESP.VSync = false;
             // 
             // EspForm

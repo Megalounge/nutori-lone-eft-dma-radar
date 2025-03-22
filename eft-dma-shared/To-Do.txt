@@ -1,0 +1,1 @@
+﻿Would be nice to add a way to register a custom exeception handler for "PrecisionTimer", and "AsyncPrecisionTimer"

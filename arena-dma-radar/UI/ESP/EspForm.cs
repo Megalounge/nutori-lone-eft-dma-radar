@@ -69,8 +69,7 @@ namespace arena_dma_radar.UI.ESP
                 this.Size = CameraManagerBase.Viewport.Size;
             }
 
-            var interval = Config.ESP.FPSCap == 0 ?
-                TimeSpan.Zero : TimeSpan.FromMilliseconds(1000d / Config.ESP.FPSCap);
+            TimeSpan interval = (Config.ESP.FPSCap != 0) ? TimeSpan.FromMilliseconds(1000d / Config.ESP.FPSCap) : TimeSpan.Zero;
             _renderTimer = new PrecisionTimer(interval);
             this.Shown += EspForm_Shown;
         }

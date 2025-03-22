@@ -197,9 +197,12 @@ namespace SDK
 			public const uint LOOT_RAYCAST_DISTANCE = 0x230; // Single
 			public const uint DOOR_RAYCAST_DISTANCE = 0x234; // Single
 			public const uint STOP_AIMING_AT = 0x284; // Single
+            public const uint AIR_CONTROL_SAME_DIR = 0x20C; // Single
+            public const uint AIR_CONTROL_NONE_OR_ORT_DIR = 0x214; // Single
             public const uint WEAPON_OCCLUSION_LAYERS = 0x2A8; // Single
             public const uint MOUSE_LOOK_HORIZONTAL_LIMIT = 0x37C; // UnityEngine.Vector2
             public const uint MOUSE_LOOK_VERTICAL_LIMIT = 0x384; // UnityEngine.Vector2
+            public const uint POSE_CHANGING_SPEED = 0x3B0; // Single
         }
 
 		public readonly partial struct ExfilController
@@ -518,7 +521,8 @@ namespace SDK
 		public readonly partial struct MovementContext
 		{
 			public const uint Player = 0x10; // EFT.Player
-			public const uint CurrentState = 0xE0; // EFT.BaseMovementState
+            public const uint PlantState = 0x68; // EFT.Player
+            public const uint CurrentState = 0xE0; // EFT.BaseMovementState
 			public const uint _states = 0x1E0; // System.Collections.Generic.Dictionary<Byte, BaseMovementState>
 			public const uint _movementStates = 0x200; // -.IPlayerStateContainerBehaviour[]
 			public const uint _tilt = 0x268; // Single
