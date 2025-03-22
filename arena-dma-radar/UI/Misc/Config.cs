@@ -23,8 +23,8 @@ namespace arena_dma_radar.UI.Misc
 
         public ChamsConfig ChamsConfig => this.MemWrites.Chams;
 
-        public bool Patches => this.MemWrites.Patches;
-        public bool AdvancedPatches => this.MemWrites.AdvancedPatches;
+        public bool MonoPatches => this.MemWrites.MonoPatches;
+        public bool NativePatches => this.MemWrites.NativePatches;
 
         #endregion
 
@@ -285,16 +285,16 @@ namespace arena_dma_radar.UI.Misc
         public bool MemWritesEnabled { get; set; } = false;
 
         /// <summary>
-        /// Enables Advanced Mem Writes Features (NativeHook).
+        /// Enables mono patches.
         /// </summary>
-        [JsonPropertyName("patches")]
-        public bool Patches { get; set; } = false;
+        [JsonPropertyName("monoPatches")]
+        public bool MonoPatches { get; set; } = false;
         
         /// <summary>
-        /// Enables Advanced Mem Writes Features (NativeHook).
+        /// Enables native patches (NativeHook, Anti-Page, Chams...)
         /// </summary>
-        [JsonPropertyName("advancedPatches")]
-        public bool AdvancedPatches { get; set; } = false;
+        [JsonPropertyName("nativePatches")]
+        public bool NativePatches { get; set; } = false;
 
         /// <summary>
         /// Enables the AntiPage Feature.

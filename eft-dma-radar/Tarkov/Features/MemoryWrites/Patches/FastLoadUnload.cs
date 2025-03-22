@@ -54,7 +54,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
                 {
                     if (Enabled)
                     {
-                        if (Program.Config.Patches && !IsApplied)
+                        if (Program.Config.MonoPatches && !IsApplied)
                         {
                             if (!base.TryApply())
                                 return false;
@@ -91,7 +91,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
 
         private static ulong Lookup_getLoadUnloadModifier()
         {
-            if (MemWrites.Config.AdvancedPatches)
+            if (MemWrites.Config.NativePatches)
             {
                 if (!NativeHook.Initialized)
                     throw new Exception("NativeHook not initialized.");

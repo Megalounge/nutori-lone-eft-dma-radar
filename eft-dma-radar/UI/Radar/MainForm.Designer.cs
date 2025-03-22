@@ -105,8 +105,8 @@ namespace eft_dma_radar.UI.Radar
             checkBox_EnableMemWrite = new CheckBox();
             flowLayoutPanel_MemWrites = new FlowLayoutPanel();
             label_MemoryWriteFeatures = new Label();
-            checkBox_Patches = new CheckBox();
-            checkBox_AdvancedPatches = new CheckBox();
+            checkBox_MonoPatches = new CheckBox();
+            checkBox_NativePatches = new CheckBox();
             checkBox_AntiPage = new CheckBox();
             checkBox_AimBotEnabled = new CheckBox();
             checkBox_NoRecoilSway = new CheckBox();
@@ -1121,8 +1121,8 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_MemWrites.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel_MemWrites.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_MemWrites.Controls.Add(label_MemoryWriteFeatures);
-            flowLayoutPanel_MemWrites.Controls.Add(checkBox_Patches);
-            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedPatches);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_MonoPatches);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_NativePatches);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AntiPage);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AimBotEnabled);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoRecoilSway);
@@ -1163,21 +1163,21 @@ namespace eft_dma_radar.UI.Radar
             label_MemoryWriteFeatures.Name = "label_MemoryWriteFeatures";
             label_MemoryWriteFeatures.Text = "Memory Write Features";
             // 
-            // checkBox_Patches
+            // checkBox_MonoPatches
             // 
-            checkBox_Patches.AutoSize = true;
-            checkBox_Patches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox_Patches.Name = "checkBox_Patches";
-            checkBox_Patches.Text = "Enable Patches (Risky)";
-            checkBox_Patches.UseVisualStyleBackColor = true;
+            checkBox_MonoPatches.AutoSize = true;
+            checkBox_MonoPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_MonoPatches.Name = "checkBox_MonoPatches";
+            checkBox_MonoPatches.Text = "Enable Mono Patches (Risky)";
+            checkBox_MonoPatches.UseVisualStyleBackColor = true;
             // 
-            // checkBox_AdvancedPatches
+            // checkBox_NativePatches
             // 
-            checkBox_AdvancedPatches.AutoSize = true;
-            checkBox_AdvancedPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox_AdvancedPatches.Name = "checkBox_AdvancedPatches";
-            checkBox_AdvancedPatches.Text = "Enable Advanced Patches (Very Risky)";
-            checkBox_AdvancedPatches.UseVisualStyleBackColor = true;
+            checkBox_NativePatches.AutoSize = true;
+            checkBox_NativePatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_NativePatches.Name = "checkBox_NativePatches";
+            checkBox_NativePatches.Text = "Enable Native Patches (Very Risky)";
+            checkBox_NativePatches.UseVisualStyleBackColor = true;
             // 
             // checkBox_AntiPage
             // 
@@ -3287,8 +3287,8 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_Containers_HideSearched;
         private Button button_GymHack;
         private CheckBox checkBox_FullBright;
-        private CheckBox checkBox_Patches;
-        private CheckBox checkBox_AdvancedPatches;
+        private CheckBox checkBox_MonoPatches;
+        private CheckBox checkBox_NativePatches;
         private CheckBox checkBox_FastWeaponOps;
         private CheckBox checkBox_FastLoadUnload;
         private CheckBox checkBox_LongJump;

@@ -21,7 +21,7 @@ namespace eft_dma_shared.Common.Features
 
         public virtual bool Enabled { get; set; }
 
-        public virtual bool CanRun => Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.Patches;
+        public virtual bool CanRun => Memory.Ready && Enabled && DelayElapsed && SharedProgram.Config.MonoPatches;
 
         public bool IsApplied { get; protected set; }
 

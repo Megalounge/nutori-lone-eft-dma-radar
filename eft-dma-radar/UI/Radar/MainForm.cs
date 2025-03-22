@@ -573,49 +573,49 @@ namespace eft_dma_radar.UI.Radar
             MemWriteFeature<FastWeaponOps>.Instance.Enabled = checkBox_FastWeaponOps.Checked;
         }
 
-        private void checkBox_Patches_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_MonoPatches_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = checkBox_Patches.Checked;
+            bool enabled = checkBox_MonoPatches.Checked;
             if (enabled)
             {
                 var dlg = MessageBox.Show(
-                    "Are you sure you want to enable Patches? This uses a riskier injection technique than regular Mem Write Features.",
-                    "Enable Patches?",
+                    "Are you sure you want to enable Mono Patches? This feature enables the patching of Mono-compiled functions. It's generally less risky than patching native functions, but is still ill-advised. Use at your own risk.",
+                    "Enable Mono Patches?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg is DialogResult.Yes)
                 {
-                    MemWrites.Config.Patches = enabled;
+                    MemWrites.Config.MonoPatches = enabled;
                     TogglePatchingFeatures(enabled);
                 }
                 else
-                    checkBox_Patches.Checked = false;
+                    checkBox_MonoPatches.Checked = false;
             }
             else
             {
-                MemWrites.Config.Patches = false;
+                MemWrites.Config.MonoPatches = false;
             }
         }
         
-        private void checkBox_AdvancedPatches_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_NativePatches_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = checkBox_AdvancedPatches.Checked;
+            bool enabled = checkBox_NativePatches.Checked;
             if (enabled)
             {
                 var dlg = MessageBox.Show(
-                    "Are you sure you want to enable Advanced Patches? This uses a riskier injection technique than regular Mem Write Features.",
-                    "Enable Advanced Patches?",
+                    "Are you sure you want to enable Native Patches? This code modification technique is generally discouraged, especially when using something such as DMA, as it significantly increases the chance of detection of modifications. Use at your own risk.",
+                    "Enable Native Patches?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg is DialogResult.Yes)
                 {
-                    MemWrites.Config.AdvancedPatches = enabled;
+                    MemWrites.Config.NativePatches = enabled;
                     ToggleAdvPatchingFeatures(enabled);
                 }
                 else
-                    checkBox_AdvancedPatches.Checked = false;
+                    checkBox_NativePatches.Checked = false;
             }
             else
             {
-                MemWrites.Config.AdvancedPatches = false;
+                MemWrites.Config.NativePatches = false;
             }
         }
 
@@ -1804,17 +1804,17 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_GymHack, "Enables the Gym Hack Feature which causes your workouts always to succeed.\n" +
                 "NOTE: After enabling this feature you must start a workout within 15 seconds for the hack to be applied. Complete your first rep normally, and then it should activate for following reps.\n" +
                 "NOTE: You must still 'left click' on each repetition.");
-            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Patches. Includes (but not limited to):\n" +
+            toolTip1.SetToolTip(checkBox_MonoPatches, "Enables Mono Patches. Includes (but not limited to):\n" +
                 "- Gym Hack.\n" +
                 "- No Weapon Malfunction.\n" +
                 "- Enhanced reliability of some features (Passive)." +
-                "\n\nWARNING: These features use a riskier injection technique. Use at your own risk.");
-            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Advanced Patches. Includes (but not limited to):\n" +
+                "\n\nWARNING: This feature enables the patching of Mono-compiled functions. It's generally less risky than patching native functions, but is still ill-advised. Use at your own risk.");
+            toolTip1.SetToolTip(checkBox_NativePatches, "Enables Native Patches. Includes (but not limited to):\n" +
                 "- AntiPage Feature.\n" +
                 "- Advanced Chams Options.\n" +
                 "- Show proper AI Enemy Types (Passive).\n" +
                 "- Enhanced reliability of some features (Passive)." +
-                "\n\nWARNING: These features use a riskier injection technique. Use at your own risk.");
+                "\n\nWARNING: This code modification technique is generally discouraged, especially when using something such as DMA, as it significantly increases the chance of detection of modifications. Use at your own risk.");
             toolTip1.SetToolTip(radioButton_Loot_FleaPrice, "Loot prices use the optimal flea market price for the item based on ~realtime market value for displayed loot items.");
             toolTip1.SetToolTip(radioButton_Loot_VendorPrice, "Loot prices use the highest trader price for displayed loot items.");
             toolTip1.SetToolTip(checkBox_AntiPage, "Attempts to prevent memory paging out. This can help if you are experiencing 'paging out' (see the FAQ in Discord).\n" +
@@ -1852,13 +1852,13 @@ namespace eft_dma_radar.UI.Radar
             /// Setup Memwrites
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;
             flowLayoutPanel_MemWrites.Enabled = MemWrites.Enabled;
-            checkBox_Patches.Checked = MemWrites.Config.Patches;
-            TogglePatchingFeatures(MemWrites.Config.Patches);
-            checkBox_AdvancedPatches.Checked = MemWrites.Config.AdvancedPatches;
-            ToggleAdvPatchingFeatures(MemWrites.Config.AdvancedPatches);
+            checkBox_MonoPatches.Checked = MemWrites.Config.MonoPatches;
+            TogglePatchingFeatures(MemWrites.Config.MonoPatches);
+            checkBox_NativePatches.Checked = MemWrites.Config.NativePatches;
+            ToggleAdvPatchingFeatures(MemWrites.Config.NativePatches);
             checkBox_EnableMemWrite.CheckedChanged += checkBox_EnableMemWrite_CheckedChanged;
-            checkBox_Patches.CheckedChanged += checkBox_Patches_CheckedChanged;
-            checkBox_AdvancedPatches.CheckedChanged += checkBox_AdvancedPatches_CheckedChanged;
+            checkBox_MonoPatches.CheckedChanged += checkBox_MonoPatches_CheckedChanged;
+            checkBox_NativePatches.CheckedChanged += checkBox_NativePatches_CheckedChanged;
             /// Set Features
             checkBox_AntiPage.Checked = Config.MemWrites.AntiPage;
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;

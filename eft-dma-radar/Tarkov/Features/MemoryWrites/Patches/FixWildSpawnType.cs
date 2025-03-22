@@ -15,7 +15,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
 
         public override bool Enabled
         {
-            get => MemWrites.Config.AdvancedPatches;
+            get => MemWrites.Config.NativePatches;
             set { }
         }
         protected override byte[] Signature { get; } = new byte[]

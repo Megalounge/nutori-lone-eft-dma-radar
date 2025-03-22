@@ -122,7 +122,7 @@ namespace eft_dma_shared.Common.Unity.LowLevel.Hooks
             {
                 if (Initialized)
                     return true; // Already init
-                if (!SharedProgram.Config.MemWritesEnabled || !SharedProgram.Config.AdvancedPatches)
+                if (!SharedProgram.Config.MemWritesEnabled || !SharedProgram.Config.NativePatches)
                     return false;
                 if (_ratelimit.Elapsed < TimeSpan.FromSeconds(10))
                 {

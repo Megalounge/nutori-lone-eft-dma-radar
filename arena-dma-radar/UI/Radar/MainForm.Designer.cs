@@ -55,8 +55,8 @@
             checkBox_EnableMemWrite = new CheckBox();
             flowLayoutPanel_MemWrites = new FlowLayoutPanel();
             label3 = new Label();
-            checkBox_Patches = new CheckBox();
-            checkBox_AdvancedPatches = new CheckBox();
+            checkBox_MonoPatches = new CheckBox();
+            checkBox_NativePatches = new CheckBox();
             checkBox_AimBotEnabled = new CheckBox();
             checkBox_NoRecoilSway = new CheckBox();
             checkBox_Chams = new CheckBox();
@@ -419,7 +419,8 @@
             flowLayoutPanel_MemWrites.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel_MemWrites.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_MemWrites.Controls.Add(label3);
-            flowLayoutPanel_MemWrites.Controls.Add(checkBox_AdvancedPatches);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_MonoPatches);
+            flowLayoutPanel_MemWrites.Controls.Add(checkBox_NativePatches);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_AimBotEnabled);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_NoRecoilSway);
             flowLayoutPanel_MemWrites.Controls.Add(checkBox_Chams);
@@ -444,16 +445,26 @@
             label3.Size = new Size(183, 21);
             label3.Text = "Memory Write Features";
             // 
-            // checkBox_AdvancedPatches
+            // checkBox_MonoPatches
             // 
-            checkBox_AdvancedPatches.AutoSize = true;
-            flowLayoutPanel_MemWrites.SetFlowBreak(checkBox_AdvancedPatches, true);
-            checkBox_AdvancedPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox_AdvancedPatches.Location = new Point(3, 28);
-            checkBox_AdvancedPatches.Name = "checkBox_AdvancedPatches";
-            checkBox_AdvancedPatches.Size = new Size(246, 19);
-            checkBox_AdvancedPatches.Text = "Enable Advanced MemWrites (Very Risky)";
-            checkBox_AdvancedPatches.UseVisualStyleBackColor = true;
+            checkBox_MonoPatches.AutoSize = true;
+            checkBox_MonoPatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_MonoPatches.Location = new Point(3, 28);
+            checkBox_MonoPatches.Name = "checkBox_MonoPatches";
+            checkBox_MonoPatches.Size = new Size(246, 19);
+            checkBox_MonoPatches.Text = "Enable Mono Patches (Risky)";
+            checkBox_MonoPatches.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_NativePatches
+            // 
+            checkBox_NativePatches.AutoSize = true;
+            flowLayoutPanel_MemWrites.SetFlowBreak(checkBox_NativePatches, true);
+            checkBox_NativePatches.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox_NativePatches.Location = new Point(3, 28);
+            checkBox_NativePatches.Name = "checkBox_NativePatches";
+            checkBox_NativePatches.Size = new Size(246, 19);
+            checkBox_NativePatches.Text = "Enable Native Patches (Very Risky)";
+            checkBox_NativePatches.UseVisualStyleBackColor = true;
             // 
             // checkBox_AimBotEnabled
             // 
@@ -1535,8 +1546,8 @@
         private TrackBar trackBar_EspLineScale;
         private CheckBox checkBox_ESP_StatusText;
         private CheckBox checkBox_NoWepMalf;
-        private CheckBox checkBox_Patches;
-        private CheckBox checkBox_AdvancedPatches;
+        private CheckBox checkBox_MonoPatches;
+        private CheckBox checkBox_NativePatches;
         private FlowLayoutPanel flowLayoutPanel_Vischeck;
         private Label label14;
         private Label label15;

@@ -475,12 +475,14 @@ namespace arena_dma_radar.UI.Radar
             toolTip1.SetToolTip(button_RandomBoneCfg, "Set random bone percentages (must add up to 100%).");
             toolTip1.SetToolTip(checkBox_ESP_FireportAim, "Shows the base fireport trajectory on screen so you can see where bullets will go. Disappears when ADS.");
             toolTip1.SetToolTip(checkBox_ESP_StatusText, "Displays status text in the top center of the screen (Aimbot Status, Wide Lean, etc.)");
-            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Patches. These features use a riskier injection technique. Use at your own risk. Includes (but not limited to):\n" +
+            toolTip1.SetToolTip(checkBox_MonoPatches, "Enables Mono Patches. Includes (but not limited to):\n" +
                 "- No Weapon Malfunction.\n" +
-                "- Enhanced reliability of some features (Passive).");
-            toolTip1.SetToolTip(checkBox_AdvancedPatches, "Enables Advanced Patches. These features use a riskier injection technique. Use at your own risk. Includes (but not limited to):\n" +
+                "- Enhanced reliability of some features (Passive)." +
+                "\n\nWARNING: This feature enables the patching of Mono-compiled functions. It's generally less risky than patching native functions, but is still ill-advised. Use at your own risk.");
+            toolTip1.SetToolTip(checkBox_NativePatches, "Enables Native Patches. Includes (but not limited to):\n" +
                 "- Advanced Chams Options.\n" +
-                "- Enhanced reliability of some features (Passive).");
+                "- Enhanced reliability of some features (Passive)." +
+                "\n\nWARNING: This code modification technique is generally discouraged, especially when using something such as DMA, as it significantly increases the chance of detection of modifications. Use at your own risk.");
         }
 
         /// <summary>
@@ -595,10 +597,10 @@ namespace arena_dma_radar.UI.Radar
             /// Setup Memwrites
             checkBox_EnableMemWrite.Checked = MemWrites.Enabled;
             flowLayoutPanel_MemWrites.Enabled = MemWrites.Enabled;
-            checkBox_AdvancedPatches.Checked = MemWrites.Config.AdvancedPatches;
-            ToggleAdvMemwriteFeatures(MemWrites.Config.AdvancedPatches);
+            checkBox_NativePatches.Checked = MemWrites.Config.NativePatches;
+            ToggleAdvMemwriteFeatures(MemWrites.Config.NativePatches);
             checkBox_EnableMemWrite.CheckedChanged += checkBox_EnableMemWrite_CheckedChanged;
-            checkBox_AdvancedPatches.CheckedChanged += checkBox_AdvancedPatches_CheckedChanged;
+            checkBox_NativePatches.CheckedChanged += checkBox_NativePatches_CheckedChanged;
             /// Set Features
             checkBox_NoRecoilSway.Checked = MemWriteFeature<NoRecoil>.Instance.Enabled;
             checkBox_Chams.Checked = MemWriteFeature<Chams>.Instance.Enabled;
@@ -736,26 +738,26 @@ namespace arena_dma_radar.UI.Radar
                 textBox_VischeckInvisColor.Text = colorDialog1.Color.ToSKColor().ToString();
             }
         }
-        private void checkBox_AdvancedPatches_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_NativePatches_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = checkBox_AdvancedPatches.Checked;
+            bool enabled = checkBox_NativePatches.Checked;
             ToggleAdvMemwriteFeatures(enabled);
             if (enabled) // Enable Memory Writing
             {
                 var dlg = MessageBox.Show(
-                    "Are you sure you want to enable Advanced Patches? This uses a riskier injection technique than regular Mem Write Features.",
-                    "Enable Advanced Patches?",
+                    "Are you sure you want to enable Native Patches? This code modification technique is generally discouraged, especially when using something such as DMA, as it significantly increases the chance of detection of modifications. Use at your own risk.",
+                    "Enable Native Patches?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlg is DialogResult.Yes)
                 {
-                    MemWrites.Config.AdvancedPatches = enabled;
+                    MemWrites.Config.NativePatches = enabled;
                 }
                 else
-                    checkBox_AdvancedPatches.Checked = false;
+                    checkBox_NativePatches.Checked = false;
             }
             else // Disable Memory Writing
             {
-                MemWrites.Config.AdvancedPatches = false;
+                MemWrites.Config.NativePatches = false;
             }
         }
 

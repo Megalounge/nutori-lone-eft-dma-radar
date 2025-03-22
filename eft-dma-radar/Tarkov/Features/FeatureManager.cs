@@ -42,7 +42,7 @@ namespace eft_dma_radar.Tarkov.Features
                     {
                         while (MemWrites.Enabled && Memory.Ready)
                         {
-                            if (MemWrites.Config.AdvancedPatches && !NativeHook.Initialized)
+                            if (MemWrites.Config.NativePatches && !NativeHook.Initialized)
                             {
                                 NativeHook.Initialize();
                             }
