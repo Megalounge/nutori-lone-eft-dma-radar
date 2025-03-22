@@ -28,8 +28,8 @@
    - Reworked how `PrecisionTimer` works for a more accurate ESP fps lock
 
 ## Planned Changes
-   - Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
-   - Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
+   - Seperate `Always Day/Sunny` into `Always Clear Weather` and `Force Time` with a slider for time
+   - Seperate `Fast Weapon Ops` into `Instant ADS` and `Fast Reload`
    - Add loot list to radar/esp
    - Add player loot to esp when hovered
    - Make all Mono Patch features toggleable
