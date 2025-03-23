@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(UserName)' == 'zero'">
+    <BaseOutputPath>\\FOB-X64\nutori-lone-eft-dma-radar</BaseOutputPath>
+  </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
@@ -16,7 +19,6 @@
 	<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 	<RetainVMGarbageCollection>true</RetainVMGarbageCollection>
 	<Deterministic>false</Deterministic>
-	<BaseOutputPath>\\FOB-X64\nutori-lone-eft-dma-radar</BaseOutputPath>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<DebugType>full</DebugType>

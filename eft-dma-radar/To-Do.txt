@@ -13,3 +13,5 @@ Might be able to do minecraft step hack with SimpleCharacterController._canStand
 Might still be able to always sprint by setting the EPhysicalCondition (but I've heard this has been patched :( )
 Show limb health ontop of the player status
 Add custom color for dropped loot that is not found in raid
+Add disable collision with triggers (bushes, barbedwire)
+Add Aimbot FOV scaling to according to the in-game fov
