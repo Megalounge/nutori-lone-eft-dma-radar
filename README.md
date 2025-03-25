@@ -18,6 +18,10 @@
    - Changed `Grp` to `Acct Type`
    - Removed the auto start functionality of `Auto Fullscreen`
    - Added `Auto Start` as a stand-alone option to the `Fuser ESP` settings
+   - Added `BTR Render Mode` to the settings
+   - Changed how the distance and height are rendered on the radar.
+   - Added a `SaveFileDialog` to the backup config handler
+   - Converted the Player/AI render mode options from mutually exclusive to mutually inclusive.
 
 ## Functionality
    - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
@@ -27,6 +31,7 @@
    - Added `Long Jump` (Risky)
       - Marked as risky because of potential server-side checks.
    - Added `Instant Pose Change` (Only visible client-side)
+   - Added `Instant Plant`
    - Reworked how `PrecisionTimer` works for a more accurate ESP fps lock
 
 ## Planned Changes
