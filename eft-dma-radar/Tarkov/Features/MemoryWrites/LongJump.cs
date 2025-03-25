@@ -11,7 +11,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
     {
         private static float original_AIR_CONTROL_SAME_DIR = 1.2f;
         private static float original_AIR_CONTROL_NONE_OR_ORT_DIR = 0.9f;
-        private static ulong hardSettingsStaticFieldData = 0;
+        private static ulong EFTHardSettingsInstance = 0;
         private bool isApplied = false;
 
         public override bool Enabled
@@ -20,7 +20,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             set => MemWrites.Config.LongJump = value;
         }
 
-        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
+        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(LongJump.EFTHardSettingsInstance);
 
         public override void TryApply(ScatterWriteHandle writes)
         {
@@ -28,8 +28,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             {
                 if (this.Enabled)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR * MemWrites.Config.LongJumpMultiplier);
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR * MemWrites.Config.LongJumpMultiplier);
+                    writes.AddValueEntry(LongJump.EFTHardSettingsInstance + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR * MemWrites.Config.LongJumpMultiplier);
+                    writes.AddValueEntry(LongJump.EFTHardSettingsInstance + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR * MemWrites.Config.LongJumpMultiplier);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -41,8 +41,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                 }
                 else if (!this.Enabled)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR);
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR);
+                    writes.AddValueEntry(LongJump.EFTHardSettingsInstance + Offsets.EFTHardSettings.AIR_CONTROL_SAME_DIR, LongJump.original_AIR_CONTROL_SAME_DIR);
+                    writes.AddValueEntry(LongJump.EFTHardSettingsInstance + Offsets.EFTHardSettings.AIR_CONTROL_NONE_OR_ORT_DIR, LongJump.original_AIR_CONTROL_NONE_OR_ORT_DIR);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
@@ -63,8 +63,14 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (LongJump.hardSettingsStaticFieldData == 0)
-                LongJump.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (LongJump.EFTHardSettingsInstance == 0)
+                LongJump.EFTHardSettingsInstance = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+        }
+
+        public override void OnGameStop()
+        {
+            base.OnGameStop();
+            LongJump.EFTHardSettingsInstance = default;
         }
     }
 }

@@ -55,6 +55,7 @@ namespace eft_dma_shared.Common.Misc.Data
                 ["South V-Ex"] = "Bridge V-Ex",
                 ["Outskirts"] = "Outskirts",
                 ["un-sec"] = "Northern UN Roadblock",
+                ["wood_sniper_exit"] = "Power Line Passage (Flare)",
                 // SCAV
                 ["Factory Gate (Co-Op)"] = "Factory Gate (Co-Op)",
                 ["Outskirts Water"] = "Scav Bridge",
@@ -167,6 +168,8 @@ namespace eft_dma_shared.Common.Misc.Data
                 ["RUAF Roadblock"] = "RUAF Roadblock",
                 ["Smuggler's Boat"] = "Smuggler's Boat",
                 ["ZB-1012"] = "ZB-1012",
+                ["Custom_scav_pmc"] = "Boiler Room Basement (Co-op)",
+                ["customs_sniper_exit"] = "Railroad Passage (Flare)",
                 // SCAV
                 ["Shack"] = "Military Base CP",
                 ["Beyond Fuel Tank"] = "Passage Between Rocks",

@@ -82,15 +82,7 @@ namespace eft_dma_radar.UI.Radar
         /// <summary>
         /// Map Identifier of Current Map.
         /// </summary>
-        private static string MapID
-        {
-            get
-            {
-                var id = Memory.MapID;
-                id ??= "null";
-                return id;
-            }
-        }
+        private static string MapID => Memory.MapID ?? "null";
 
         /// <summary>
         /// Item Search Filter has been set/applied.
@@ -574,6 +566,10 @@ namespace eft_dma_radar.UI.Radar
         {
             MemWriteFeature<InstantPoseChange>.Instance.Enabled = checkBox_InstantPoseChange.Checked;
         }
+        private void checkBox_InstantPlant_CheckedChanged(object sender, EventArgs e)
+        {
+            MemWriteFeature<InstantPlant>.Instance.Enabled = checkBox_InstantPlant.Checked;
+        }
         private void checkBox_FastWeaponOps_CheckedChanged(object sender, EventArgs e)
         {
             MemWriteFeature<FastWeaponOps>.Instance.Enabled = checkBox_FastWeaponOps.Checked;
@@ -834,23 +830,26 @@ namespace eft_dma_radar.UI.Radar
             button_BackupConfig.Enabled = false;
             try
             {
-                const string backupFile = Config.Filename + ".bak";
-                if (File.Exists(backupFile))
+                SaveFileDialog saveBackupFileDialog = new SaveFileDialog
                 {
-                    var prompt = MessageBox.Show(this, "A Config Backup already exists, would you like to overwrite it?",
-                        Program.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (prompt is not DialogResult.Yes)
-                        return;
+                    DefaultExt = "bak",
+                    Filter = "Backup files (*.bak)|*.bak|All files (*.*)|*.*",
+                    Title = "Save Config Backup File",
+                    InitialDirectory = Directory.GetCurrentDirectory(),
+                    FileName = Config.Filename + ".bak"
+                };
+
+                DialogResult saveBackupFileDialogResult = saveBackupFileDialog.ShowDialog();
+                if (saveBackupFileDialogResult != DialogResult.OK)
+                {
+                    MessageBox.Show(this, $"Path selected was invalid {saveBackupFileDialogResult}!", Program.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-                var json = JsonSerializer.Serialize<Config>(Config, options);
-                File.WriteAllText(backupFile, json);
-                MessageBox.Show(this, $"Config backed up successfully to {backupFile}!", Program.Name, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                var json = JsonSerializer.Serialize<Config>(Config, new JsonSerializerOptions { WriteIndented = true });
+
+                File.WriteAllText(saveBackupFileDialog.FileName, json);
+                MessageBox.Show(this, $"Config backed up successfully to {saveBackupFileDialog.FileName}!", Program.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -1639,6 +1638,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(trackBar_LongJumpMultiplier, "Jump Length Multiplier.");
             toolTip1.SetToolTip(checkBox_UnclampFreeLook, "Unclamps free looking. (Only visible client-side)");
             toolTip1.SetToolTip(checkBox_InstantPoseChange, "Disables the animation when changing crouching pose level. (Only visible client-side)");
+            toolTip1.SetToolTip(checkBox_InstantPlant, "Disables the countdown when planting a quest item.");
             toolTip1.SetToolTip(checkBox_FastWeaponOps, "Makes weapon operations (instant ADS, reloading mag,etc.) faster for your player.\n" +
                 "NOTE: Trying to heal or do other actions while reloading a mag can cause the 'hands busy' bug.");
             toolTip1.SetToolTip(checkBox_FullBright, "Enables the Full Bright Feature. This will make the game world brighter.");
@@ -1663,14 +1663,12 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(checkBox_ESPAIRender_Labels, "Display entity label/name.");
             toolTip1.SetToolTip(checkBox_ESPAIRender_Dist, "Display entity distance from LocalPlayer.");
             toolTip1.SetToolTip(checkBox_ESPAIRender_Weapons, "Display entity's held weapon/ammo.");
-            toolTip1.SetToolTip(radioButton_ESPRender_None, "Do not render this entity at all.");
-            toolTip1.SetToolTip(radioButton_ESPRender_Bones, "Render full entity skeletal bones.");
-            toolTip1.SetToolTip(radioButton_ESPRender_Box, "Render a 'box' around this entity location.");
-            toolTip1.SetToolTip(radioButton_ESPRender_Presence, "Render a 'dot' showing this entity's presence (does not scale with distance).");
-            toolTip1.SetToolTip(radioButton_ESPAIRender_None, "Do not render this entity at all.");
-            toolTip1.SetToolTip(radioButton_ESPAIRender_Bones, "Render full entity skeletal bones.");
-            toolTip1.SetToolTip(radioButton_ESPAIRender_Box, "Render a 'box' around this entity location.");
-            toolTip1.SetToolTip(radioButton_ESPAIRender_Presence, "Render a 'dot' showing this entity's presence (does not scale with distance).");
+            toolTip1.SetToolTip(checkBox_ESPRender_Bones, "Render full entity skeletal bones.");
+            toolTip1.SetToolTip(checkBox_ESPRender_Box, "Render a 'box' around this entity location.");
+            toolTip1.SetToolTip(checkBox_ESPRender_Presence, "Render a 'dot' showing this entity's presence (does not scale with distance).");
+            toolTip1.SetToolTip(checkBox_ESPAIRender_Bones, "Render full entity skeletal bones.");
+            toolTip1.SetToolTip(checkBox_ESPAIRender_Box, "Render a 'box' around this entity location.");
+            toolTip1.SetToolTip(checkBox_ESPAIRender_Presence, "Render a 'dot' showing this entity's presence (does not scale with distance).");
             toolTip1.SetToolTip(checkBox_MapSetup,
                 "Toggles the 'Map Setup Helper' to assist with getting Map Bounds/Scaling");
             toolTip1.SetToolTip(button_Restart, "Restarts the Radar for the current raid instance.");
@@ -1742,6 +1740,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(flowLayoutPanel_ESP_PlayerRender,
                 "Sets the ESP Rendering Options for Human Players in Fuser ESP.");
             toolTip1.SetToolTip(flowLayoutPanel_ESP_AIRender, "Sets the ESP Rendering Options for AI Bots in Fuser ESP.");
+            toolTip1.SetToolTip(flowLayoutPanel_ESP_BTRRender, "Sets the ESP Rendering Options for the BTR in Fuser ESP.");
             toolTip1.SetToolTip(checkBox_ESP_Exfils, "Enables the rendering of Exfil Points in the ESP Window.");
             toolTip1.SetToolTip(checkBox_ESP_Explosives, "Enables the rendering of Grenades in the ESP Window.");
             toolTip1.SetToolTip(checkBox_ESP_AimFov,
@@ -1903,6 +1902,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_LongJump.Checked = MemWriteFeature<LongJump>.Instance.Enabled;
             checkBox_UnclampFreeLook.Checked = MemWriteFeature<UnclampFreeLook>.Instance.Enabled;
             checkBox_InstantPoseChange.Checked = MemWriteFeature<InstantPoseChange>.Instance.Enabled;
+            checkBox_InstantPlant.Checked = MemWriteFeature<InstantPlant>.Instance.Enabled;
 
             switch (Aimbot.Config.TargetingMode)
             {
@@ -2658,39 +2658,16 @@ namespace eft_dma_radar.UI.Radar
             trackBar_EspFontScale.ValueChanged += TrackBar_EspFontScale_ValueChanged;
             trackBar_EspLineScale.ValueChanged += TrackBar_EspLineScale_ValueChanged;
             trackBar_ESPContainerDist.ValueChanged += TrackBar_ESPContainerDist_ValueChanged;
-            Config.ESP.PlayerRendering ??= new ESPPlayerRenderOptions();
-            Config.ESP.AIRendering ??= new ESPPlayerRenderOptions();
-            switch (Config.ESP.PlayerRendering.RenderingMode)
-            {
-                case ESPPlayerRenderMode.None:
-                    radioButton_ESPRender_None.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Bones:
-                    radioButton_ESPRender_Bones.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Box:
-                    radioButton_ESPRender_Box.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Presence:
-                    radioButton_ESPRender_Presence.Checked = true;
-                    break;
-            }
+            Config.ESP.PlayerRendering ??= new ESPRenderOptions();
+            Config.ESP.AIRendering ??= new ESPRenderOptions();
+            Config.ESP.BTRRendering ??= new ESPRenderOptions();
+            checkBox_ESPRender_Bones.Checked = Config.ESP.PlayerRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Bones);
+            checkBox_ESPRender_Box.Checked = Config.ESP.PlayerRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Box);
+            checkBox_ESPRender_Presence.Checked = Config.ESP.PlayerRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Presence);
 
-            switch (Config.ESP.AIRendering.RenderingMode)
-            {
-                case ESPPlayerRenderMode.None:
-                    radioButton_ESPAIRender_None.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Bones:
-                    radioButton_ESPAIRender_Bones.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Box:
-                    radioButton_ESPAIRender_Box.Checked = true;
-                    break;
-                case ESPPlayerRenderMode.Presence:
-                    radioButton_ESPAIRender_Presence.Checked = true;
-                    break;
-            }
+            checkBox_ESPAIRender_Bones.Checked = Config.ESP.AIRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Bones);
+            checkBox_ESPAIRender_Box.Checked = Config.ESP.AIRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Box);
+            checkBox_ESPAIRender_Presence.Checked = Config.ESP.AIRendering.RenderingMode.HasFlag(ESPEntityRenderMode.Presence);
 
             checkBox_ESPRender_Labels.Checked = Config.ESP.PlayerRendering.ShowLabels;
             checkBox_ESPRender_Weapons.Checked = Config.ESP.PlayerRendering.ShowWeapons;
@@ -3006,52 +2983,52 @@ namespace eft_dma_radar.UI.Radar
             }
         }
 
-        private void radioButton_ESPRender_None_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPRender_Bones_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPRender_None.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.None;
+            if (checkBox_ESPRender_Bones.Checked)
+                Config.ESP.PlayerRendering.RenderingMode |= ESPEntityRenderMode.Bones;
+            else
+                Config.ESP.PlayerRendering.RenderingMode &= ~ESPEntityRenderMode.Bones;
         }
 
-        private void radioButton_ESPRender_Bones_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPRender_Box_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPRender_Bones.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.Bones;
+            if (checkBox_ESPRender_Box.Checked)
+                Config.ESP.PlayerRendering.RenderingMode |= ESPEntityRenderMode.Box;
+            else
+                Config.ESP.PlayerRendering.RenderingMode &= ~ESPEntityRenderMode.Box;
         }
 
-        private void radioButton_ESPRender_Box_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPRender_Presence_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPRender_Box.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.Box;
+            if (checkBox_ESPRender_Presence.Checked)
+                Config.ESP.PlayerRendering.RenderingMode |= ESPEntityRenderMode.Presence;
+            else
+                Config.ESP.PlayerRendering.RenderingMode &= ~ESPEntityRenderMode.Presence;
         }
 
-        private void radioButton_ESPRender_Presence_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPAIRender_Bones_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPRender_Presence.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.Presence;
+            if (checkBox_ESPAIRender_Bones.Checked)
+                Config.ESP.AIRendering.RenderingMode |= ESPEntityRenderMode.Bones;
+            else
+                Config.ESP.AIRendering.RenderingMode &= ~ESPEntityRenderMode.Bones;
         }
 
-        private void radioButton_ESPAIRender_None_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPAIRender_Box_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPAIRender_None.Checked)
-                Config.ESP.AIRendering.RenderingMode = ESPPlayerRenderMode.None;
+            if (checkBox_ESPAIRender_Box.Checked)
+                Config.ESP.AIRendering.RenderingMode |= ESPEntityRenderMode.Box;
+            else
+                Config.ESP.AIRendering.RenderingMode &= ~ESPEntityRenderMode.Box;
         }
 
-        private void radioButton_ESPAIRender_Bones_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_ESPAIRender_Presence_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_ESPAIRender_Bones.Checked)
-                Config.ESP.AIRendering.RenderingMode = ESPPlayerRenderMode.Bones;
-        }
-
-        private void radioButton_ESPAIRender_Box_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_ESPAIRender_Box.Checked)
-                Config.ESP.AIRendering.RenderingMode = ESPPlayerRenderMode.Box;
-        }
-
-        private void radioButton_ESPAIRender_Presence_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_ESPAIRender_Presence.Checked)
-                Config.ESP.AIRendering.RenderingMode = ESPPlayerRenderMode.Presence;
+            if (checkBox_ESPAIRender_Presence.Checked)
+                Config.ESP.AIRendering.RenderingMode |= ESPEntityRenderMode.Presence;
+            else
+                Config.ESP.AIRendering.RenderingMode &= ~ESPEntityRenderMode.Presence;
         }
 
         private void checkBox_ESPRender_Labels_CheckedChanged(object sender, EventArgs e)
@@ -3082,6 +3059,16 @@ namespace eft_dma_radar.UI.Radar
         private void checkBox_ESPAIRender_Dist_CheckedChanged(object sender, EventArgs e)
         {
             Config.ESP.AIRendering.ShowDist = checkBox_ESPAIRender_Dist.Checked;
+        }
+
+        private void checkBox_ESPBTRRender_Labels_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ESP.BTRRendering.ShowLabels = checkBox_ESPBTRRender_Dist.Checked;
+        }
+
+        private void checkBox_ESPBTRRender_Dist_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ESP.BTRRendering.ShowDist = checkBox_ESPBTRRender_Labels.Checked;
         }
 
         private void checkBox_ESP_RaidStats_CheckedChanged(object sender, EventArgs e)

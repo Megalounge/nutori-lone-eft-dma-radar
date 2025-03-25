@@ -494,7 +494,7 @@ namespace arena_dma_radar.UI.Misc
         /// </summary>
         public ESPPlayerRenderOptions PlayerRendering { get; set; } = new()
         {
-            RenderingMode = ESPPlayerRenderMode.Bones,
+            RenderingMode = ESPEntityRenderMode.Bones,
             ShowLabels = true,
             ShowWeapons = true,
             ShowDist = false
@@ -532,13 +532,13 @@ namespace arena_dma_radar.UI.Misc
         public int FPSCap { get; set; } = 60;
 
         /// <summary>
-        /// Enable 'Auto Full Screen' on Start.
+        /// Automatically fullscreens the esp form on initialization.
         /// </summary>
         [JsonPropertyName("autoFS")]
         public bool AutoFullscreen { get; set; } = false;
         
         /// <summary>
-        /// Enable 'Auto Full Screen' on Start.
+        /// Automatically starts the esp form on application launch.
         /// </summary>
         [JsonPropertyName("autoStart")]
         public bool AutoStart { get; set; } = false;
@@ -586,7 +586,7 @@ namespace arena_dma_radar.UI.Misc
         /// Mode to draw in ESP.
         /// </summary>
         [JsonPropertyName("renderingMode")]
-        public ESPPlayerRenderMode RenderingMode { get; set; }
+        public ESPEntityRenderMode RenderingMode { get; set; }
 
         /// <summary>
         /// Show text labels on this player.

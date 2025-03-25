@@ -1388,7 +1388,10 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                                 level = $"L{levelResult}:";
                         }
                         lines.Add($"{level}{name}{health}");
-                        lines.Add($"H: {(int)Math.Round(height)} D: {(int)Math.Round(dist)}");
+                        if ((int)Math.Round(height) != 0)
+                            lines.Add($"{(int)Math.Round(dist)}M ({(int)Math.Round(height)})");
+                        else
+                            lines.Add($"{(int)Math.Round(dist)}M");
                     }
                     else // just height, distance
                     {
@@ -1582,18 +1585,31 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
             Position.ToMapPos(mapParams.Map).ToZoomedPos(mapParams).DrawMouseoverText(canvas, lines);
         }
 
-        public void DrawESP(SKCanvas canvas, LocalPlayer localPlayer)
+        public virtual void DrawESP(SKCanvas canvas, LocalPlayer localPlayer)
         {
-            if (this == localPlayer ||
-                !IsActive || !IsAlive)
+            if (this == localPlayer || !IsActive || !IsAlive)
                 return;
+
             var dist = Vector3.Distance(localPlayer.Position, Position);
             if (dist > Program.Config.MaxDistance)
                 return;
-            var showInfo = IsAI ? ESP.Config.AIRendering.ShowLabels : ESP.Config.PlayerRendering.ShowLabels;
+
             var showDist = IsAI ? ESP.Config.AIRendering.ShowDist : ESP.Config.PlayerRendering.ShowDist;
-            var showWep = IsAI ? ESP.Config.AIRendering.ShowWeapons : ESP.Config.PlayerRendering.ShowWeapons;
-            var drawLabel = showInfo || showDist || showWep;
+
+            if (!CameraManagerBase.WorldToScreen(ref Position, out var baseScrPos))
+                return;
+
+            var espPaints = GetESPPaints();
+
+            BtrOperator btr = this is BtrOperator ? this as BtrOperator : null; // I don't like this but I don't like how C# handles scope with pattern matching, and I think
+                                                                                // this is better than enclosing the if statement below into it's own scope. <nutori/zero>
+            
+            //if (btr != null)
+            //{
+            //    if (CameraManagerBase.WorldToScreen(ref btr.Position, out var btrScrPos))
+            //        btrScrPos.DrawESPText(canvas, btr, localPlayer, showDist, espPaints.Item2, "BTR Vehicle");
+            //    return;
+            //}
 
             if (IsHostile && (ESP.Config.HighAlertMode is HighAlertMode.AllPlayers ||
                               (ESP.Config.HighAlertMode is HighAlertMode.HumansOnly && IsHuman))) // Check High Alert
@@ -1611,37 +1627,37 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 }
             }
 
-            if (!CameraManagerBase.WorldToScreen(ref Position, out var baseScrPos))
-                return;
-            var espPaints = GetESPPaints();
-            var renderMode = IsAI ? ESP.Config.AIRendering.RenderingMode : ESP.Config.PlayerRendering.RenderingMode;
-            if (renderMode is not ESPPlayerRenderMode.None && this is BtrOperator btr)
-            {
-                if (CameraManagerBase.WorldToScreen(ref btr.Position, out var btrScrPos))
-                    btrScrPos.DrawESPText(canvas, btr, localPlayer, showDist, espPaints.Item2, "BTR Vehicle");
-                return; // Done drawing BTR - move on
-            }
+            var showInfo = IsAI ? ESP.Config.AIRendering.ShowLabels : ESP.Config.PlayerRendering.ShowLabels;
+            var showWep = IsAI ? ESP.Config.AIRendering.ShowWeapons : ESP.Config.PlayerRendering.ShowWeapons;
+            var drawLabel = showInfo || showDist || showWep;
 
-            if (renderMode is ESPPlayerRenderMode.Bones)
+            var renderMode = IsAI ? ESP.Config.AIRendering.RenderingMode : ESP.Config.PlayerRendering.RenderingMode;
+
+            if (btr == null)
             {
-                if (!this.Skeleton.UpdateESPBuffer())
-                    return;
-                canvas.DrawPoints(SKPointMode.Lines, Skeleton.ESPBuffer, espPaints.Item1);
-            }
-            else if (renderMode is ESPPlayerRenderMode.Box)
-            {
-                var getBox = Skeleton.GetESPBox(baseScrPos);
-                if (getBox is not SKRect box)
-                    return;
-                canvas.DrawRect(box, espPaints.Item1);
-                baseScrPos.X = box.MidX;
-                baseScrPos.Y = box.Bottom;
-            }
-            else if (renderMode is ESPPlayerRenderMode.Presence)
-            {
-                if (!CameraManagerBase.WorldToScreen(ref Skeleton.Bones[Bones.HumanSpine2].Position, out var presenceScrPos, true, true))
-                    return;
-                canvas.DrawCircle(presenceScrPos, 1.5f * ESP.Config.FontScale, espPaints.Item1);
+                if (renderMode.HasFlag(ESPEntityRenderMode.Bones))
+                {
+                    if (!this.Skeleton.UpdateESPBuffer())
+                        return;
+                    canvas.DrawPoints(SKPointMode.Lines, Skeleton.ESPBuffer, espPaints.Item1);
+                }
+
+                if (renderMode.HasFlag(ESPEntityRenderMode.Box))
+                {
+                    var getBox = Skeleton.GetESPBox(baseScrPos);
+                    if (getBox is not SKRect box)
+                        return;
+                    canvas.DrawRect(box, espPaints.Item1);
+                    baseScrPos.X = box.MidX;
+                    baseScrPos.Y = box.Bottom;
+                }
+
+                if (renderMode.HasFlag(ESPEntityRenderMode.Presence))
+                {
+                    if (!CameraManagerBase.WorldToScreen(ref Skeleton.Bones[Bones.HumanSpine2].Position, out var presenceScrPos, true, true))
+                        return;
+                    canvas.DrawCircle(presenceScrPos, 1.5f * ESP.Config.FontScale, espPaints.Item1);
+                }
             }
 
             if (drawLabel)
@@ -1649,21 +1665,28 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 var lines = new List<string>();
                 if (showInfo)
                 {
-                    string health = null;
-                    if (this is ObservedPlayer observed)
-                        health = observed.HealthStatus is Enums.ETagStatus.Healthy
-                            ? null
-                            : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
-                    string fac = null;
-                    if (IsHostilePmc) // Prepend PMC Faction
-                    {
-                        if (PlayerSide is Enums.EPlayerSide.Usec)
-                            fac = "U:";
-                        else if (PlayerSide is Enums.EPlayerSide.Bear)
-                            fac = "B:";
-                    }
+                    //if (this is ClientPlayer or ObservedPlayer)
+                    //{
+                        string health = null;
+                        if (this is ObservedPlayer observed)
+                            health = observed.HealthStatus is Enums.ETagStatus.Healthy
+                                ? null
+                                : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
+                        string fac = null;
+                        if (IsHostilePmc) // Prepend PMC Faction
+                        {
+                            if (PlayerSide is Enums.EPlayerSide.Usec)
+                                fac = "U:";
+                            else if (PlayerSide is Enums.EPlayerSide.Bear)
+                                fac = "B:";
+                        }
 
-                    lines.Add($"{fac}{Name}{health}");
+                        lines.Add($"{fac}{Name}{health}");
+                    //}
+                    //else if (btr != null)
+                    //{
+                    //    
+                    //}
                 }
 
                 if (showWep)
@@ -1700,7 +1723,7 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
         /// <summary>
         /// Gets Aimview drawing paintbrushes based on this Player Type.
         /// </summary>
-        private ValueTuple<SKPaint, SKPaint> GetESPPaints()
+        protected ValueTuple<SKPaint, SKPaint> GetESPPaints()
         {
             if (IsAimbotLocked)
                 return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintAimbotLockedESP, SKPaints.TextAimbotLockedESP);

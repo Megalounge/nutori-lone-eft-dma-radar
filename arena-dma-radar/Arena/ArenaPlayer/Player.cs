@@ -859,7 +859,7 @@ namespace arena_dma_radar.Arena.ArenaPlayer
             if (!CameraManagerBase.WorldToScreen(ref Position, out var baseScrPos))
                 return;
             var paint = this.GetEspPlayerPaint();
-            if (ESP.Config.PlayerRendering.RenderingMode is ESPPlayerRenderMode.Bones) // Draw Player Bones
+            if (ESP.Config.PlayerRendering.RenderingMode is ESPEntityRenderMode.Bones) // Draw Player Bones
             {
                 if (!this.Skeleton.UpdateESPBuffer())
                     return;

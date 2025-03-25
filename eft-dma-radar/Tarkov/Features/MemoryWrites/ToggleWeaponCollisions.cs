@@ -11,7 +11,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
     {
         private static uint original_WEAPON_OCCLUSION_LAYERS = 1082136832;
         private static uint new_WEAPON_OCCLUSION_LAYERS = 0;
-        private static ulong hardSettingsStaticFieldData = 0;
+        private static ulong EFTHardSettingsInstance = 0;
         private bool isApplied = false;
 
         public override bool Enabled
@@ -20,7 +20,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             set => MemWrites.Config.ToggleWeaponCollision = value;
         }
 
-        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
+        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(ToggleWeaponCollision.EFTHardSettingsInstance);
 
         public override void TryApply(ScatterWriteHandle writes)
         {
@@ -28,32 +28,32 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             {
                 if (this.Enabled && !this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.new_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(ToggleWeaponCollision.EFTHardSettingsInstance + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.new_WEAPON_OCCLUSION_LAYERS);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
                         {
                             this.isApplied = true;
-                            LoneLogging.WriteLine($"{this.GetType().Name} [ON]");
+                            LoneLogging.WriteLine($"{nameof(ToggleWeaponCollision)} [ON]");
                         }
                     };
                 }
                 else if (!this.Enabled && this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.original_WEAPON_OCCLUSION_LAYERS);
+                    writes.AddValueEntry(ToggleWeaponCollision.EFTHardSettingsInstance + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.original_WEAPON_OCCLUSION_LAYERS);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
                         {
                             this.isApplied = false;
-                            LoneLogging.WriteLine($"{this.GetType().Name} [OFF]");
+                            LoneLogging.WriteLine($"{nameof(ToggleWeaponCollision)} [OFF]");
                         }
                     };
                 }
             }
             catch (Exception ex)
             {
-                LoneLogging.WriteLine($"ERROR configuring {this.GetType().Name}: {ex}");
+                LoneLogging.WriteLine($"ERROR configuring {nameof(ToggleWeaponCollision)}: {ex}");
             }
         }
 
@@ -61,8 +61,14 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (ToggleWeaponCollision.hardSettingsStaticFieldData == 0)
-                ToggleWeaponCollision.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (ToggleWeaponCollision.EFTHardSettingsInstance == 0)
+                ToggleWeaponCollision.EFTHardSettingsInstance = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+        }
+
+        public override void OnGameStop()
+        {
+            base.OnGameStop();
+            ToggleWeaponCollision.EFTHardSettingsInstance = default;
         }
     }
 }

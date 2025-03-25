@@ -20,7 +20,6 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites
 
         protected override TimeSpan Delay => TimeSpan.FromSeconds(1);
 
-
         public override void TryApply(ScatterWriteHandle writes)
         {
             try

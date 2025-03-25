@@ -19,6 +19,7 @@ using arena_dma_radar.Arena.Features;
 using arena_dma_radar.Arena.Features.MemoryWrites;
 using arena_dma_radar.Arena.Features.MemoryWrites.Patches;
 using eft_dma_shared.Common.ESP;
+using System.Windows.Forms;
 
 namespace arena_dma_radar.UI.Radar
 {
@@ -1256,23 +1257,26 @@ namespace arena_dma_radar.UI.Radar
             button_BackupConfig.Enabled = false;
             try
             {
-                const string backupFile = Config.Filename + ".bak";
-                if (File.Exists(backupFile))
+                SaveFileDialog saveBackupFileDialog = new SaveFileDialog
                 {
-                    var prompt = MessageBox.Show(this, "A Config Backup already exists, would you like to overwrite it?",
-                        Program.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (prompt is not DialogResult.Yes)
-                        return;
+                    DefaultExt = "bak",
+                    Filter = "Backup files (*.bak)|*.bak|All files (*.*)|*.*",
+                    Title = "Save Config Backup File",
+                    InitialDirectory = Directory.GetCurrentDirectory(),
+                    FileName = Config.Filename + ".bak"
+                };
+
+                DialogResult saveBackupFileDialogResult = saveBackupFileDialog.ShowDialog();
+                if (saveBackupFileDialogResult != DialogResult.OK)
+                {
+                    MessageBox.Show(this, $"Path selected was invalid {saveBackupFileDialogResult}!", Program.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-                var json = JsonSerializer.Serialize<Config>(Config, options);
-                File.WriteAllText(backupFile, json);
-                MessageBox.Show(this, $"Config backed up successfully to {backupFile}!", Program.Name, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                var json = JsonSerializer.Serialize<Config>(Config, new JsonSerializerOptions{ WriteIndented = true });
+
+                File.WriteAllText(saveBackupFileDialog.FileName, json);
+                MessageBox.Show(this, $"Config backed up successfully to {saveBackupFileDialog.FileName}!", Program.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -1579,10 +1583,10 @@ namespace arena_dma_radar.UI.Radar
             Config.ESP.PlayerRendering ??= new ESPPlayerRenderOptions();
             switch (Config.ESP.PlayerRendering.RenderingMode)
             {
-                case ESPPlayerRenderMode.None:
+                case ESPEntityRenderMode.None:
                     radioButton_ESPRender_None.Checked = true;
                     break;
-                case ESPPlayerRenderMode.Bones:
+                case ESPEntityRenderMode.Bones:
                     radioButton_ESPRender_Bones.Checked = true;
                     break;
             }
@@ -1612,13 +1616,13 @@ namespace arena_dma_radar.UI.Radar
         private void radioButton_ESPRender_None_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_ESPRender_None.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.None;
+                Config.ESP.PlayerRendering.RenderingMode = ESPEntityRenderMode.None;
         }
 
         private void radioButton_ESPRender_Bones_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_ESPRender_Bones.Checked)
-                Config.ESP.PlayerRendering.RenderingMode = ESPPlayerRenderMode.Bones;
+                Config.ESP.PlayerRendering.RenderingMode = ESPEntityRenderMode.Bones;
         }
 
         private void checkBox_ESPRender_Labels_CheckedChanged(object sender, EventArgs e)

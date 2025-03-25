@@ -18,7 +18,7 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
             set => MemWrites.Config.FastLoadUnload = value;
         }
 
-        public override bool CanRun => base.CanRun && Memory.InRaid && Memory.RaidHasStarted;
+        public override bool CanRun => Memory.Ready && Enabled && Memory.InRaid && Memory.RaidHasStarted && DelayElapsed;
 
         protected override TimeSpan Delay => TimeSpan.FromSeconds(5);
 
@@ -120,11 +120,13 @@ namespace eft_dma_radar.Tarkov.Features.MemoryWrites.Patches
 
         public override void OnRaidStart()
         {
+            base.OnRaidStart();
             _set = default;
         }
 
         public override void OnGameStop()
         {
+            base.OnGameStop();
             IsApplied = false;
         }
     }

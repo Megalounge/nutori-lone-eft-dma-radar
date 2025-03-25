@@ -17,7 +17,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         private static Vector2 original_MOUSE_LOOK_VERTICAL_LIMIT = new Vector2(-50f, 20f);
         private static Vector2 new_MOUSE_LOOK_HORIZONTAL_LIMIT = new Vector2(-float.MaxValue, float.MaxValue);
         private static Vector2 new_MOUSE_LOOK_VERTICAL_LIMIT = new Vector2(-float.MaxValue, float.MaxValue);
-        private static ulong hardSettingsStaticFieldData = 0;
+        private static ulong EFTHardSettingsInstance = 0;
         private bool isApplied = false;
 
         public override bool Enabled
@@ -26,19 +26,19 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             set => MemWrites.Config.UnclampFreeLook = value;
         }
 
-        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
+        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(UnclampFreeLook.EFTHardSettingsInstance);
 
         public override void TryApply(ScatterWriteHandle writes)
         {
-            if (!Utils.IsValidVirtualAddress(hardSettingsStaticFieldData))
+            if (!Utils.IsValidVirtualAddress(UnclampFreeLook.EFTHardSettingsInstance))
                 return;
 
             try
             {
                 if (this.Enabled)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.MOUSE_LOOK_HORIZONTAL_LIMIT, UnclampFreeLook.new_MOUSE_LOOK_HORIZONTAL_LIMIT);
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.MOUSE_LOOK_VERTICAL_LIMIT, UnclampFreeLook.new_MOUSE_LOOK_VERTICAL_LIMIT);
+                    writes.AddValueEntry(UnclampFreeLook.EFTHardSettingsInstance + Offsets.EFTHardSettings.MOUSE_LOOK_HORIZONTAL_LIMIT, UnclampFreeLook.new_MOUSE_LOOK_HORIZONTAL_LIMIT);
+                    writes.AddValueEntry(UnclampFreeLook.EFTHardSettingsInstance + Offsets.EFTHardSettings.MOUSE_LOOK_VERTICAL_LIMIT, UnclampFreeLook.new_MOUSE_LOOK_VERTICAL_LIMIT);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -50,8 +50,8 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                 }
                 else if (!this.Enabled)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.MOUSE_LOOK_HORIZONTAL_LIMIT, UnclampFreeLook.original_MOUSE_LOOK_HORIZONTAL_LIMIT);
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.MOUSE_LOOK_VERTICAL_LIMIT, UnclampFreeLook.original_MOUSE_LOOK_VERTICAL_LIMIT);
+                    writes.AddValueEntry(UnclampFreeLook.EFTHardSettingsInstance + Offsets.EFTHardSettings.MOUSE_LOOK_HORIZONTAL_LIMIT, UnclampFreeLook.original_MOUSE_LOOK_HORIZONTAL_LIMIT);
+                    writes.AddValueEntry(UnclampFreeLook.EFTHardSettingsInstance + Offsets.EFTHardSettings.MOUSE_LOOK_VERTICAL_LIMIT, UnclampFreeLook.original_MOUSE_LOOK_VERTICAL_LIMIT);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
@@ -72,8 +72,13 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (hardSettingsStaticFieldData == 0)
-                hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (UnclampFreeLook.EFTHardSettingsInstance == 0)
+                UnclampFreeLook.EFTHardSettingsInstance = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+        }
+        public override void OnGameStop()
+        {
+            base.OnGameStop();
+            UnclampFreeLook.EFTHardSettingsInstance = default;
         }
     }
 }

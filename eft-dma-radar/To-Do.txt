@@ -14,4 +14,16 @@ Might still be able to always sprint by setting the EPhysicalCondition (but I've
 Show limb health ontop of the player status
 Add custom color for dropped loot that is not found in raid
 Add disable collision with triggers (bushes, barbedwire)
-Add Aimbot FOV scaling to according to the in-game fov
+Add Aimbot FOV scaling according to the in-game fov
+Add Explosive Gas Tank ESP
+Add "Show Roubles" to the "Loot" widget on the radar (for car extract money)
+Add option to disable the inventory blur
+Add throw strength feature
+Make option to show when teammates are being looked at
+Add my features to the hotkeys
+Would be cool to make a advanced quest helper, wouldn't be super hard just would take a decent chunk of time (Save for UI Rework)
+See if it's possible to inject inputs into unity's input manager without shellcode, could do something like a kd dropper from dma
+Could add raid deploy countdown on the ESP/Radar
+Option to draw the extracts OBB on ESP/Radar
+Option to show in game time on ESP/Radar
+Add all my features to the hotkey manager

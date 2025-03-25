@@ -513,9 +513,9 @@ namespace eft_dma_radar.UI.Misc
         /// Player rendering options in ESP.
         /// </summary>
         [JsonPropertyName("playerRendering")]
-        public ESPPlayerRenderOptions PlayerRendering { get; set; } = new()
+        public ESPRenderOptions PlayerRendering { get; set; } = new()
         {
-            RenderingMode = ESPPlayerRenderMode.Bones,
+            RenderingMode = ESPEntityRenderMode.Bones,
             ShowLabels = true,
             ShowWeapons = true,
             ShowDist = false
@@ -525,12 +525,24 @@ namespace eft_dma_radar.UI.Misc
         /// AI rendering options in ESP.
         /// </summary>
         [JsonPropertyName("aiRendering")]
-        public ESPPlayerRenderOptions AIRendering { get; set; } = new()
+        public ESPRenderOptions AIRendering { get; set; } = new()
         {
-            RenderingMode = ESPPlayerRenderMode.Bones,
+            RenderingMode = ESPEntityRenderMode.Bones,
             ShowLabels = false,
             ShowWeapons = false,
             ShowDist = false
+        };
+
+        /// <summary>
+        /// BTR rendering options in ESP.
+        /// </summary>
+        [JsonPropertyName("BTRRendering")]
+        public ESPRenderOptions BTRRendering { get; set; } = new()
+        {
+            RenderingMode = ESPEntityRenderMode.None,
+            ShowLabels = true,
+            ShowWeapons = false,
+            ShowDist = true
         };
 
         /// <summary>
@@ -637,13 +649,13 @@ namespace eft_dma_radar.UI.Misc
         public Dictionary<EspColorOption, string> Colors { get; set; } = EspColorOptions.GetDefaultColors();
     }
 
-    public sealed class ESPPlayerRenderOptions
+    public sealed class ESPRenderOptions
     {
         /// <summary>
         /// Mode to draw in ESP.
         /// </summary>
         [JsonPropertyName("renderingMode")]
-        public ESPPlayerRenderMode RenderingMode { get; set; }
+        public ESPEntityRenderMode RenderingMode { get; set; }
 
         /// <summary>
         /// Show text labels on this player.
@@ -816,6 +828,12 @@ namespace eft_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("instantPoseChange")]
         public bool InstantPoseChange { get; set; } = false;
+
+        /// <summary>
+        /// Skips the countdown when planting .
+        /// </summary>
+        [JsonPropertyName("instantPlant")]
+        public bool InstantPlant { get; set; } = false;
     }
 
     public sealed class SuperSpeedConfig

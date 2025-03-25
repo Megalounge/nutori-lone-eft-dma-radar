@@ -1,22 +1,22 @@
 ﻿namespace eft_dma_shared.Common.ESP
 {
-    public enum ESPPlayerRenderMode : int
+    public enum ESPEntityRenderMode : int
     {
         /// <summary>
         /// No player bones/box are rendered. Only a dot on 'center of mass'.
         /// </summary>
-        None = 0,
+        None = 1 << 0,
         /// <summary>
         /// Full player bones are rendered.
         /// </summary>
-        Bones = 1,
+        Bones = 1 << 1,
         /// <summary>
         /// Box ESP.
         /// </summary>
-        Box = 2,
+        Box = 1 << 2,
         /// <summary>
         /// Renders a dot showing unit's presence.
         /// </summary>
-        Presence = 3
+        Presence = 1 << 3
     }
 }

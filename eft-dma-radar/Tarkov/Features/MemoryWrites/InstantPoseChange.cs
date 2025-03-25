@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eft_dma_radar.Tarkov.EFTPlayer; // TEMP
 
 namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
 {
@@ -15,7 +16,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
     {
         private static float original_POSE_CHANGING_SPEED = 3f;
         private static float new_POSE_CHANGING_SPEED = float.MaxValue;
-        private static ulong hardSettingsStaticFieldData = 0;
+        private static ulong EFTHardSettingsInstance = 0;
         private bool isApplied = false;
 
         public override bool Enabled
@@ -24,9 +25,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             set => MemWrites.Config.InstantPoseChange = value;
         }
 
-        public override bool CanRun => Memory.InRaid && Memory.RaidHasStarted && DelayElapsed && Utils.IsValidVirtualAddress(hardSettingsStaticFieldData);
-
-        protected override TimeSpan Delay => TimeSpan.FromMilliseconds(100);
+        public override bool CanRun => base.CanRun && Utils.IsValidVirtualAddress(InstantPoseChange.EFTHardSettingsInstance);
 
         public override void TryApply(ScatterWriteHandle writes)
         {
@@ -34,7 +33,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
             {
                 if (this.Enabled && !this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.new_POSE_CHANGING_SPEED);
+                    writes.AddValueEntry(InstantPoseChange.EFTHardSettingsInstance + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.new_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>
                     {
                         if (!this.isApplied)
@@ -46,7 +45,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                 }
                 else if (!this.Enabled && this.isApplied)
                 {
-                    writes.AddValueEntry(hardSettingsStaticFieldData + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.original_POSE_CHANGING_SPEED);
+                    writes.AddValueEntry(InstantPoseChange.EFTHardSettingsInstance + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.original_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>
                     {
                         if (this.isApplied)
@@ -67,8 +66,13 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             base.OnRaidStart();
 
-            if (InstantPoseChange.hardSettingsStaticFieldData == 0)
-                InstantPoseChange.hardSettingsStaticFieldData = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+            if (InstantPoseChange.EFTHardSettingsInstance == 0)
+                InstantPoseChange.EFTHardSettingsInstance = Memory.ReadPtr(MonoLib.MonoClass.Find("Assembly-CSharp", "EFTHardSettings", out var hardSettingsClassAddress).GetStaticFieldDataPtr());
+        }
+        public override void OnGameStop()
+        {
+            base.OnGameStop();
+            InstantPoseChange.EFTHardSettingsInstance = default;
         }
     }
 }

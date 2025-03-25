@@ -14,11 +14,11 @@
     <Configurations>Debug;Release</Configurations>
 	<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 	<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-	<ApplicationIcon>..\Resources\lone-icon.ico</ApplicationIcon>
 	<ServerGarbageCollection>true</ServerGarbageCollection>
 	<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 	<RetainVMGarbageCollection>true</RetainVMGarbageCollection>
 	<Deterministic>false</Deterministic>
+	<ApplicationIcon>..\Resources\lone-icon.ico</ApplicationIcon>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<DebugType>full</DebugType>
