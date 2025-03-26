@@ -1601,16 +1601,6 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
 
             var espPaints = GetESPPaints();
 
-            BtrOperator btr = this is BtrOperator ? this as BtrOperator : null; // I don't like this but I don't like how C# handles scope with pattern matching, and I think
-                                                                                // this is better than enclosing the if statement below into it's own scope. <nutori/zero>
-            
-            //if (btr != null)
-            //{
-            //    if (CameraManagerBase.WorldToScreen(ref btr.Position, out var btrScrPos))
-            //        btrScrPos.DrawESPText(canvas, btr, localPlayer, showDist, espPaints.Item2, "BTR Vehicle");
-            //    return;
-            //}
-
             if (IsHostile && (ESP.Config.HighAlertMode is HighAlertMode.AllPlayers ||
                               (ESP.Config.HighAlertMode is HighAlertMode.HumansOnly && IsHuman))) // Check High Alert
             {
@@ -1633,31 +1623,28 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
 
             var renderMode = IsAI ? ESP.Config.AIRendering.RenderingMode : ESP.Config.PlayerRendering.RenderingMode;
 
-            if (btr == null)
+            if (renderMode.HasFlag(ESPEntityRenderMode.Bones))
             {
-                if (renderMode.HasFlag(ESPEntityRenderMode.Bones))
-                {
-                    if (!this.Skeleton.UpdateESPBuffer())
-                        return;
-                    canvas.DrawPoints(SKPointMode.Lines, Skeleton.ESPBuffer, espPaints.Item1);
-                }
+                if (!this.Skeleton.UpdateESPBuffer())
+                    return;
+                canvas.DrawPoints(SKPointMode.Lines, Skeleton.ESPBuffer, espPaints.Item1);
+            }
 
-                if (renderMode.HasFlag(ESPEntityRenderMode.Box))
-                {
-                    var getBox = Skeleton.GetESPBox(baseScrPos);
-                    if (getBox is not SKRect box)
-                        return;
-                    canvas.DrawRect(box, espPaints.Item1);
-                    baseScrPos.X = box.MidX;
-                    baseScrPos.Y = box.Bottom;
-                }
+            if (renderMode.HasFlag(ESPEntityRenderMode.Box))
+            {
+                var getBox = Skeleton.GetESPBox(baseScrPos);
+                if (getBox is not SKRect box)
+                    return;
+                canvas.DrawRect(box, espPaints.Item1);
+                baseScrPos.X = box.MidX;
+                baseScrPos.Y = box.Bottom;
+            }
 
-                if (renderMode.HasFlag(ESPEntityRenderMode.Presence))
-                {
-                    if (!CameraManagerBase.WorldToScreen(ref Skeleton.Bones[Bones.HumanSpine2].Position, out var presenceScrPos, true, true))
-                        return;
-                    canvas.DrawCircle(presenceScrPos, 1.5f * ESP.Config.FontScale, espPaints.Item1);
-                }
+            if (renderMode.HasFlag(ESPEntityRenderMode.Presence))
+            {
+                if (!CameraManagerBase.WorldToScreen(ref Skeleton.Bones[Bones.HumanSpine2].Position, out var presenceScrPos, true, true))
+                    return;
+                canvas.DrawCircle(presenceScrPos, 1.5f * ESP.Config.FontScale, espPaints.Item1);
             }
 
             if (drawLabel)
@@ -1665,28 +1652,21 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 var lines = new List<string>();
                 if (showInfo)
                 {
-                    //if (this is ClientPlayer or ObservedPlayer)
-                    //{
-                        string health = null;
-                        if (this is ObservedPlayer observed)
-                            health = observed.HealthStatus is Enums.ETagStatus.Healthy
-                                ? null
-                                : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
-                        string fac = null;
-                        if (IsHostilePmc) // Prepend PMC Faction
-                        {
-                            if (PlayerSide is Enums.EPlayerSide.Usec)
-                                fac = "U:";
-                            else if (PlayerSide is Enums.EPlayerSide.Bear)
-                                fac = "B:";
-                        }
+                    string health = null;
+                    if (this is ObservedPlayer observed)
+                        health = observed.HealthStatus is Enums.ETagStatus.Healthy
+                            ? null
+                            : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
+                    string fac = null;
+                    if (IsHostilePmc) // Prepend PMC Faction
+                    {
+                        if (PlayerSide is Enums.EPlayerSide.Usec)
+                            fac = "U:";
+                        else if (PlayerSide is Enums.EPlayerSide.Bear)
+                            fac = "B:";
+                    }
 
-                        lines.Add($"{fac}{Name}{health}");
-                    //}
-                    //else if (btr != null)
-                    //{
-                    //    
-                    //}
+                    lines.Add($"{fac}{Name}{health}");
                 }
 
                 if (showWep)
