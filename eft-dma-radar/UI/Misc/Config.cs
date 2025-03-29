@@ -430,6 +430,12 @@ namespace eft_dma_radar.UI.Misc
         /// </summary>
         [JsonPropertyName("hideSearched")]
         public bool HideSearched { get; set; } = false;
+        
+        /// <summary>
+        /// Hide containers searched by LocalPlayer.
+        /// </summary>
+        [JsonPropertyName("hideEmpty")]
+        public bool HideEmpty { get; set; } = false;
 
         /// <summary>
         /// Selected containers to display.

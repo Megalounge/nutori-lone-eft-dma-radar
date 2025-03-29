@@ -96,6 +96,7 @@ namespace eft_dma_radar.UI.Radar
             label30 = new Label();
             checkBox_Containers_SelectAll = new CheckBox();
             checkBox_Containers_HideSearched = new CheckBox();
+            checkBox_Containers_HideEmpty = new CheckBox();
             checkedListBox_Containers = new CheckedListBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label_QuestHelper = new Label();
@@ -1011,6 +1012,7 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_Loot_Containers.Controls.Add(label30);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkBox_Containers_SelectAll);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkBox_Containers_HideSearched);
+            flowLayoutPanel_Loot_Containers.Controls.Add(checkBox_Containers_HideEmpty);
             flowLayoutPanel_Loot_Containers.Controls.Add(checkedListBox_Containers);
             flowLayoutPanel_Loot_Containers.Enabled = false;
             flowLayoutPanel_Loot_Containers.Location = new Point(399, 28);
@@ -1041,13 +1043,23 @@ namespace eft_dma_radar.UI.Radar
             // checkBox_Containers_HideSearched
             // 
             checkBox_Containers_HideSearched.AutoSize = true;
-            flowLayoutPanel_Loot_Containers.SetFlowBreak(checkBox_Containers_HideSearched, true);
             checkBox_Containers_HideSearched.Location = new Point(89, 28);
             checkBox_Containers_HideSearched.Name = "checkBox_Containers_HideSearched";
             checkBox_Containers_HideSearched.Size = new Size(102, 19);
             checkBox_Containers_HideSearched.Text = "Hide Searched";
             checkBox_Containers_HideSearched.UseVisualStyleBackColor = true;
             checkBox_Containers_HideSearched.CheckedChanged += checkBox_Containers_HideSearched_CheckedChanged;
+            // 
+            // checkBox_Containers_HideEmpty
+            // 
+            checkBox_Containers_HideEmpty.AutoSize = true;
+            flowLayoutPanel_Loot_Containers.SetFlowBreak(checkBox_Containers_HideEmpty, true);
+            checkBox_Containers_HideEmpty.Location = new Point(89, 28);
+            checkBox_Containers_HideEmpty.Name = "checkBox_Containers_HideEmpty";
+            checkBox_Containers_HideEmpty.Size = new Size(102, 19);
+            checkBox_Containers_HideEmpty.Text = "Hide Empty";
+            checkBox_Containers_HideEmpty.UseVisualStyleBackColor = true;
+            checkBox_Containers_HideEmpty.CheckedChanged += checkBox_Containers_HideEmpty_CheckedChanged;
             // 
             // checkedListBox_Containers
             // 
@@ -3347,6 +3359,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_Containers_SelectAll;
         private CheckedListBox checkedListBox_Containers;
         private CheckBox checkBox_Containers_HideSearched;
+        private CheckBox checkBox_Containers_HideEmpty;
         private Button button_GymHack;
         private CheckBox checkBox_FullBright;
         private CheckBox checkBox_MonoPatches;

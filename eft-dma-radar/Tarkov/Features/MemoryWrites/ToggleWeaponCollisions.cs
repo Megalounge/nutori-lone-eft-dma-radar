@@ -26,7 +26,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             try
             {
-                if (this.Enabled && !this.isApplied)
+                if (this.Enabled)
                 {
                     writes.AddValueEntry(ToggleWeaponCollision.EFTHardSettingsInstance + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.new_WEAPON_OCCLUSION_LAYERS);
                     writes.Callbacks += () =>
@@ -38,7 +38,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                         }
                     };
                 }
-                else if (!this.Enabled && this.isApplied)
+                else if (!this.Enabled)
                 {
                     writes.AddValueEntry(ToggleWeaponCollision.EFTHardSettingsInstance + Offsets.EFTHardSettings.WEAPON_OCCLUSION_LAYERS, ToggleWeaponCollision.original_WEAPON_OCCLUSION_LAYERS);
                     writes.Callbacks += () =>

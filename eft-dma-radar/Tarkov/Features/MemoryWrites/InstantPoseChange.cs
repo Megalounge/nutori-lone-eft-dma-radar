@@ -31,7 +31,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
         {
             try
             {
-                if (this.Enabled && !this.isApplied)
+                if (this.Enabled)
                 {
                     writes.AddValueEntry(InstantPoseChange.EFTHardSettingsInstance + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.new_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>
@@ -43,7 +43,7 @@ namespace LonesEFTRadar.Tarkov.Features.MemoryWrites
                         }
                     };
                 }
-                else if (!this.Enabled && this.isApplied)
+                else if (!this.Enabled)
                 {
                     writes.AddValueEntry(InstantPoseChange.EFTHardSettingsInstance + Offsets.EFTHardSettings.POSE_CHANGING_SPEED, InstantPoseChange.original_POSE_CHANGING_SPEED);
                     writes.Callbacks += () =>

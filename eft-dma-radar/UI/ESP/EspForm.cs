@@ -438,9 +438,9 @@ namespace eft_dma_radar.UI.ESP
                         if (MainForm.ContainerIsTracked(container.ID ?? "NULL"))
                         {
                             if (Config.Containers.HideSearched && container.Searched)
-                            {
                                 continue;
-                            }
+                            if (Config.Containers.HideEmpty && container.FilteredLoot.Count() <= 0)
+                                continue;
                             container.DrawESP(canvas, localPlayer);
                         }
                     }

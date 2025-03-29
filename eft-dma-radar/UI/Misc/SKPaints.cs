@@ -350,6 +350,14 @@ namespace eft_dma_radar.UI.Misc
             IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
+        public static SKPaint PaintCorpseLoot { get; } = new()
+        {
+            Color = SKColors.Silver,
+            StrokeWidth = 0.25f,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
 
         public static SKPaint TextCorpse { get; } = new()
         {

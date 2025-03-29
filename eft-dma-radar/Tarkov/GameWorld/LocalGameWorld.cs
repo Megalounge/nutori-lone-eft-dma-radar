@@ -429,8 +429,6 @@ namespace eft_dma_radar.Tarkov.GameWorld
             ValidatePlayerTransforms(); // Check for transform anomalies
             // Refresh exfils
             _exfilManager.Refresh();
-            // Refresh Loot
-            _lootManager.Refresh();
             if (MainForm.Config.LootWishlist)
             {
                 try
@@ -461,6 +459,8 @@ namespace eft_dma_radar.Tarkov.GameWorld
                 {
                     LoneLogging.WriteLine($"[QuestManager] CRITICAL ERROR: {ex}");
                 }
+            // Refresh Loot -- Refresh after quest helper
+            _lootManager.Refresh();
         }
 
         /// <summary>

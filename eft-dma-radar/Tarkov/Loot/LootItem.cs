@@ -229,12 +229,22 @@ namespace eft_dma_radar.Tarkov.Loot
             var dist = Vector3.Distance(localPlayer.Position, Position);
             if (this is QuestItem)
             {
-               if (dist > ESP.Config.QuestHelperDrawDistance)
+                if (dist > ESP.Config.QuestHelperDrawDistance)
                     return;
             }
-            else if (this is not QuestItem && (IsImportant || IsValuableLoot))
+            else if (IsImportant || IsValuableLoot)
             {
                 if (dist > ESP.Config.ImpLootDrawDistance)
+                    return;
+            }
+            else if (this is LootCorpse)
+            {
+                if (Config.HideCorpses)
+                    return;
+            }
+            else if (this is StaticLootContainer)
+            {
+                if (dist > ESP.Config.ContainerDrawDistance)
                     return;
             }
             else if (dist > ESP.Config.LootDrawDistance)
@@ -242,8 +252,6 @@ namespace eft_dma_radar.Tarkov.Loot
                 return;
             }
 
-            if (this is LootCorpse && Config.HideCorpses)
-                return;
             if (!CameraManagerBase.WorldToScreen(ref _position, out var scrPos))
                 return;
             var boxHalf = 3.5f * ESP.Config.FontScale;
@@ -382,7 +390,9 @@ namespace eft_dma_radar.Tarkov.Loot
             return label;
         }
 
-        private ValueTuple<SKPaint, SKPaint> GetPaints()
+
+
+        protected ValueTuple<SKPaint, SKPaint> GetPaints()
         {
             if (IsWishlisted)
                 return new(SKPaints.PaintWishlistItem, SKPaints.TextWishlistItem);

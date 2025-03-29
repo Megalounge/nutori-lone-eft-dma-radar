@@ -2,7 +2,6 @@
 using eft_dma_radar.UI.ESP;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.UI.Radar;
-using eft_dma_shared.Common.ESP;
 using eft_dma_shared.Common.Maps;
 using eft_dma_shared.Common.Misc.Data;
 using eft_dma_shared.Common.Players;
@@ -12,7 +11,7 @@ namespace eft_dma_radar.Tarkov.Loot
 {
     public sealed class StaticLootContainer : LootContainer
     {
-        private static readonly IReadOnlyList<LootItem> _defaultLoot = new List<LootItem>(1);
+        //private static readonly IReadOnlyList<LootItem> _defaultLoot = new List<LootItem>(1);
 
         public override string Name { get; } = "Container";
         public override string ID { get; }
@@ -22,7 +21,7 @@ namespace eft_dma_radar.Tarkov.Loot
         /// </summary>
         public bool Searched { get; }
 
-        public StaticLootContainer(string containerId, bool opened) : base(_defaultLoot)
+        public StaticLootContainer(string containerId, bool opened, IReadOnlyList<LootItem> loot = null) : base(loot)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(containerId, nameof(containerId));
             this.ID = containerId;
@@ -36,9 +35,6 @@ namespace eft_dma_radar.Tarkov.Loot
         public override void Draw(SKCanvas canvas, LoneMapParams mapParams, ILocalPlayer localPlayer)
         {
             var dist = Vector3.Distance(localPlayer.Position, Position);
-
-            if (dist > MainForm.Config.ContainerDrawDistance)
-                return;
             var heightDiff = Position.Y - localPlayer.Position.Y;
             var point = Position.ToMapPos(mapParams.Map).ToZoomedPos(mapParams);
             MouseoverPosition = new Vector2(point.X, point.Y);
@@ -47,19 +43,19 @@ namespace eft_dma_radar.Tarkov.Loot
             {
                 using var path = point.GetUpArrow(4);
                 canvas.DrawPath(path, SKPaints.ShapeOutline);
-                canvas.DrawPath(path, SKPaints.PaintContainerLoot);
+                canvas.DrawPath(path, SKPaints.PaintCorpseLoot);
             }
             else if (heightDiff < -1.45) // loot is below player
             {
                 using var path = point.GetDownArrow(4);
                 canvas.DrawPath(path, SKPaints.ShapeOutline);
-                canvas.DrawPath(path, SKPaints.PaintContainerLoot);
+                canvas.DrawPath(path, SKPaints.PaintCorpseLoot);
             }
             else // loot is level with player
             {
                 var size = 4 * MainForm.UIScale;
                 canvas.DrawCircle(point, size, SKPaints.ShapeOutline);
-                canvas.DrawCircle(point, size, SKPaints.PaintContainerLoot);
+                canvas.DrawCircle(point, size, SKPaints.PaintCorpseLoot);
             }
         }
 
@@ -79,6 +75,17 @@ namespace eft_dma_radar.Tarkov.Loot
             var textPt = new SKPoint(scrPos.X,
                 scrPos.Y + 16f * ESP.Config.FontScale);
             textPt.DrawESPText(canvas, this, localPlayer, showDist, SKPaints.TextContainerLootESP, this.Name);
+
+            IEnumerable<LootItem> filteredLoot = this.FilteredLoot;
+            if (filteredLoot.Count() <= 0)
+                return;
+
+            List<string> lines = new List<string>();
+            foreach (LootItem lootItem in filteredLoot)
+                lines.Add(lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled));
+
+            var lootItemPt = new SKPoint(scrPos.X, scrPos.Y + SKPaints.TextContainerLootESP.TextSize + 16f * ESP.Config.FontScale);
+            lootItemPt.DrawESPText(canvas, this, localPlayer, false, SKPaints.TextContainerLootESP, lines.ToArray());
         }
 
         public override void DrawMouseover(SKCanvas canvas, LoneMapParams mapParams, LocalPlayer localPlayer)

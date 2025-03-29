@@ -612,6 +612,11 @@ namespace SDK
 			public const uint RootItem = 0xB8; // EFT.InventoryLogic.Item
 		}
 
+		public readonly partial struct CompoundItem
+        {
+            public const uint Grids = 0x78; // GClass27DE[]
+        }
+
 		public readonly partial struct LootItem
 		{
 			public const uint Template = 0x40; // EFT.InventoryLogic.ItemTemplate

@@ -27,3 +27,4 @@ Could add raid deploy countdown on the ESP/Radar
 Option to draw the extracts OBB on ESP/Radar
 Option to show in game time on ESP/Radar
 Add all my features to the hotkey manager
+Fix toggling a quest not toggling for bodies

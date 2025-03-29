@@ -301,9 +301,9 @@ namespace eft_dma_radar.UI.Radar
                                     if (ContainerIsTracked(container.ID ?? "NULL"))
                                     {
                                         if (Config.Containers.HideSearched && container.Searched)
-                                        {
                                             continue;
-                                        }
+                                        if (Config.Containers.HideEmpty && container.FilteredLoot.Count() <= 0)
+                                            continue;
                                         container.Draw(canvas, mapParams, localPlayer);
                                     }
                                 }
@@ -668,6 +668,10 @@ namespace eft_dma_radar.UI.Radar
         private void checkBox_Containers_HideSearched_CheckedChanged(object sender, EventArgs e)
         {
             Config.Containers.HideSearched = checkBox_Containers_HideSearched.Checked;
+        }
+        private void checkBox_Containers_HideEmpty_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Containers.HideEmpty = checkBox_Containers_HideEmpty.Checked;
         }
 
         private void checkBox_ShowContainers_CheckedChanged(object sender, EventArgs e)
@@ -1807,6 +1811,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(checkBox_ShowContainers, "Shows static containers on the map. Due to recent Tarkov Anti-Cheat Measures, you cannot see what the contents are however.");
             toolTip1.SetToolTip(checkBox_Containers_SelectAll, "Selects all container types for display on the map.");
             toolTip1.SetToolTip(checkBox_Containers_HideSearched, "Hides containers that have already been searched by a networked entity (usually ONLY yourself).");
+            toolTip1.SetToolTip(checkBox_Containers_HideEmpty, "Hides containers that are empty.");
             toolTip1.SetToolTip(button_GymHack, "Enables the Gym Hack Feature which causes your workouts always to succeed.\n" +
                 "NOTE: After enabling this feature you must start a workout within 15 seconds for the hack to be applied. Complete your first rep normally, and then it should activate for following reps.\n" +
                 "NOTE: You must still 'left click' on each repetition.");

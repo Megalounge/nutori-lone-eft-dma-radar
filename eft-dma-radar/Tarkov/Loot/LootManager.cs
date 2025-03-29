@@ -8,6 +8,7 @@ using eft_dma_shared.Common.DMA.ScatterAPI;
 using eft_dma_shared.Common.Misc.Data;
 using eft_dma_shared.Common.Unity;
 using eft_dma_shared.Common.Unity.Collections;
+using eft_dma_radar.Tarkov.GameWorld;
 
 namespace eft_dma_radar.Tarkov.Loot
 {
@@ -60,6 +61,8 @@ namespace eft_dma_radar.Tarkov.Loot
                         .OrderByDescending(x => x.Important || (MainForm.Config.QuestHelper.Enabled && x.IsQuestCondition))
                         .ThenByDescending(x => x?.Price ?? 0)
                         .ToList();
+                    foreach (LootContainer container in this.StaticLootContainers)
+                        filter(container);
                 }
                 catch { }
                 finally
@@ -230,7 +233,12 @@ namespace eft_dma_radar.Tarkov.Loot
                             var ownerItemBsgIdPtr = Memory.ReadValue<Types.MongoID>(ownerItemTemplate + Offsets.ItemTemplate._id);
                             var ownerItemBsgId = Memory.ReadUnityString(ownerItemBsgIdPtr.StringID);
                             bool containerOpened = Memory.ReadValue<ulong>(interactiveClass + Offsets.LootableContainer.InteractingPlayer) != 0;
-                            containers.Add(new StaticLootContainer(ownerItemBsgId, containerOpened)
+
+                            List<LootItem> StaticLootContainerLoot = new List<LootItem>();
+                            var grids = Memory.ReadPtr(ownerItemBase + Offsets.CompoundItem.Grids);
+                            GetItemsInGrid(grids, StaticLootContainerLoot);
+
+                            containers.Add(new StaticLootContainer(ownerItemBsgId, containerOpened, StaticLootContainerLoot)
                             {
                                 Position = pos
                             });
@@ -392,9 +400,10 @@ namespace eft_dma_radar.Tarkov.Loot
 
                             // Check to see if the child item has children
                             // Don't throw on nullPtr since GetItemsInGrid needs to record the current item still
-                            var childGridsArrayPtr = Memory.ReadValue<ulong>(childItem + Offsets.LootItemMod.Grids); // Pointer
-                            GetItemsInGrid(childGridsArrayPtr, containerLoot,
-                                recurseDepth); // Recursively add children to the entity
+                            //var childGridsArrayPtr = Memory.ReadValue<ulong>(childItem + Offsets.LootItemMod.Grids); // Pointer
+                            var itemOwner = Memory.ReadPtr(childItem + Offsets.LootableContainer.ItemOwner);
+                            var ownerItemBase = Memory.ReadPtr(itemOwner + Offsets.LootableContainerItemOwner.RootItem);
+                            GetItemsInGrid(ownerItemBase, containerLoot, recurseDepth); // Recursively add children to the entity
                         }
                         catch
                         {

@@ -35,7 +35,7 @@ namespace eft_dma_shared.Common.Misc.Data
             ["Arena_Bay5"] = "Bay 5",
             ["Arena_AutoService"] = "Chop Shop",
             ["Arena_Yard"] = "Yard",
-            ["Arena_Prison"] = "Fort"
+            ["Arena_Prison"] = "Fort",
         }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace eft_dma_shared.Common.Misc.Data
             { "tarkovstreets", new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 // PMC
-                ["E8_yard"] = "Courtyard",
+                ["Gate_o"] = "Courtyard",
                 ["E7_car"] = "Primorsky Ave Taxi V-Ex",
                 ["E1"] = "Stylobate Building Elevator",
                 ["E4"] = "Crash Site",
@@ -256,6 +256,11 @@ namespace eft_dma_shared.Common.Misc.Data
                 ["Scav Checkpoint (Co-Op)"] = "Scav Checkpoint (Co-Op)",
                 ["Emercom Checkpoint"] = "Emercom Checkpoint",
                 ["Nakatani Basement Stairs"] = "Nakatani Basement Stairs",
+            }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase) },
+            { "Labyrinth", new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) // Event: The Labyrinth
+            {
+                ["labir_exit"] = "The Way Up",
+                ["labyrinth_secret_tagilla_key"] = " Aridane's Path",
             }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase) },
         }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 

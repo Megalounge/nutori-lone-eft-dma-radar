@@ -117,9 +117,9 @@ namespace eft_dma_radar.UI.ESP
                                     if (MainForm.ContainerIsTracked(container.ID ?? "NULL"))
                                     {
                                         if (MainForm.Config.Containers.HideSearched && container.Searched)
-                                        {
                                             continue;
-                                        }
+                                        if (MainForm.Config.Containers.HideEmpty && container.FilteredLoot.Count() <= 0)
+                                            continue;
                                         var dist = Vector3.Distance(localPlayer.Position, container.Position);
                                         if (dist >= 10f)
                                             continue;

@@ -28,30 +28,17 @@ namespace eft_dma_radar.UI.LootFilters
                 Predicate<LootItem> p = (x) => // Default Predicate
                 {
                     return (x.IsRegularLoot || x.IsValuableLoot || x.IsImportant || x.IsWishlisted) ||
-                                (ShowQuestItems && x.IsQuestCondition) ||
+                                (ShowQuestItems && x.IsQuestCondition && Memory.Game.QuestManager.ItemConditions.Contains(x.ID)) ||
                                 (LootFilter.ShowBackpacks && x.IsBackpack) ||
                                 (LootFilter.ShowMeds && x.IsMeds) ||
                                 (LootFilter.ShowFood && x.IsFood);
                 };
                 return (item) =>
                 {
-                    if (item is LootAirdrop airdrop)
-                    {
-                        return true;
-                    }
-                    if (item is LootCorpse corpse)
-                    {
-                        return true;
-                    }
-                    if (p(item))
-                    {
-                        if (item is LootContainer container)
-                        {
-                            container.SetFilter(p);
-                        }
-                        return true;
-                    }
-                    return false;
+                    if (item is LootContainer container)
+                        container.SetFilter(p);
+
+                    return item is LootAirdrop or LootCorpse || p(item);
                 };
             }
             else // Loot Search
@@ -63,19 +50,10 @@ namespace eft_dma_radar.UI.LootFilters
                 };
                 return (item) =>
                 {
-                    if (item is LootAirdrop airdrop)
-                    {
-                        return true;
-                    }
-                    if (item.ContainsSearchPredicate(p))
-                    {
-                        if (item is LootContainer container)
-                        {
-                            container.SetFilter(p);
-                        }
-                        return true;
-                    }
-                    return false;
+                    if (item is LootContainer container)
+                        container.SetFilter(p);
+
+                    return item is LootAirdrop or LootCorpse || item.ContainsSearchPredicate(p);
                 };
             }
         }
