@@ -1,4 +1,5 @@
 ﻿using eft_dma_radar.Tarkov.EFTPlayer;
+using eft_dma_radar.UI.Misc;
 using eft_dma_radar.UI.Radar;
 using eft_dma_shared.Common.Misc;
 using eft_dma_shared.Common.Misc.Data;
@@ -18,18 +19,6 @@ namespace eft_dma_radar.UI.SKWidgetControl
             SetScaleFactor(scale);
         }
 
-        internal static SKPaint TextPlayersOverlay { get; } = new()
-        {
-            SubpixelText = true,
-            Color = SKColors.White,
-            IsStroke = false,
-            TextSize = 12,
-            TextEncoding = SKTextEncoding.Utf8,
-            IsAntialias = true,
-            Typeface = SKTypeface.FromFamilyName("Consolas"), // Do NOT change this font
-            FilterQuality = SKFilterQuality.High
-        };
-
         public void Draw(SKCanvas canvas, Player localPlayer, IEnumerable<Player> players)
         {
             if (Minimized)
@@ -43,7 +32,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
             var filteredPlayers = players.Where(x => x.IsHumanHostileActive)
                 .OrderBy(x => Vector3.Distance(localPlayerPos, x.Position));
             var sb = new StringBuilder();
-            sb.AppendFormat("{0,-21}", "Fac / Lvl / Name")
+            sb.AppendFormat("{0,-25}", "Fac / Lvl / Name")
                 .AppendFormat("{0,-5}", "Acct")
                 .AppendFormat("{0,-7}", "K/D")
                 .AppendFormat("{0,-7}", "Hours")
@@ -61,7 +50,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 var hands = player.Hands?.CurrentItem;
                 var inHands = hands is not null ? hands : "--";
                 string edition = "--";
-                string level = "0";
+                string level = string.Empty;
                 string kd = "--";
                 string raidCount = "--";
                 string survivePercent = "--";
@@ -70,7 +59,14 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 {
                     edition = observed.Profile?.Acct;
                     if (observed.Profile?.Level is int levelResult)
-                        level = levelResult.ToString();
+                    {
+                        if (observed.Profile?.Prestige is int observedPrestigeLevel && observedPrestigeLevel > 0)
+                            level += $"P{observed.Profile?.Prestige}";
+                        if (observed.Profile?.Level is int observedLevel)
+                            level += $"L{observedLevel}";
+                        if (level != string.Empty)
+                            level += ":";
+                    }
                     if (observed.Profile?.Overall_KD is float kdResult)
                         kd = kdResult.ToString("n2");
                     if (observed.Profile?.RaidCount is int raidCountResult)
@@ -82,7 +78,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 }
                 var grp = player.GroupID != -1 ? player.GroupID.ToString() : "--";
                 var focused = player.IsFocused ? "*" : null;
-                sb.AppendFormat("{0,-21}", $"{focused}{faction}{level}:{name}");
+                sb.AppendFormat("{0,-25}", $"{focused}{faction}:{level}{name}".Substring(0, 25));
                 sb.AppendFormat("{0,-5}", edition)
                     .AppendFormat("{0,-7}", kd)
                     .AppendFormat("{0,-7}", hours)
@@ -96,20 +92,20 @@ namespace eft_dma_radar.UI.SKWidgetControl
             }
 
             var data = sb.ToString().Split(Environment.NewLine);
-            var lineSpacing = TextPlayersOverlay.FontSpacing;
-            var maxLength = data.Max(x => TextPlayersOverlay.MeasureText(x));
+            var lineSpacing = SKPaints.PlayerInfoText.FontSpacing;
+            var maxLength = data.Max(x => SKPaints.PlayerInfoText.MeasureText(x));
             var pad = 2.5f * ScaleFactor;
             Size = new SKSize(maxLength + pad, data.Length * lineSpacing + pad);
             Location = Location; // Bounds check
             Draw(canvas); // Draw backer
             var drawPt = new SKPoint(ClientRectangle.Left + pad, ClientRectangle.Top + lineSpacing / 2 + pad);
-            canvas.DrawText($"Hostile Count: {hostileCount}", drawPt, TextPlayersOverlay); // draw line text
+            canvas.DrawText($"Hostile Count: {hostileCount}", drawPt, SKPaints.PlayerInfoText); // draw line text
             drawPt.Y += lineSpacing;
             foreach (var line in data) // Draw tooltip text
             {
                 if (string.IsNullOrEmpty(line?.Trim()))
                     continue;
-                canvas.DrawText(line, drawPt, TextPlayersOverlay); // draw line text
+                canvas.DrawText(line, drawPt, SKPaints.PlayerInfoText); // draw line text
                 drawPt.Y += lineSpacing;
             }
         }
@@ -117,7 +113,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
         public override void SetScaleFactor(float newScale)
         {
             base.SetScaleFactor(newScale);
-            TextPlayersOverlay.TextSize = 12 * newScale;
+            SKPaints.PlayerInfoText.TextSize = 12 * newScale;
         }
     }
 }

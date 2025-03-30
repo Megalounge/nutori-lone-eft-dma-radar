@@ -81,7 +81,8 @@ namespace eft_dma_radar.UI.Radar
             trackBar_ContainerDist = new TrackBar();
             checkBox_MapSetup = new CheckBox();
             checkBox_Aimview = new CheckBox();
-            checkBox_ShowInfoTab = new CheckBox();
+            checkBox_ShowPlayerInfoTab = new CheckBox();
+            checkBox_ShowLootInfoTab = new CheckBox();
             checkBox_GrpConnect = new CheckBox();
             checkBox_HideNames = new CheckBox();
             checkBox_ShowMines = new CheckBox();
@@ -683,7 +684,8 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_RadarSettings.Controls.Add(trackBar_ContainerDist);
             flowLayoutPanel_RadarSettings.Controls.Add(checkBox_MapSetup);
             flowLayoutPanel_RadarSettings.Controls.Add(checkBox_Aimview);
-            flowLayoutPanel_RadarSettings.Controls.Add(checkBox_ShowInfoTab);
+            flowLayoutPanel_RadarSettings.Controls.Add(checkBox_ShowPlayerInfoTab);
+            flowLayoutPanel_RadarSettings.Controls.Add(checkBox_ShowLootInfoTab);
             flowLayoutPanel_RadarSettings.Controls.Add(checkBox_GrpConnect);
             flowLayoutPanel_RadarSettings.Controls.Add(checkBox_HideNames);
             flowLayoutPanel_RadarSettings.Controls.Add(checkBox_ShowMines);
@@ -887,12 +889,21 @@ namespace eft_dma_radar.UI.Radar
             // 
             // checkBox_ShowInfoTab
             // 
-            checkBox_ShowInfoTab.AutoSize = true;
-            checkBox_ShowInfoTab.Location = new Point(254, 153);
-            checkBox_ShowInfoTab.Name = "checkBox_ShowInfoTab";
-            checkBox_ShowInfoTab.Size = new Size(123, 19);
-            checkBox_ShowInfoTab.Text = "Player Info Widget";
-            checkBox_ShowInfoTab.UseVisualStyleBackColor = true;
+            checkBox_ShowPlayerInfoTab.AutoSize = true;
+            checkBox_ShowPlayerInfoTab.Location = new Point(254, 153);
+            checkBox_ShowPlayerInfoTab.Name = "checkBox_ShowPlayerInfoTab";
+            checkBox_ShowPlayerInfoTab.Size = new Size(123, 19);
+            checkBox_ShowPlayerInfoTab.Text = "Player Info Widget";
+            checkBox_ShowPlayerInfoTab.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_ShowLootInfoTab
+            // 
+            checkBox_ShowLootInfoTab.AutoSize = true;
+            checkBox_ShowLootInfoTab.Location = new Point(254, 153);
+            checkBox_ShowLootInfoTab.Name = "checkBox_ShowLootInfoTab";
+            checkBox_ShowLootInfoTab.Size = new Size(123, 19);
+            checkBox_ShowLootInfoTab.Text = "Loot Info Widget";
+            checkBox_ShowLootInfoTab.UseVisualStyleBackColor = true;
             // 
             // checkBox_GrpConnect
             // 
@@ -3176,7 +3187,8 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_HideCorpses;
         private CheckBox checkBox_ShowFood;
         private CheckBox checkBox_ShowMeds;
-        private CheckBox checkBox_ShowInfoTab;
+        private CheckBox checkBox_ShowPlayerInfoTab;
+        private CheckBox checkBox_ShowLootInfoTab;
         private CheckBox checkBox_GrpConnect;
         private CheckBox checkBox_NoRecoilSway;
         private CheckBox checkBox_InfStamina;

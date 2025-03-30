@@ -96,10 +96,16 @@ namespace eft_dma_radar.UI.Misc
         public QuestHelperConfig QuestHelper { get; private set; } = new();
 
         /// <summary>
-        /// Shows Info Tab/Pane in the top right corner of radar.
+        /// Shows Player Info Tab/Pane on the radar.
         /// </summary>
-        [JsonPropertyName("showInfoTab")]
-        public bool ShowInfoTab { get; set; } = true;
+        [JsonPropertyName("showPlayerInfoTab")]
+        public bool ShowPlayerInfoTab { get; set; } = true;
+        
+        /// <summary>
+        /// Shows Loot Info Tab/Pane on the radar.
+        /// </summary>
+        [JsonPropertyName("showLootInfoTab")]
+        public bool ShowLootInfoTab { get; set; } = true;
 
         /// <summary>
         /// Shows bodies/corpses on map.
@@ -1070,17 +1076,34 @@ namespace eft_dma_radar.UI.Misc
         [JsonPropertyName("playerInfoLocation")]
         public RectFSer _pInfoLoc { private get; set; }
 
+        [JsonInclude]
+        [JsonPropertyName("lootInfoLocation")]
+        public RectFSer _pLootLoc { private get; set; }
+
         [JsonPropertyName("playerInfoMinimized")]
         public bool PlayerInfoMinimized { get; set; } = false;
+        
+        [JsonPropertyName("lootInfoMinimized")]
+        public bool LootInfoMinimized { get; set; } = false;
 
         /// <summary>
-        /// Aimview Location
+        /// Player Info Widget Location
         /// </summary>
         [JsonIgnore]
         public SKRect PlayerInfoLocation
         {
             get => new(_pInfoLoc.Left, _pInfoLoc.Top, _pInfoLoc.Right, _pInfoLoc.Bottom);
             set => _pInfoLoc = new RectFSer(value.Left, value.Top, value.Right, value.Bottom);
+        }
+
+        /// <summary>
+        /// Loot Info Widget Location
+        /// </summary>
+        [JsonIgnore]
+        public SKRect LootInfoLocation
+        {
+            get => new(_pLootLoc.Left, _pLootLoc.Top, _pLootLoc.Right, _pLootLoc.Bottom);
+            set => _pLootLoc = new RectFSer(value.Left, value.Top, value.Right, value.Bottom);
         }
 
         #endregion

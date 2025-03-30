@@ -142,6 +142,7 @@ namespace eft_dma_shared.Common.Misc.Data
                 ["Gate 3"] = "Gate 3",
                 ["Gate 0"] = "Gate 0",
                 ["Gate m"] = "Med Tent Gate",
+                ["Gate_o"] = "Courtyard Gate",
                 // SCAV
                 ["Camera Bunker Door"] = "Camera Bunker Door",
                 ["Office Window"] = "Office Window",
@@ -153,6 +154,7 @@ namespace eft_dma_shared.Common.Misc.Data
                 ["Gate 3"] = "Gate 3",
                 ["Gate 0"] = "Gate 0",
                 ["Gate m"] = "Med Tent Gate",
+                ["Gate_o"] = "Courtyard Gate",
                 // SCAV
                 ["Camera Bunker Door"] = "Camera Bunker Door",
                 ["Office Window"] = "Office Window",
@@ -211,7 +213,7 @@ namespace eft_dma_shared.Common.Misc.Data
             { "tarkovstreets", new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 // PMC
-                ["Gate_o"] = "Courtyard",
+                ["E8_yard"] = "Courtyard",
                 ["E7_car"] = "Primorsky Ave Taxi V-Ex",
                 ["E1"] = "Stylobate Building Elevator",
                 ["E4"] = "Crash Site",

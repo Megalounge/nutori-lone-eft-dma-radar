@@ -28,6 +28,14 @@ namespace eft_dma_shared.Common.Misc.Data
         /// </summary>
         public static FrozenDictionary<string, TaskElement> TaskData { get; private set; }
 
+        /// <summary>
+        /// Achievements Data for Tarkov.
+        /// </summary>
+        public static FrozenDictionary<string, string> AchievementsData { get; private set; }
+
+        public static string PrestigeLevel2Id { get; set; }
+        public static string PrestigeLevel1Id { get; set; }
+
         #region Startup
 
         /// <summary>
@@ -54,6 +62,23 @@ namespace eft_dma_shared.Common.Misc.Data
                     .DistinctBy(x => x.Id)
                     .ToDictionary(k => k.Id, v => v, StringComparer.OrdinalIgnoreCase)
                     .ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
+                if (data.Achievements is not null)
+                {
+                    AchievementsData = data.Achievements.ToDictionary(k => k.Id, k => k.Name, StringComparer.OrdinalIgnoreCase)
+                    .ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
+
+                    PrestigeLevel2Id = EftDataManager.AchievementsData?.FirstOrDefault(kv => kv.Value == "More Prestigious").Key;
+                    PrestigeLevel1Id = EftDataManager.AchievementsData?.FirstOrDefault(kv => kv.Value == "Prestigious").Key;
+                }
+                else
+                {
+                    var dlg = MessageBox.Show($"{_dataFileName} is missing the achievements data, would you like to reacquire the data?", nameof(EftDataManager), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dlg is DialogResult.Yes)
+                    {
+                        File.Delete(_dataFile);
+                        await ModuleInitAsync(loading, defaultOnly);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -145,8 +170,12 @@ namespace eft_dma_shared.Common.Misc.Data
         {
             [JsonPropertyName("items")]
             public List<TarkovMarketItem> Items { get; set; }
+
             [JsonPropertyName("tasks")]
             public List<TaskElement> Tasks { get; set; }
+
+            [JsonPropertyName("achievements")]
+            public List<AchievementElement> Achievements { get; set; }
         }
 
         public partial class TaskElement

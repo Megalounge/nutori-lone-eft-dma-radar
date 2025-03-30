@@ -1396,14 +1396,15 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                             name = "ERROR"; // In case POS stops updating, let us know!
                         else
                             name = Name;
-                        string health = null; string level = null;
+                        string health = null, level = string.Empty;
                         if (this is ObservedPlayer observed)
                         {
-                            health = observed.HealthStatus is Enums.ETagStatus.Healthy
-                                ? null
-                                : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
-                            if (observed.Profile?.Level is int levelResult)
-                                level = $"L{levelResult}:";
+                            if (observed.HealthStatus is not Enums.ETagStatus.Healthy) // Only display abnormal health status
+                                health = $" ({observed.HealthStatus.GetDescription()})";
+                            if (observed.Profile?.Prestige is int observedPrestigeLevel && observedPrestigeLevel > 0)
+                                level += $"P{observedPrestigeLevel}";
+                            if (observed.Profile?.Level is int observedLevel)
+                                level += $"L{observedLevel}:";
                         }
                         lines.Add($"{level}{name}{health}");
                         if ((int)Math.Round(height) != 0)

@@ -193,6 +193,10 @@ namespace eft_dma_shared.Common.Misc.Data.TarkovMarket
                             }
                         }
                     }
+                    achievements {
+                		id
+                        name
+                    }
                 }
                 """
                 }

@@ -32,6 +32,7 @@ using static eft_dma_radar.UI.Hotkeys.HotkeyManager.HotkeyActionController;
 using Timer = System.Timers.Timer;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using LonesEFTRadar.Tarkov.Features.MemoryWrites;
+using static eft_dma_shared.Common.Unity.UnityOffsets;
 
 namespace eft_dma_radar.UI.Radar
 {
@@ -56,6 +57,7 @@ namespace eft_dma_radar.UI.Radar
         private Vector2 _mapPanPosition;
         private EspWidget _aimview;
         private PlayerInfoWidget _playerInfo;
+        private static LootInfoWidget _lootInfo;
 
         /// <summary>
         /// Main UI/Application Config.
@@ -390,8 +392,10 @@ namespace eft_dma_radar.UI.Radar
                     } // End Grp Connect
 
                     if (allPlayers is not null &&
-                        checkBox_ShowInfoTab.Checked) // Players Overlay
+                        checkBox_ShowPlayerInfoTab.Checked) // Players Info Widget
                         _playerInfo?.Draw(canvas, localPlayer, allPlayers);
+                    if (checkBox_ShowLootInfoTab.Checked) // Loot Info Widget
+                        _lootInfo?.Draw(canvas, localPlayer);
                     closestToMouse?.DrawMouseover(canvas, mapParams, localPlayer);// draw tooltip for object the mouse is closest to
 
                     if (Config.ESPWidgetEnabled)
@@ -1683,8 +1687,10 @@ namespace eft_dma_radar.UI.Radar
                 "Hides human player names from displaying in the Radar or Player Info Widget. Instead will show the (Height,Distance).");
             toolTip1.SetToolTip(checkBox_QuestHelper_Enabled,
                 "Toggles the Quest Helper feature. This will display Items and Zones that you need to pickup/visit for quests that you currently have active.");
-            toolTip1.SetToolTip(checkBox_ShowInfoTab,
+            toolTip1.SetToolTip(checkBox_ShowPlayerInfoTab,
                 "Toggles the Player Info 'Widget' that gives you information about the players/bosses in your raid. Can be moved.");
+            toolTip1.SetToolTip(checkBox_ShowLootInfoTab,
+                "Toggles the Loot Info 'Widget' that gives you information about the loot in your raid. Can be moved.");
             toolTip1.SetToolTip(checkBox_GrpConnect,
                 "Connects players that are grouped up via semi-transparent green lines. Does not apply to your own party.");
             toolTip1.SetToolTip(trackBar_AimlineLength, "Sets the Aimline Length for Local Player/Teammates");
@@ -1840,22 +1846,34 @@ namespace eft_dma_radar.UI.Radar
         /// </summary>
         private void SetupWidgets()
         {
+            var cr = skglControl_Radar.ClientRectangle;
             if (Config.Widgets.AimviewLocation == default)
-            {
-                var cr = skglControl_Radar.ClientRectangle;
                 Config.Widgets.AimviewLocation = new SKRect(cr.Left, cr.Bottom - 200, cr.Left + 200, cr.Bottom);
+
+            if (Config.Widgets.PlayerInfoLocation == default ||
+                Config.Widgets.PlayerInfoLocation.Left < 0 ||
+                Config.Widgets.PlayerInfoLocation.Top < 0 ||
+                Config.Widgets.PlayerInfoLocation.Right > cr.Right ||
+                Config.Widgets.PlayerInfoLocation.Bottom > cr.Bottom)
+            {
+                Config.Widgets.PlayerInfoLocation = new SKRect(cr.Right - 1, cr.Top, cr.Right, cr.Top + 1);
             }
 
-            if (Config.Widgets.PlayerInfoLocation == default)
+            if (Config.Widgets.LootInfoLocation == default ||
+                Config.Widgets.LootInfoLocation.Left < 0 ||
+                Config.Widgets.LootInfoLocation.Top < 0 ||
+                Config.Widgets.LootInfoLocation.Right > cr.Right ||
+                Config.Widgets.LootInfoLocation.Bottom > cr.Bottom)
             {
-                var cr = skglControl_Radar.ClientRectangle;
-                Config.Widgets.PlayerInfoLocation = new SKRect(cr.Right - 1, cr.Top, cr.Right, cr.Top + 1);
+                Config.Widgets.LootInfoLocation = new SKRect(cr.Right - 1, cr.Top + (int)(cr.Bottom * (1 - (1 / 1.45))), cr.Right, cr.Top + 1);
             }
 
             _aimview = new EspWidget(skglControl_Radar, this, Config.Widgets.AimviewLocation, Config.Widgets.AimviewMinimized,
                 UIScale);
             _playerInfo = new PlayerInfoWidget(skglControl_Radar, Config.Widgets.PlayerInfoLocation,
                 Config.Widgets.PlayerInfoMinimized, UIScale);
+            _lootInfo = new LootInfoWidget(skglControl_Radar, Config.Widgets.LootInfoLocation,
+                Config.Widgets.LootInfoMinimized, UIScale);
         }
 
         private void SetMemWriteFeatures()
@@ -1974,7 +1992,6 @@ namespace eft_dma_radar.UI.Radar
             {
                 var fps = Interlocked.Exchange(ref _fps, 0); // Get FPS -> Reset FPS counter
                 var title = Program.Name;
-                if (inRaid) title += $" ({fps} fps)";
                 Text = title; // Set new window title
                 _fpsSw.Restart();
             }
@@ -2074,7 +2091,8 @@ namespace eft_dma_radar.UI.Radar
                 radioButton_Loot_VendorPrice.Checked = true;
             checkBox_LootWishlist.Checked = Config.LootWishlist;
             checkBox_QuestHelper_Enabled.Checked = Config.QuestHelper.Enabled;
-            checkBox_ShowInfoTab.Checked = Config.ShowInfoTab;
+            checkBox_ShowPlayerInfoTab.Checked = Config.ShowPlayerInfoTab;
+            checkBox_ShowLootInfoTab.Checked = Config.ShowLootInfoTab;
             checkBox_HideCorpses.Checked = Config.HideCorpses;
             checkBox_ShowMines.Checked = Config.ShowMines;
             checkBox_TeammateAimlines.Checked = Config.TeammateAimlines;
@@ -2214,10 +2232,12 @@ namespace eft_dma_radar.UI.Radar
                 Config.WindowMaximized = WindowState is FormWindowState.Maximized;
                 Config.Widgets.AimviewLocation = _aimview.ClientRectangle;
                 Config.Widgets.AimviewMinimized = _aimview.Minimized;
-                Config.Widgets.PlayerInfoLocation = _playerInfo.Rectangle;
-                Config.Widgets.PlayerInfoMinimized = _playerInfo.Minimized;
+                Config.Widgets.PlayerInfoLocation = _playerInfo?.Rectangle ?? new SKRect();
+                Config.Widgets.PlayerInfoMinimized = _playerInfo?.Minimized ?? false;
+                Config.Widgets.LootInfoLocation = _lootInfo?.Rectangle ?? new SKRect();
+                Config.Widgets.LootInfoMinimized = _lootInfo?.Minimized ?? false;
                 Config.AimLineLength = trackBar_AimlineLength.Value;
-                Config.ShowInfoTab = checkBox_ShowInfoTab.Checked;
+                Config.ShowPlayerInfoTab = checkBox_ShowPlayerInfoTab.Checked;
                 Config.HideNames = checkBox_HideNames.Checked;
                 Config.ShowMines = checkBox_ShowMines.Checked;
                 Config.ConnectGroups = checkBox_GrpConnect.Checked;
@@ -2327,8 +2347,10 @@ namespace eft_dma_radar.UI.Radar
             toggleESPWidget.HotkeyStateChanged += ToggleESPWidget_HotkeyStateChanged;
             var toggleNames = new HotkeyActionController("Toggle Player Names");
             toggleNames.HotkeyStateChanged += ToggleNames_HotkeyStateChanged;
-            var toggleInfo = new HotkeyActionController("Toggle Game Info Tab");
-            toggleInfo.HotkeyStateChanged += ToggleInfo_HotkeyStateChanged;
+            var togglePlayerInfoWidget = new HotkeyActionController("Toggle Game Info Widget");
+            togglePlayerInfoWidget.HotkeyStateChanged += TogglePlayerInfo_HotkeyStateChanged;
+            var toggleLootInfoWidget = new HotkeyActionController("Toggle Game Loot Info Widget");
+            toggleLootInfoWidget.HotkeyStateChanged += ToggleLootInfo_HotkeyStateChanged;
             var engageAimbot = new HotkeyActionController("Engage Aimbot");
             engageAimbot.HotkeyStateChanged += EngageAimbot_HotkeyStateChanged;
             var toggleAimbotBone = new HotkeyActionController("Toggle Aimbot Bone");
@@ -2375,7 +2397,8 @@ namespace eft_dma_radar.UI.Radar
             HotkeyManager.RegisterActionController(toggleLoot);
             HotkeyManager.RegisterActionController(toggleESPWidget);
             HotkeyManager.RegisterActionController(toggleNames);
-            HotkeyManager.RegisterActionController(toggleInfo);
+            HotkeyManager.RegisterActionController(togglePlayerInfoWidget);
+            HotkeyManager.RegisterActionController(toggleLootInfoWidget);
             HotkeyManager.RegisterActionController(engageAimbot);
             HotkeyManager.RegisterActionController(toggleAimbotBone);
             HotkeyManager.RegisterActionController(toggleAimbotMode);
@@ -2613,10 +2636,16 @@ namespace eft_dma_radar.UI.Radar
             Aimbot.Engaged = e.State;
         }
 
-        private void ToggleInfo_HotkeyStateChanged(object sender, HotkeyEventArgs e)
+        private void TogglePlayerInfo_HotkeyStateChanged(object sender, HotkeyEventArgs e)
         {
             if (e.State)
-                checkBox_ShowInfoTab.Checked = !checkBox_ShowInfoTab.Checked;
+                checkBox_ShowPlayerInfoTab.Checked = !checkBox_ShowPlayerInfoTab.Checked;
+        }
+        
+        private void ToggleLootInfo_HotkeyStateChanged(object sender, HotkeyEventArgs e)
+        {
+            if (e.State)
+                checkBox_ShowLootInfoTab.Checked = !checkBox_ShowLootInfoTab.Checked;
         }
 
         private void ToggleNames_HotkeyStateChanged(object sender, HotkeyEventArgs e)

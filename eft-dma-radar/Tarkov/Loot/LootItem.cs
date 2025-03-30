@@ -432,17 +432,17 @@ namespace eft_dma_radar.Tarkov.Loot
         {
             if (this is LootCorpse)
                 return new(SKPaints.PaintCorpseESP, SKPaints.TextCorpseESP);
-            if (IsWishlisted)
+            else if (IsWishlisted)
                 return new(SKPaints.PaintWishlistItemESP, SKPaints.TextWishlistItemESP);
             else if (this is QuestItem)
                 return new(SKPaints.PaintQuestHelperESP, SKPaints.TextQuestHelperESP);
             else if (MainForm.Config.QuestHelper.Enabled && IsQuestCondition)
                 return new (SKPaints.PaintQuestItemESP, SKPaints.TextQuestItemESP);
-            if (LootFilter.ShowBackpacks && IsBackpack)
+            else if (LootFilter.ShowBackpacks && IsBackpack)
                 return new(SKPaints.PaintBackpackESP, SKPaints.TextBackpackESP);
-            if (LootFilter.ShowMeds && IsMeds)
+            else if (LootFilter.ShowMeds && IsMeds)
                 return new(SKPaints.PaintMedsESP, SKPaints.TextMedsESP);
-            if (LootFilter.ShowFood && IsFood)
+            else if (LootFilter.ShowFood && IsFood)
                 return new(SKPaints.PaintFoodESP, SKPaints.TextFoodESP);
             string filterColor = null;
             if (this is LootContainer ctr)

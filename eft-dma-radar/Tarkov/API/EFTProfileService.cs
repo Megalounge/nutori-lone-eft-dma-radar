@@ -1,6 +1,7 @@
 ﻿using eft_dma_shared.Common.Misc;
 using eft_dma_radar.UI.Misc;
 using eft_dma_shared.Common.DMA;
+using eft_dma_shared.Common.Misc.Data.TarkovMarket;
 
 namespace eft_dma_radar.Tarkov.API
 {
@@ -232,13 +233,14 @@ namespace eft_dma_radar.Tarkov.API
 
         public sealed class ProfileData
         {
-
             [JsonPropertyName("info")]
             public ProfileInfo Info { get; set; }
 
             [JsonPropertyName("pmcStats")]
             public StatsContainer PmcStats { get; set; }
 
+            [JsonPropertyName("achievements")]
+            public Dictionary<string, int> Achievements { get; set; }
         }
         public sealed class ProfileInfo
         {
@@ -259,7 +261,7 @@ namespace eft_dma_radar.Tarkov.API
             [JsonPropertyName("eft")]
             public CountersContainer Counters { get; set; }
         }
-
+        
         public sealed class CountersContainer
         {
             [JsonPropertyName("totalInGameTime")]

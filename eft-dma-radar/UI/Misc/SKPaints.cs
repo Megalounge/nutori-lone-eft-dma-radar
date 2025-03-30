@@ -288,6 +288,30 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        internal static SKPaint PlayerInfoText { get; } = new()
+        {
+            SubpixelText = true,
+            Color = SKColors.White,
+            IsStroke = false,
+            TextSize = 12,
+            TextEncoding = SKTextEncoding.Utf8,
+            IsAntialias = true,
+            Typeface = SKTypeface.FromFamilyName("Consolas"), // Do NOT change this font
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint LootInfoText { get; } = new()
+        {
+            SubpixelText = true,
+            Color = SKColors.White,
+            IsStroke = false,
+            TextSize = 12,
+            TextEncoding = SKTextEncoding.Utf8,
+            IsAntialias = true,
+            Typeface = SKTypeface.FromFamilyName("Consolas"), // Do NOT change this font
+            FilterQuality = SKFilterQuality.High
+        };
+
         #endregion
 
         #region Loot Paints

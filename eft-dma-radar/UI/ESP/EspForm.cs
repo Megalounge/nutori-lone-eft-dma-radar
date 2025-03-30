@@ -13,6 +13,7 @@ using eft_dma_shared.Common.Features;
 using eft_dma_shared.Common.Misc.Data;
 using eft_dma_shared.Common.Players;
 using eft_dma_shared.Common.Unity;
+using eft_dma_shared.Common.Maps;
 
 namespace eft_dma_radar.UI.ESP
 {
@@ -80,7 +81,7 @@ namespace eft_dma_radar.UI.ESP
         /// <summary>
         /// Contains all filtered loot in Local Game World.
         /// </summary>
-        private static IEnumerable<LootItem> Loot => Memory.Loot?.FilteredLoot;
+        private static IEnumerable<LootItem> FilteredLoot => Memory.Loot?.FilteredLoot;
 
         /// <summary>
         /// Contains all static containers in Local Game World.
@@ -420,7 +421,7 @@ namespace eft_dma_radar.UI.ESP
         /// </summary>
         private static void DrawLoot(SKCanvas canvas, LocalPlayer localPlayer)
         {
-            var loot = Loot?.Where(x => x is not QuestItem);
+            var loot = FilteredLoot?.Where(x => x is not QuestItem);
             if (loot is not null)
             {
                 foreach (var item in loot)
@@ -475,7 +476,7 @@ namespace eft_dma_radar.UI.ESP
         /// </summary>
         private static void DrawQuests(SKCanvas canvas, LocalPlayer localPlayer)
         {
-            var questItems = Loot?.Where(x => x is QuestItem);
+            var questItems = FilteredLoot?.Where(x => x is QuestItem);
             if (questItems is not null)
                 foreach (var item in questItems)
                     item.DrawESP(canvas, localPlayer);

@@ -90,10 +90,15 @@ namespace eft_dma_radar.Tarkov.Loot
 
         public override void DrawMouseover(SKCanvas canvas, LoneMapParams mapParams, LocalPlayer localPlayer)
         {
-            var lines = new List<string>()
-            {
-                this.Name
-            };
+            IEnumerable<LootItem> filteredLoot = this.FilteredLoot;
+            if (filteredLoot.Count() <= 0)
+                return;
+
+            var lines = new List<string>() { this.Name };
+
+            foreach (LootItem lootItem in filteredLoot)
+                lines.Add(lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled));
+
             Position.ToMapPos(mapParams.Map).ToZoomedPos(mapParams).DrawMouseoverText(canvas, lines);
         }
     }

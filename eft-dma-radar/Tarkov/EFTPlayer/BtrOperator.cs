@@ -63,11 +63,11 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 }
             }
 
-            var showDist = IsAI ? ESP.Config.AIRendering.ShowDist : ESP.Config.PlayerRendering.ShowDist;
-            var showLabels = IsAI ? ESP.Config.AIRendering.ShowLabels : ESP.Config.PlayerRendering.ShowLabels;
+            var showDist = ESP.Config.BTRRendering.ShowDist;
+            var showLabels = ESP.Config.BTRRendering.ShowLabels;
             var drawLabel = showLabels || showDist;
 
-            var renderMode = IsAI ? ESP.Config.AIRendering.RenderingMode : ESP.Config.PlayerRendering.RenderingMode;
+            var renderMode = ESP.Config.BTRRendering.RenderingMode;
 
             if (drawLabel)
             {
