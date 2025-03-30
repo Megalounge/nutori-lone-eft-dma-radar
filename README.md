@@ -22,6 +22,9 @@
    - Changed how the distance and height are rendered on the radar.
    - Added a `SaveFileDialog` to the backup config handler
    - Converted the Player/AI render mode options from mutually exclusive to mutually inclusive.
+   - Removed fps from radar window title.
+   - Added players prestige level to the player info widget and radar.
+   - Added loot info widget (credit: [Mambo](<https://github.com/Mambo-Noob/eft-dma-radar>))
 
 ## Functionality
    - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
