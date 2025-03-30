@@ -6,13 +6,9 @@
 - This is a fork of [Lone DMA EFT/Arena Radar](https://github.com/Lone83427/lone-eft-dma-radar) with my personal features and changes.
 
 ## Current Changes
-- Split `AdvancedMemWrites` into `MonoPatches` and `NativePatches`
-   - `MonoPatches` controls the patching of mono compiled functions (game functions)
-   - `NativePatches` controls the patching of native compiled functions (NativeHook, AntiPage, Advanced Chams, etc..)
-
-- Disabled the locking of the Fuser ESP settings while the ESP is running
 
 ## UI
+   - Disabled the locking of the Fuser ESP settings while the ESP is running
    - Made the Loader UI smaller and changed the background color to black
    - Removed the parentheses around the held weapon esp
    - Changed `Grp` to `Acct Type`
@@ -27,6 +23,9 @@
    - Added loot info widget (credit: [Mambo](<https://github.com/Mambo-Noob/eft-dma-radar>))
 
 ## Functionality
+   - Split `AdvancedMemWrites` into `MonoPatches` and `NativePatches`
+      - `MonoPatches` controls the patching of mono compiled functions (game functions)
+      - `NativePatches` controls the patching of native compiled functions (NativeHook, AntiPage, Advanced Chams, etc..)
    - Removed mono function patching from the silent aimbot entirely (Might add back later). I've replaced it with a silent aim method that only writes memory values.
    - Added `ToggleWeaponCollisions` (Risky, Only visible client-side)
       - Marked as risky because of the potential to shoot through walls with it, which could be checked server-side.
