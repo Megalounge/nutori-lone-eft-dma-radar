@@ -17,7 +17,6 @@ namespace eft_dma_shared.Common.Misc.Data.TarkovMarket
                 {
                     Items = ParseMarketData(data),
                     Tasks = data.Data.Tasks,
-                    Achievements = data.Data.Achievements
                 };
                 return JsonSerializer.Serialize(result);
             }
@@ -82,9 +81,6 @@ namespace eft_dma_shared.Common.Misc.Data.TarkovMarket
 
             [JsonPropertyName("tasks")]
             public List<TaskElement> Tasks { get; set; }
-
-            [JsonPropertyName("achievements")]
-            public List<AchievementElement> Achievements { get; set; }
         }
 
         private sealed class OutgoingItem

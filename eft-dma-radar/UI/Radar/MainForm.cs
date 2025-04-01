@@ -1668,6 +1668,7 @@ namespace eft_dma_radar.UI.Radar
             toolTip1.SetToolTip(checkBox_ESPRender_Labels, "Display entity label/name.");
             toolTip1.SetToolTip(checkBox_ESPRender_Dist, "Display entity distance from LocalPlayer.");
             toolTip1.SetToolTip(checkBox_ESPRender_Weapons, "Display entity's held weapon/ammo.");
+            toolTip1.SetToolTip(checkBox_ESPRender_Level, "Display entity's level.");
             toolTip1.SetToolTip(checkBox_ESPAIRender_Labels, "Display entity label/name.");
             toolTip1.SetToolTip(checkBox_ESPAIRender_Dist, "Display entity distance from LocalPlayer.");
             toolTip1.SetToolTip(checkBox_ESPAIRender_Weapons, "Display entity's held weapon/ammo.");
@@ -2705,6 +2706,7 @@ namespace eft_dma_radar.UI.Radar
 
             checkBox_ESPRender_Labels.Checked = Config.ESP.PlayerRendering.ShowLabels;
             checkBox_ESPRender_Weapons.Checked = Config.ESP.PlayerRendering.ShowWeapons;
+            checkBox_ESPRender_Level.Checked = Config.ESP.PlayerRendering.ShowLevel;
             checkBox_ESPRender_Dist.Checked = Config.ESP.PlayerRendering.ShowDist;
             checkBox_ESPAIRender_Labels.Checked = Config.ESP.AIRendering.ShowLabels;
             checkBox_ESPAIRender_Weapons.Checked = Config.ESP.AIRendering.ShowWeapons;
@@ -2939,28 +2941,46 @@ namespace eft_dma_radar.UI.Radar
             float lineScale = Config.ESP.LineScale;
             SKPaints.PaintPMCESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextPMCESP.TextSize = 12f * fontScale;
+            SKPaints.PaintPMCHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintPMCHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintScavESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextScavESP.TextSize = 12f * fontScale;
+            SKPaints.PaintScavHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintScavHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintFriendlyESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextFriendlyESP.TextSize = 12f * fontScale;
+            SKPaints.PaintFriendlyHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintFriendlyHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintPlayerScavESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextPlayerScavESP.TextSize = 12f * fontScale;
+            SKPaints.PaintPlayerScavHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintPlayerScavHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintBossESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextBossESP.TextSize = 12f * fontScale;
+            SKPaints.PaintBossHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintBossHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintRaiderESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextRaiderESP.TextSize = 12f * fontScale;
+            SKPaints.PaintRaiderHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintRaiderHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintWatchlistESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextWatchlistESP.TextSize = 12f * fontScale;
+            SKPaints.PaintWatchlistHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintWatchlistHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintStreamerESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextStreamerESP.TextSize = 12f * fontScale;
+            SKPaints.PaintStreamerHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintStreamerHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintAimbotLockedESP.StrokeWidth = 1.5f * lineScale;
             SKPaints.TextAimbotLockedESP.TextSize = 12f * fontScale;
+            SKPaints.PaintAimbotLockedHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintAimbotLockedHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintFocusedESP.StrokeWidth = 1f * lineScale;
             SKPaints.TextFocusedESP.TextSize = 12f * fontScale;
+            SKPaints.PaintFocusedHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
+            SKPaints.PaintFocusedHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintCrosshairESP.StrokeWidth = 1.75f * lineScale;
             SKPaints.PaintBasicESP.StrokeWidth = 1f * lineScale;
-            SKPaints.PaintHighAlertAimlineESP.StrokeWidth = 1f * lineScale;
-            SKPaints.PaintHighAlertBorderESP.StrokeWidth = 3f * lineScale;
             SKPaints.PaintLootESP.StrokeWidth = 1f * lineScale;
             SKPaints.TextLootESP.TextSize = 12f * fontScale;
             SKPaints.PaintCorpseESP.StrokeWidth = 1f * lineScale;
@@ -3073,6 +3093,11 @@ namespace eft_dma_radar.UI.Radar
         private void checkBox_ESPRender_Weapons_CheckedChanged(object sender, EventArgs e)
         {
             Config.ESP.PlayerRendering.ShowWeapons = checkBox_ESPRender_Weapons.Checked;
+        }
+
+        private void checkBox_ESPRender_Level_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ESP.PlayerRendering.ShowLevel = checkBox_ESPRender_Level.Checked;
         }
 
         private void checkBox_ESPRender_Dist_CheckedChanged(object sender, EventArgs e)

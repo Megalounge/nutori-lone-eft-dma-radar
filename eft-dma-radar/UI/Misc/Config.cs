@@ -682,6 +682,12 @@ namespace eft_dma_radar.UI.Misc
         public bool ShowWeapons { get; set; }
 
         /// <summary>
+        /// Show the level of this player.
+        /// </summary>
+        [JsonPropertyName("showLevel")]
+        public bool ShowLevel { get; set; }
+
+        /// <summary>
         /// Show distance to this player.
         /// </summary>
         [JsonPropertyName("showDist")]

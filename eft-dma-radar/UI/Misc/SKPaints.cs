@@ -672,6 +672,22 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        public static SKPaint PaintPMCHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintPMCHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
         public static SKPaint PaintScavESP { get; } = new()
         {
             StrokeWidth = 1.5f,
@@ -689,6 +705,22 @@ namespace eft_dma_radar.UI.Misc
             TextEncoding = SKTextEncoding.Utf8,
             IsAntialias = true,
             Typeface = CustomFonts.SKFontFamilyMedium,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintScavHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintScavHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
 
@@ -712,6 +744,22 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        public static SKPaint PaintRaiderHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintRaiderHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
         public static SKPaint PaintBossESP { get; } = new()
         {
             StrokeWidth = 1.5f,
@@ -729,6 +777,22 @@ namespace eft_dma_radar.UI.Misc
             TextEncoding = SKTextEncoding.Utf8,
             IsAntialias = true,
             Typeface = CustomFonts.SKFontFamilyMedium,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintBossHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintBossHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
 
@@ -752,6 +816,22 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        public static SKPaint PaintAimbotLockedHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintAimbotLockedHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
         public static SKPaint PaintFocusedESP { get; } = new()
         {
             StrokeWidth = 1.5f,
@@ -769,6 +849,22 @@ namespace eft_dma_radar.UI.Misc
             TextEncoding = SKTextEncoding.Utf8,
             IsAntialias = true,
             Typeface = CustomFonts.SKFontFamilyMedium,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintFocusedHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintFocusedHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
 
@@ -792,6 +888,22 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        public static SKPaint PaintStreamerHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintStreamerHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
         public static SKPaint PaintWatchlistESP { get; } = new()
         {
             StrokeWidth = 1.5f,
@@ -809,6 +921,22 @@ namespace eft_dma_radar.UI.Misc
             TextEncoding = SKTextEncoding.Utf8,
             IsAntialias = true,
             Typeface = CustomFonts.SKFontFamilyMedium,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintWatchlistHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintWatchlistHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
 
@@ -832,6 +960,22 @@ namespace eft_dma_radar.UI.Misc
             FilterQuality = SKFilterQuality.High
         };
 
+        public static SKPaint PaintPlayerScavHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintPlayerScavHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
         public static SKPaint PaintFriendlyESP { get; } = new()
         {
             StrokeWidth = 1.5f,
@@ -849,6 +993,22 @@ namespace eft_dma_radar.UI.Misc
             TextEncoding = SKTextEncoding.Utf8,
             IsAntialias = true,
             Typeface = CustomFonts.SKFontFamilyMedium,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintFriendlyHighAlertAimlineESP { get; } = new()
+        {
+            StrokeWidth = 1f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
+            FilterQuality = SKFilterQuality.High
+        };
+
+        public static SKPaint PaintFriendlyHighAlertBorderESP { get; } = new()
+        {
+            StrokeWidth = 3f,
+            Style = SKPaintStyle.Stroke,
+            IsAntialias = true,
             FilterQuality = SKFilterQuality.High
         };
 
@@ -1066,24 +1226,6 @@ namespace eft_dma_radar.UI.Misc
         {
             Color = SKColors.Red,
             StrokeWidth = 1.75f,
-            Style = SKPaintStyle.Stroke,
-            IsAntialias = true,
-            FilterQuality = SKFilterQuality.High
-        };
-
-        public static SKPaint PaintHighAlertAimlineESP { get; } = new()
-        {
-            Color = SKColors.Red,
-            StrokeWidth = 1f,
-            Style = SKPaintStyle.Stroke,
-            IsAntialias = true,
-            FilterQuality = SKFilterQuality.High
-        };
-
-        public static SKPaint PaintHighAlertBorderESP { get; } = new()
-        {
-            Color = SKColors.Red,
-            StrokeWidth = 3f,
             Style = SKPaintStyle.Stroke,
             IsAntialias = true,
             FilterQuality = SKFilterQuality.High

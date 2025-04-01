@@ -23,9 +23,6 @@ namespace eft_dma_shared.Common.Misc.Data.TarkovMarket
 
             [JsonPropertyName("items")]
             public List<ItemElement> Items { get; set; }
-
-            [JsonPropertyName("achievements")]
-            public List<AchievementElement> Achievements { get; set; }
         }
         public partial class WarningMessage
         {
@@ -110,15 +107,6 @@ namespace eft_dma_shared.Common.Misc.Data.TarkovMarket
             [JsonPropertyName("name")]
             public string Name { get; set; }
         }
-    }
-
-    public partial class AchievementElement
-    {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name{ get; set; }
     }
 
     public partial class BasicDataElement

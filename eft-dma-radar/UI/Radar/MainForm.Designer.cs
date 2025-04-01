@@ -216,6 +216,7 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPRender_Presence = new CheckBox();
             checkBox_ESPRender_Labels = new CheckBox();
             checkBox_ESPRender_Weapons = new CheckBox();
+            checkBox_ESPRender_Level = new CheckBox();
             checkBox_ESPRender_Dist = new CheckBox();
             flowLayoutPanel_ESP_AIRender = new FlowLayoutPanel();
             label19 = new Label();
@@ -2282,6 +2283,7 @@ namespace eft_dma_radar.UI.Radar
             flowLayoutPanel_ESP_PlayerRender.Controls.Add(checkBox_ESPRender_Presence);
             flowLayoutPanel_ESP_PlayerRender.Controls.Add(checkBox_ESPRender_Labels);
             flowLayoutPanel_ESP_PlayerRender.Controls.Add(checkBox_ESPRender_Weapons);
+            flowLayoutPanel_ESP_PlayerRender.Controls.Add(checkBox_ESPRender_Level);
             flowLayoutPanel_ESP_PlayerRender.Controls.Add(checkBox_ESPRender_Dist);
             flowLayoutPanel_ESP_PlayerRender.Location = new Point(3, 121);
             flowLayoutPanel_ESP_PlayerRender.Name = "flowLayoutPanel_ESP_PlayerRender";
@@ -2350,6 +2352,16 @@ namespace eft_dma_radar.UI.Radar
             checkBox_ESPRender_Weapons.Text = "Weapons";
             checkBox_ESPRender_Weapons.UseVisualStyleBackColor = true;
             checkBox_ESPRender_Weapons.CheckedChanged += checkBox_ESPRender_Weapons_CheckedChanged;
+            // 
+            // checkBox_ESPRender_Level
+            // 
+            checkBox_ESPRender_Level.AutoSize = true;
+            checkBox_ESPRender_Level.Location = new Point(68, 53);
+            checkBox_ESPRender_Level.Name = "checkBox_ESPRender_Level";
+            checkBox_ESPRender_Level.Size = new Size(75, 19);
+            checkBox_ESPRender_Level.Text = "Level";
+            checkBox_ESPRender_Level.UseVisualStyleBackColor = true;
+            checkBox_ESPRender_Level.CheckedChanged += checkBox_ESPRender_Level_CheckedChanged;
             // 
             // checkBox_ESPRender_Dist
             // 
@@ -3274,6 +3286,7 @@ namespace eft_dma_radar.UI.Radar
         private CheckBox checkBox_ESPRender_Presence;
         private CheckBox checkBox_ESPRender_Dist;
         private CheckBox checkBox_ESPRender_Weapons;
+        private CheckBox checkBox_ESPRender_Level;
         private CheckBox checkBox_ESPRender_Labels;
         private CheckBox checkBox_ESPAIRender_Bones;
         private CheckBox checkBox_ESPAIRender_Box;

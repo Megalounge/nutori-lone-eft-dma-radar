@@ -779,6 +779,24 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                         Name = "Zombie",
                         Type = PlayerType.AIScav
                     };
+                case "bossTagillaAgro":
+                    return new AIRole()
+                    {
+                        Name = "Shadow Of Tagilla",
+                        Type = PlayerType.AIBoss
+                    };
+                case "bossKillaAgro":
+                    return new AIRole()
+                    {
+                        Name = "Vengeful Killa",
+                        Type = PlayerType.AIBoss
+                    };
+                case "tagillaHelperAgro":
+                    return new AIRole()
+                    {
+                        Name = "Tagilla Guard",
+                        Type = PlayerType.AIBoss
+                    };
                 default:
                     break;
             }
@@ -1638,6 +1656,7 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
 
             var showInfo = IsAI ? ESP.Config.AIRendering.ShowLabels : ESP.Config.PlayerRendering.ShowLabels;
             var showWep = IsAI ? ESP.Config.AIRendering.ShowWeapons : ESP.Config.PlayerRendering.ShowWeapons;
+            var showLevel = IsAI ? false : ESP.Config.PlayerRendering.ShowLevel;
             var drawLabel = showInfo || showDist || showWep;
 
             var renderMode = IsAI ? ESP.Config.AIRendering.RenderingMode : ESP.Config.PlayerRendering.RenderingMode;
@@ -1672,10 +1691,15 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                 if (showInfo)
                 {
                     string health = null;
+                    string level = null;
                     if (this is ObservedPlayer observed)
-                        health = observed.HealthStatus is Enums.ETagStatus.Healthy
-                            ? null
-                            : $" ({observed.HealthStatus.GetDescription()})"; // Only display abnormal health status
+                    {
+                        if (observed.HealthStatus is not Enums.ETagStatus.Healthy) // Only display abnormal health status
+                            health = $" ({observed.HealthStatus.GetDescription()})";
+
+                        if (showLevel && observed.Profile is PlayerProfile profile)
+                            level = profile.PrestigeAndLevelString;
+                    }
                     string fac = null;
                     if (IsHostilePmc) // Prepend PMC Faction
                     {
@@ -1685,7 +1709,7 @@ namespace eft_dma_radar.Tarkov.EFTPlayer
                             fac = "B:";
                     }
 
-                    lines.Add($"{fac}{Name}{health}");
+                    lines.Add($"{fac}{level}{Name}{health}");
                 }
 
                 if (showWep)

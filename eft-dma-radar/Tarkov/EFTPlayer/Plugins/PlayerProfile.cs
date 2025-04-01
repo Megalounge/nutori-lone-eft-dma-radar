@@ -136,28 +136,7 @@ namespace eft_dma_radar.Tarkov.EFTPlayer.Plugins
         /// <summary>
         /// Player's In-Game Prestige Level (only human players).
         /// </summary>
-        public int? Prestige
-        {
-            get
-            {
-                if (_Prestige is int Prestige)
-                    return Prestige;
-
-                if (Profile is null)
-                    return null;
-
-                Dictionary<string, int> Achievements = Profile?.Achievements;
-                if (Achievements is null)
-                    return null;
-
-                if (Achievements.ContainsKey(EftDataManager.PrestigeLevel2Id))
-                    return _Prestige = 2;
-                else if (Achievements.ContainsKey(EftDataManager.PrestigeLevel1Id))
-                    return _Prestige = 1;
-                else
-                    return _Prestige = 0;
-            }
-        }
+        public int? Prestige => _Prestige is int prestige ? prestige : (_Prestige = Profile?.Info?.Prestige);
 
         private int? _level;
         /// <summary>
@@ -181,11 +160,13 @@ namespace eft_dma_radar.Tarkov.EFTPlayer.Plugins
         {
             get
             {
-                string result = "--";
+                string result = string.Empty;
                 if (this.Prestige is int prestigeLevel && prestigeLevel > 0)
                     result += $"P{prestigeLevel}";
                 if (this.Level is int level && level > 0)
                     result += $"L{level}";
+                if (result != string.Empty)
+                    result += ":";
                 return result;
             }
         }

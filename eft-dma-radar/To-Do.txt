@@ -3,7 +3,6 @@ Abstract the aimbot functionality such as selecting a target, etc.. and split th
 Add GUI to show current in-game counters (kills, etc..)
 Change the "Max Distance" slider to "Player Max Distance" and add a different slider for looking at warning's max distance
 Add player loot to esp when hovered
-Add loot list to radar/esp
 Seperate "Always Day/Sunny" into "Always Clear Weather" and "Force Time" with a slider for time
 Seperate "Fast Weapon Ops" into "Instant ADS" and "Fast Reload"
 Figure out the proper way to make a stop esp button (I'm not a C# dev)
@@ -20,11 +19,8 @@ Add "Show Roubles" to the "Loot" widget on the radar (for car extract money)
 Add option to disable the inventory blur
 Add throw strength feature
 Make option to show when teammates are being looked at
-Add my features to the hotkeys
 Would be cool to make a advanced quest helper, wouldn't be super hard just would take a decent chunk of time (Save for UI Rework)
 See if it's possible to inject inputs into unity's input manager without shellcode, could do something like a kd dropper from dma
 Could add raid deploy countdown on the ESP/Radar
 Option to draw the extracts OBB on ESP/Radar
 Option to show in game time on ESP/Radar
-Add all my features to the hotkey manager
-Fix toggling a quest not toggling for bodies

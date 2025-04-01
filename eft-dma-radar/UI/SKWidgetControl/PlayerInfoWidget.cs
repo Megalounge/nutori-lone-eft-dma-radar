@@ -78,7 +78,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 }
                 var grp = player.GroupID != -1 ? player.GroupID.ToString() : "--";
                 var focused = player.IsFocused ? "*" : null;
-                sb.AppendFormat("{0,-25}", $"{focused}{faction}:{level}{name}".Substring(0, 25));
+                sb.AppendFormat("{0,-25}", $"{focused}{faction}:{level}{name}");
                 sb.AppendFormat("{0,-5}", edition)
                     .AppendFormat("{0,-7}", kd)
                     .AppendFormat("{0,-7}", hours)

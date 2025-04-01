@@ -1,6 +1,4 @@
-﻿using eft_dma_radar.UI.ESP;
-using eft_dma_radar.UI.Misc;
-using eft_dma_shared.Common.ESP;
+﻿using eft_dma_radar.UI.Misc;
 using eft_dma_shared.Common.Misc;
 using eft_dma_shared.Common.Players;
 using eft_dma_shared.Common.Unity;
@@ -54,17 +52,18 @@ namespace eft_dma_radar.Tarkov.EFTPlayer.Plugins
         /// </summary>
         public static void DrawHighAlertESP(SKCanvas canvas, Player target)
         {
+            var highAlertPaints = HighAlert.GetHighAlertPaints(target);
             var targetPos = target is BtrOperator btr ?
-                btr.Position : target.Skeleton.Bones[Bones.HumanSpine2].Position;
+                btr.Position : target.Skeleton.Bones[Bones.HumanBase].Position;
             if (CameraManagerBase.WorldToScreen(ref targetPos, out var targetScrPos, true))
             {
                 canvas.DrawLine(targetScrPos, new SKPoint(CameraManagerBase.Viewport.Width / 2, CameraManagerBase.Viewport.Height),
-                    SKPaints.PaintHighAlertAimlineESP);
+                    highAlertPaints.Item1);
             }
             else
             {
                 var screenBorder = new SKRect(CameraManagerBase.Viewport.Left, CameraManagerBase.Viewport.Top, CameraManagerBase.Viewport.Right, CameraManagerBase.Viewport.Bottom);
-                canvas.DrawRect(screenBorder, SKPaints.PaintHighAlertBorderESP);
+                canvas.DrawRect(screenBorder, highAlertPaints.Item2);
             }
         }
 
@@ -72,14 +71,39 @@ namespace eft_dma_radar.Tarkov.EFTPlayer.Plugins
         {
             // Convert rotation (yaw, pitch) to a direction vector
             // This might need adjustments based on how you define rotation
-            var yaw = (float)rotation.X.ToRadians();
-            var pitch = (float)rotation.Y.ToRadians();
+            var yaw = rotation.X.ToRadians();
+            var pitch = rotation.Y.ToRadians();
             Vector3 direction;
             direction.X = (float)(Math.Cos(pitch) * Math.Sin(yaw));
-            direction.Y = (float)Math.Sin(-pitch); // Negative pitch because in Unity, as pitch increases, we look down
+            direction.Y = (float)Math.Sin(-pitch); // Negative pitch because in Unity, as we look down, pitch increases
             direction.Z = (float)(Math.Cos(pitch) * Math.Cos(yaw));
 
             return Vector3.Normalize(direction);
+        }
+
+        private static ValueTuple<SKPaint, SKPaint> GetHighAlertPaints(Player target)
+        {
+            switch (target.Type)
+            {
+                case Player.PlayerType.Teammate:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintFriendlyHighAlertAimlineESP, SKPaints.PaintFriendlyHighAlertBorderESP);
+                case Player.PlayerType.PMC:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintPMCHighAlertAimlineESP, SKPaints.PaintPMCHighAlertBorderESP);
+                case Player.PlayerType.AIScav:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintScavHighAlertAimlineESP, SKPaints.PaintScavHighAlertBorderESP);
+                case Player.PlayerType.AIRaider:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintRaiderHighAlertAimlineESP, SKPaints.PaintRaiderHighAlertBorderESP);
+                case Player.PlayerType.AIBoss:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintBossHighAlertAimlineESP, SKPaints.PaintBossHighAlertBorderESP);
+                case Player.PlayerType.PScav:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintAimbotLockedHighAlertAimlineESP, SKPaints.PaintAimbotLockedHighAlertBorderESP);
+                case Player.PlayerType.SpecialPlayer:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintFocusedHighAlertAimlineESP, SKPaints.PaintFocusedHighAlertBorderESP);
+                case Player.PlayerType.Streamer:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintStreamerHighAlertAimlineESP, SKPaints.PaintStreamerHighAlertBorderESP);
+                default:
+                    return new ValueTuple<SKPaint, SKPaint>(SKPaints.PaintPMCHighAlertAimlineESP, SKPaints.PaintPMCHighAlertBorderESP);
+            }
         }
     }
 

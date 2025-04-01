@@ -238,9 +238,6 @@ namespace eft_dma_radar.Tarkov.API
 
             [JsonPropertyName("pmcStats")]
             public StatsContainer PmcStats { get; set; }
-
-            [JsonPropertyName("achievements")]
-            public Dictionary<string, int> Achievements { get; set; }
         }
         public sealed class ProfileInfo
         {
@@ -252,6 +249,9 @@ namespace eft_dma_radar.Tarkov.API
 
             [JsonPropertyName("memberCategory")]
             public int MemberCategory { get; set; }
+
+            [JsonPropertyName("prestigeLevel")]
+            public int Prestige { get; set; }
 
             [JsonPropertyName("registrationDate")]
             public int RegistrationDate { get; set; }

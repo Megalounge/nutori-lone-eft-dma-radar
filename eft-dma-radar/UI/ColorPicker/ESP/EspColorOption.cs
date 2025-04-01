@@ -89,42 +89,62 @@ namespace eft_dma_radar.UI.ColorPicker.ESP
                         case EspColorOption.FriendlyPlayer:
                             SKPaints.PaintFriendlyESP.Color = skColor;
                             SKPaints.TextFriendlyESP.Color = skColor;
+                            SKPaints.PaintFriendlyHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintFriendlyHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.PMCPlayer:
                             SKPaints.PaintPMCESP.Color = skColor;
                             SKPaints.TextPMCESP.Color = skColor;
+                            SKPaints.PaintPMCHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintPMCHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.ScavPlayer:
                             SKPaints.PaintScavESP.Color = skColor;
                             SKPaints.TextScavESP.Color = skColor;
+                            SKPaints.PaintScavHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintScavHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.HumanScavPlayer:
                             SKPaints.PaintPlayerScavESP.Color = skColor;
                             SKPaints.TextPlayerScavESP.Color = skColor;
+                            SKPaints.PaintPlayerScavHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintPlayerScavHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.BossPlayer:
                             SKPaints.PaintBossESP.Color = skColor;
                             SKPaints.TextBossESP.Color = skColor;
+                            SKPaints.PaintBossHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintBossHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.WatchlistPlayer:
                             SKPaints.PaintWatchlistESP.Color = skColor;
                             SKPaints.TextWatchlistESP.Color = skColor;
+                            SKPaints.PaintWatchlistHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintWatchlistHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.StreamerPlayer:
                             SKPaints.PaintStreamerESP.Color = skColor;
                             SKPaints.TextStreamerESP.Color = skColor;
+                            SKPaints.PaintStreamerHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintStreamerHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.AimbotLockedPlayer:
                             SKPaints.PaintAimbotLockedESP.Color = skColor;
                             SKPaints.TextAimbotLockedESP.Color = skColor;
+                            SKPaints.PaintAimbotLockedHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintAimbotLockedHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.FocusedPlayer:
                             SKPaints.PaintFocusedESP.Color = skColor;
                             SKPaints.TextFocusedESP.Color = skColor;
+                            SKPaints.PaintFocusedHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintFocusedHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.RaiderPlayer:
                             SKPaints.PaintRaiderESP.Color = skColor;
                             SKPaints.TextRaiderESP.Color = skColor;
+                            SKPaints.PaintRaiderHighAlertAimlineESP.Color = skColor;
+                            SKPaints.PaintRaiderHighAlertBorderESP.Color = skColor;
                             break;
                         case EspColorOption.RegularLoot:
                             SKPaints.PaintLootESP.Color = skColor;
