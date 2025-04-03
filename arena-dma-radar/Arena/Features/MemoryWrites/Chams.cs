@@ -31,6 +31,24 @@ namespace arena_dma_radar.Arena.Features.MemoryWrites
                 {
                     var cm = game.CameraManager;
                     var mode = Config.Mode; // Cache value
+                    if (mode is ChamsManager.ChamsMode.VisCheck) // Only disable culling for Vischeck Chams
+                    {
+                        ulong fpsView = cm.FPSCamera;
+                        ulong opticView = cm.OpticCamera;
+                        const bool targetCulling = false;
+                        var cullingFps = Memory.ReadValue<bool>(fpsView + UnityOffsets.Camera.OcclusionCulling);
+                        var cullingOptical = Memory.ReadValue<bool>(opticView + UnityOffsets.Camera.OcclusionCulling);
+                        if (cullingFps != targetCulling)
+                        {
+                            writes.AddValueEntry(fpsView + UnityOffsets.Camera.OcclusionCulling, targetCulling);
+                            LoneLogging.WriteLine($"FPS Culling -> {targetCulling}");
+                        }
+                        if (cullingOptical != targetCulling)
+                        {
+                            writes.AddValueEntry(opticView + UnityOffsets.Camera.OcclusionCulling, targetCulling);
+                            LoneLogging.WriteLine($"Optical Culling -> {targetCulling}");
+                        }
+                    }
                     var players = game.Players
                         .Where(x => x.IsHostileActive)
                         .Where(x => x.ChamsMode != mode);
