@@ -242,11 +242,6 @@ namespace eft_dma_radar.Tarkov.Loot
                 if (Config.HideCorpses)
                     return;
             }
-            else if (this is StaticLootContainer)
-            {
-                if (dist > ESP.Config.ContainerDrawDistance)
-                    return;
-            }
             else if (dist > ESP.Config.LootDrawDistance)
             {
                 return;
@@ -392,20 +387,18 @@ namespace eft_dma_radar.Tarkov.Loot
 
 
 
-        protected ValueTuple<SKPaint, SKPaint> GetPaints()
+        public virtual ValueTuple<SKPaint, SKPaint> GetPaints()
         {
-            if (IsWishlisted)
-                return new(SKPaints.PaintWishlistItem, SKPaints.TextWishlistItem);
-            else if (this is QuestItem)
-                return new(SKPaints.QuestHelperPaint, SKPaints.QuestHelperText);
-            else if (MainForm.Config.QuestHelper.Enabled && IsQuestCondition)
-                return new (SKPaints.PaintQuestItem, SKPaints.TextQuestItem);
             if (LootFilter.ShowBackpacks && IsBackpack)
                 return new(SKPaints.PaintBackpacks, SKPaints.TextBackpacks);
             if (LootFilter.ShowMeds && IsMeds)
-                return new (SKPaints.PaintMeds, SKPaints.TextMeds);
-            if (LootFilter.ShowFood && IsFood)
-                return new (SKPaints.PaintFood, SKPaints.TextFood);
+                return new(SKPaints.PaintMeds, SKPaints.TextMeds);
+            if(LootFilter.ShowFood && IsFood)
+                return new(SKPaints.PaintFood, SKPaints.TextFood);
+            if (MainForm.Config.QuestHelper.Enabled && IsQuestCondition)
+                return new(SKPaints.PaintQuestItem, SKPaints.TextQuestItem);
+            if (IsWishlisted)
+                return new(SKPaints.PaintWishlistItem, SKPaints.TextWishlistItem);
             string filterColor = null;
             if (this is LootContainer ctr)
             {
@@ -428,22 +421,18 @@ namespace eft_dma_radar.Tarkov.Loot
             return new (SKPaints.PaintLoot, SKPaints.TextLoot);
         }
 
-        public ValueTuple<SKPaint, SKPaint> GetESPPaints()
+        public virtual ValueTuple<SKPaint, SKPaint> GetESPPaints()
         {
-            if (this is LootCorpse)
-                return new(SKPaints.PaintCorpseESP, SKPaints.TextCorpseESP);
-            else if (IsWishlisted)
-                return new(SKPaints.PaintWishlistItemESP, SKPaints.TextWishlistItemESP);
-            else if (this is QuestItem)
-                return new(SKPaints.PaintQuestHelperESP, SKPaints.TextQuestHelperESP);
-            else if (MainForm.Config.QuestHelper.Enabled && IsQuestCondition)
-                return new (SKPaints.PaintQuestItemESP, SKPaints.TextQuestItemESP);
-            else if (LootFilter.ShowBackpacks && IsBackpack)
+            if (LootFilter.ShowBackpacks && IsBackpack)
                 return new(SKPaints.PaintBackpackESP, SKPaints.TextBackpackESP);
-            else if (LootFilter.ShowMeds && IsMeds)
+            if (LootFilter.ShowMeds && IsMeds)
                 return new(SKPaints.PaintMedsESP, SKPaints.TextMedsESP);
-            else if (LootFilter.ShowFood && IsFood)
+            if (LootFilter.ShowFood && IsFood)
                 return new(SKPaints.PaintFoodESP, SKPaints.TextFoodESP);
+            if (IsWishlisted)
+                return new(SKPaints.PaintWishlistItemESP, SKPaints.TextWishlistItemESP);
+            if (MainForm.Config.QuestHelper.Enabled && IsQuestCondition)
+                return new (SKPaints.PaintQuestItemESP, SKPaints.TextQuestItemESP);
             string filterColor = null;
             if (this is LootContainer ctr)
                 filterColor = ctr.Loot?.FirstOrDefault(x => x.Important)?.CustomFilter?.Color;
@@ -529,15 +518,20 @@ namespace eft_dma_radar.Tarkov.Loot
     public static class LootItemExtensions
     {
         /// <summary>
-        /// Order loot (important first, then by price).
+        /// Order loot (LootFilter, QuestItems, Wishlisted, Important, then by price).
         /// </summary>
         /// <param name="loot"></param>
         /// <returns>Ordered loot.</returns>
         public static IEnumerable<LootItem> OrderLoot(this IEnumerable<LootItem> loot)
         {
             return loot
-                .OrderByDescending(x => x.IsImportant || (MainForm.Config.QuestHelper.Enabled && x.IsQuestCondition))
-                .ThenByDescending(x => x.Price);
+                .OrderBy(lootItem => (LootFilter.ShowMeds && lootItem.IsMeds) ? 1 :
+                                     (LootFilter.ShowFood && lootItem.IsFood) ? 2 :
+                                     (LootFilter.ShowBackpacks && lootItem.IsBackpack) ? 3 :
+                                     (MainForm.Config.QuestHelper.Enabled && lootItem.IsQuestCondition) ? 4 :
+                                     lootItem.IsWishlisted ? 5 :
+                                     lootItem.IsImportant ? 6 : int.MaxValue)
+                .ThenByDescending(lootItem => lootItem.Price);
         }
     }
 }

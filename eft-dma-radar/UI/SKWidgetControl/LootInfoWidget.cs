@@ -27,7 +27,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
         /// All Filtered Loot on the map (Grouped by Position).
         /// </summary>
         /// <summary>
-        private static IEnumerable<(LootItem, int)> Loot =>
+        private static IEnumerable<(LootItem, int)> FilteredLoot =>
             Memory.Loot?.FilteredLoot
                 ?.Where(item => item is not LootCorpse && item is not QuestItem) // Remove corpses and quest items
                 .GroupBy(item => item.Position) // Group items by their position
@@ -35,6 +35,12 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 .OrderByDescending(entry => entry.Item1.Price) // ✅ Use Item1 to access LootItem
                 .Take(15)
                 ?? Enumerable.Empty<(LootItem, int)>(); // Ensure it's never null
+        
+        /// <summary>
+        /// All Loot on the map.
+        /// </summary>
+        /// <summary>
+        private static IEnumerable<LootItem> Loot => Memory.Loot?.FilteredLoot.AsEnumerable() ?? Enumerable.Empty<LootItem>(); // Ensure it's never null
 
         public void Draw(SKCanvas canvas, Player localPlayer)
         {
@@ -44,8 +50,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                 return;
             }
 
-            var lootItems = Loot.ToList();
-            var lootCount = lootItems.Count;
+            var lootItems = FilteredLoot.ToList();
             var sb = new StringBuilder();
 
             // Table headers
@@ -84,7 +89,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
             Draw(canvas);
 
             drawPt = new SKPoint(ClientRectangle.Left + pad, ClientRectangle.Top + lineSpacing / 2 + pad);
-            canvas.DrawText($"Total Loot: {lootCount}", drawPt, SKPaints.LootInfoText);
+            canvas.DrawText($"Total Loot: {Loot.Count()}", drawPt, SKPaints.LootInfoText);
             drawPt.Y += lineSpacing;
 
             foreach (var line in data)

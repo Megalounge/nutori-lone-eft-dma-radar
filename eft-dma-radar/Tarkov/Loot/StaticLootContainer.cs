@@ -1,11 +1,13 @@
 ﻿using eft_dma_radar.Tarkov.EFTPlayer;
 using eft_dma_radar.UI.ESP;
+using eft_dma_radar.UI.LootFilters;
 using eft_dma_radar.UI.Misc;
 using eft_dma_radar.UI.Radar;
 using eft_dma_shared.Common.Maps;
 using eft_dma_shared.Common.Misc.Data;
 using eft_dma_shared.Common.Players;
 using eft_dma_shared.Common.Unity;
+using System.Collections.Generic;
 
 namespace eft_dma_radar.Tarkov.Loot
 {
@@ -35,6 +37,8 @@ namespace eft_dma_radar.Tarkov.Loot
         public override void Draw(SKCanvas canvas, LoneMapParams mapParams, ILocalPlayer localPlayer)
         {
             var dist = Vector3.Distance(localPlayer.Position, Position);
+            if (dist > MainForm.Config.ContainerDrawDistance)
+                return;
             var heightDiff = Position.Y - localPlayer.Position.Y;
             var point = Position.ToMapPos(mapParams.Map).ToZoomedPos(mapParams);
             MouseoverPosition = new Vector2(point.X, point.Y);
@@ -62,7 +66,6 @@ namespace eft_dma_radar.Tarkov.Loot
         public override void DrawESP(SKCanvas canvas, LocalPlayer localPlayer)
         {
             var dist = Vector3.Distance(localPlayer.Position, Position);
-
             if (dist > ESP.Config.ContainerDrawDistance)
                 return;
             if (!CameraManagerBase.WorldToScreen(ref Position, out var scrPos))
@@ -76,16 +79,16 @@ namespace eft_dma_radar.Tarkov.Loot
                 scrPos.Y + 16f * ESP.Config.FontScale);
             textPt.DrawESPText(canvas, this, localPlayer, showDist, SKPaints.TextContainerLootESP, this.Name);
 
-            IEnumerable<LootItem> filteredLoot = this.FilteredLoot;
+            var filteredLoot = this.FilteredLoot;
             if (filteredLoot.Count() <= 0)
                 return;
 
-            List<string> lines = new List<string>();
+            List<(string text, SKColor color)> lines = new List<(string text, SKColor color)>();
             foreach (LootItem lootItem in filteredLoot)
-                lines.Add(lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled));
+                lines.Add((lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled), lootItem.GetESPPaints().Item2.Color));
 
             var lootItemPt = new SKPoint(scrPos.X, scrPos.Y + SKPaints.TextContainerLootESP.TextSize + 16f * ESP.Config.FontScale);
-            lootItemPt.DrawESPText(canvas, this, localPlayer, false, SKPaints.TextContainerLootESP, lines.ToArray());
+            lootItemPt.DrawESPText(canvas, SKPaints.TextContainerLootESP, lines);
         }
 
         public override void DrawMouseover(SKCanvas canvas, LoneMapParams mapParams, LocalPlayer localPlayer)

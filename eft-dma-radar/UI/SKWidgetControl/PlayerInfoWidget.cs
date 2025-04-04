@@ -61,7 +61,7 @@ namespace eft_dma_radar.UI.SKWidgetControl
                     if (observed.Profile?.Level is int levelResult)
                     {
                         if (observed.Profile?.Prestige is int observedPrestigeLevel && observedPrestigeLevel > 0)
-                            level += $"P{observed.Profile?.Prestige}";
+                            level += $"P{observedPrestigeLevel}";
                         if (observed.Profile?.Level is int observedLevel)
                             level += $"L{observedLevel}";
                         if (level != string.Empty)

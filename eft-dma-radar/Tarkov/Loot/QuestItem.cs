@@ -1,4 +1,5 @@
-﻿using eft_dma_shared.Common.Misc.Data;
+﻿using eft_dma_radar.UI.Misc;
+using eft_dma_shared.Common.Misc.Data;
 
 namespace eft_dma_radar.Tarkov.Loot
 {
@@ -14,5 +15,8 @@ namespace eft_dma_radar.Tarkov.Loot
         public QuestItem(string id, string name) : base(id, name)
         {
         }
+
+        public override ValueTuple<SKPaint, SKPaint> GetPaints() => new(SKPaints.QuestHelperPaint, SKPaints.QuestHelperText);
+        public override ValueTuple<SKPaint, SKPaint> GetESPPaints() => new(SKPaints.PaintQuestHelperESP, SKPaints.TextQuestHelperESP);
     }
 }

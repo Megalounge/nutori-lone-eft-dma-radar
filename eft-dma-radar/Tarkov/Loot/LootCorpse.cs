@@ -5,6 +5,7 @@ using eft_dma_radar.UI.Misc;
 using eft_dma_shared.Common.Maps;
 using eft_dma_shared.Common.Players;
 using eft_dma_shared.Common.Unity;
+using eft_dma_radar.UI.LootFilters;
 
 namespace eft_dma_radar.Tarkov.Loot
 {
@@ -26,8 +27,8 @@ namespace eft_dma_radar.Tarkov.Loot
 
         public override void DrawESP(SKCanvas canvas, LocalPlayer localPlayer)
         {
-            //if (!base.DrawESP(canvas, localPlayer))
-            //    return false;
+            if (MainForm.Config.HideCorpses)
+                return;
             if (!CameraManagerBase.WorldToScreen(ref Position, out var scrPos))
                 return;
             var boxHalf = 2.75f * ESP.Config.FontScale; // was 3.5f
@@ -39,15 +40,19 @@ namespace eft_dma_radar.Tarkov.Loot
                 scrPos.Y + 16f * ESP.Config.FontScale);
             textPt.DrawESPText(canvas, this, localPlayer, showDist, SKPaints.TextCorpseESP, this.Name);
 
-            if (this.Loot.Count <= 0)
+            IEnumerable<LootItem> filteredLoot = this.FilteredLoot;
+            if (filteredLoot.Count() <= 0)
                 return;
 
-            List<string> lines = new List<string>();
-            foreach (LootItem lootItem in this.FilteredLoot)
-                lines.Add(lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled));
+            List<(string text, SKColor color)> lines = new List<(string text, SKColor color)>();
+            foreach (LootItem lootItem in filteredLoot)
+                lines.Add((lootItem.GetUILabel(MainForm.Config.QuestHelper.Enabled), lootItem.GetESPPaints().Item2.Color));
 
-            var lootItemPt = new SKPoint(scrPos.X, scrPos.Y + SKPaints.TextContainerLootESP.TextSize + 16f * ESP.Config.FontScale);
-            lootItemPt.DrawESPText(canvas, this, localPlayer, false, SKPaints.TextCorpseESP, lines.ToArray());
+            var lootItemPt = new SKPoint(scrPos.X, scrPos.Y + SKPaints.TextCorpseESP.TextSize + 16f * ESP.Config.FontScale);
+            lootItemPt.DrawESPText(canvas, SKPaints.TextCorpseESP, lines);
         }
+
+        public override ValueTuple<SKPaint, SKPaint> GetPaints() => new(SKPaints.PaintCorpse, SKPaints.TextCorpse);
+        public override ValueTuple<SKPaint, SKPaint> GetESPPaints() => new(SKPaints.PaintCorpseESP, SKPaints.TextCorpseESP);
     }
 }

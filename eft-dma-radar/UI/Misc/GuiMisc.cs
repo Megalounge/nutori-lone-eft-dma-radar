@@ -356,6 +356,22 @@ namespace eft_dma_radar.UI.Misc
                 screenPos.Y += paint.TextSize;
             }
         }
+
+        /// <summary>
+        /// Draw an ESP Text Label with color per line.
+        /// </summary>
+        public static void DrawESPText(this SKPoint screenPos, SKCanvas canvas, SKPaint paint, List<(string text, SKColor color)> lines)
+        {
+            SKPaint paintCopy = paint.Clone();
+            foreach (var (text, color) in lines)
+            {
+                if (string.IsNullOrEmpty(text?.Trim()))
+                    continue;
+                paintCopy.Color = color;
+                canvas.DrawText(text, screenPos, paintCopy);
+                screenPos.Y += paint.TextSize;
+            }
+        }
         #endregion
     }
 }
